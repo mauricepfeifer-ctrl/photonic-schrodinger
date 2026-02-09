@@ -1,0 +1,64 @@
+{
+  "total_agents": 10000,
+  "completed": 10000,
+  "failed": 0,
+  "running": 0,
+  "completion_pct": 100.0,
+  "total_tokens": 5278697,
+  "total_cost_usd": 2.6393,
+  "total_revenue_eur": 50057.9,
+  "roi": "18966x",
+  "rate_per_sec": 5.3,
+  "eta_minutes": 0.0,
+  "elapsed_minutes": 31.2,
+  "departments": {
+    "sales": {
+      "agents": 2500,
+      "completed": 2500,
+      "failed": 0,
+      "tokens": 1081101,
+      "cost_usd": 0.5405505000000006,
+      "revenue_eur": 7338.5
+    },
+    "marketing": {
+      "agents": 2000,
+      "completed": 2000,
+      "failed": 0,
+      "tokens": 1046477,
+      "cost_usd": 0.5232385000000014,
+      "revenue_eur": 3167.399999999996
+    },
+    "content": {
+      "agents": 1500,
+      "completed": 1500,
+      "failed": 0,
+      "tokens": 855539,
+      "cost_usd": 0.4277695000000015,
+      "revenue_eur": 3966.0
+    },
+    "courses": {
+      "agents": 1200,
+      "completed": 1200,
+      "failed": 0,
+      "tokens": 687294,
+      "cost_usd": 0.34364699999999915,
+      "revenue_eur": 6438.0
+    },
+    "scaling": {
+      "agents": 800,
+      "completed": 800,
+      "failed": 0,
+      "tokens": 453856,
+      "cost_usd": 0.22692799999999994,
+      "revenue_eur": 3180.0
+    },
+    "troubleshooting": {
+      "agents": 2000,
+      "completed": 2000,
+      "failed": 0,
+      "tokens": 1154430,
+      "cost_usd": 0.5772149999999993,
+      "revenue_eur": 25968.0
+    }
+  }
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gratis: Die 3 besten AI Agent Vorlagen | Maurice Pfeifer</title>
+    <meta name="description"
+        content="Hole dir meine 3 profitabelsten AI Agent Configs kostenlos. Content Sniper, Sales Bot und Research Agent.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030306;
+            --card: rgba(12, 12, 22, 0.9);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #6366f1;
+            --green: #10b981;
+            --text: #f1f5f9;
+            --text2: #cbd5e1;
+            --neon: linear-gradient(135deg, #6366f1, #a855f7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--green);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 900;
+        }
+
+        h1 span {
+            background: var(--neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--text2);
+            margin-bottom: 32px;
+            font-size: 1.1rem;
+        }
+
+        .mockup {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .mockup-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .check {
+            color: var(--green);
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: var(--neon);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .note {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .upsell {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            display: none;
+            /* Hidden by default, shown after click */
+        }
+
+        .upsell.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-mesh"></div>
+
+    <div class="container">
+        <div class="card" id="mainCard">
+            <div class="badge">🎁 KOSTENLOSER DOWNLOAD</div>
+            <h1>Die 3 profitabelsten <br><span>AI Agent Configs</span></h1>
+            <p>Kopiere meine 3 besten Agenten, die mir täglich 4 Stunden Arbeit sparen. 100% kostenlos.</p>
+
+            <div class="mockup">
+                <div class="mockup-item">
+                    <div class="check">✓</div>
+                    <div><strong>Content Sniper:</strong> Erstellt virale TikTok Scripts</div>
+                </div>
+                <div class="mockup-item">
+                    <div class="check">✓</div>
+                    <div><strong>Sales Bot:</strong> Qualifiziert Leads automatisch</div>
+                </div>
+                <div class="mockup-item">
+                    <div class="check">✓</div>
+                    <div><strong>Research Agent:</strong> Findet perfekte Kunden</div>
+                </div>
+            </div>
+
+            <a href="mailto:mauricepfeifer@icloud.com?subject=Send%20me%20the%20Agents" class="btn"
+                onclick="showUpsell()">
+                🚀 JETZT KOSTENLOS HOLEN
+            </a>
+            <div class="note">Klicke, um mir eine leere Email zu senden. Ich antworte sofort mit dem PDF.</div>
+
+            <!-- UPSELL SECTION (Shows after click) -->
+            <div class="upsell" id="upsellSection">
+                <div class="badge"
+                    style="background:rgba(249,115,22,0.1);color:#f97316;border-color:rgba(249,115,22,0.2)">⚡ ONE-TIME
+                    OFFER</div>
+                <h3 style="font-size:1.4rem;margin-bottom:12px;font-weight:800">Willst du das komplette System?</h3>
+                <p style="font-size:0.95rem;margin-bottom:20px">Das hier sind 3 Agenten. Im <strong>Starter Kit</strong>
+                    bekommst du 10 Agenten + 30-Minuten Setup Guide.</p>
+                <a href="index.html#produkte" class="btn"
+                    style="background:transparent;border:1px solid var(--border);font-size:0.95rem">
+                    Zum Starter Kit (€47) ansehen →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showUpsell() {
+            setTimeout(() => {
+                document.getElementById('upsellSection').classList.add('visible');
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

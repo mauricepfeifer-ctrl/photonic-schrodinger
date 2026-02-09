@@ -69,13 +69,30 @@ OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
 KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "")
 KIMI_BASE_URL = "https://api.moonshot.ai/v1"
 
+# ─── POWER-STACK IMPORTS ───
+try:
+    from memory_core import MemorySystem
+    from heartbeat_scheduler import Heartbeat
+    from guarded_tools import Toolkit
+    from skills_library import SkillsLibrary
+except ImportError as e:
+    logger.error(f"❌ Power-Stack missing: {e}")
+    sys.exit(1)
+
+# Initialize Power-Stack
+runtime_memory = MemorySystem()
+runtime_tools = Toolkit()
+runtime_skills = SkillsLibrary(runtime_tools, runtime_memory)
+runtime_heartbeat = Heartbeat(runtime_memory)
+runtime_heartbeat.start()
+
 RANKINGS_FILE = "agent_rankings.json"
 REVENUE_FILE = "revenue_log.json"
 STATE_FILE = "nucleus_state.json"
 
 MODELS = {
     "reasoning": os.getenv("MODEL_REASONING", "deepseek-r1:8b"),
-    "creative": os.getenv("MODEL_CREATIVE", "glm-4.7-flash:latest"),
+    "creative": os.getenv("MODEL_CREATIVE", "qwen2.5-coder:7b"),
     "code": os.getenv("MODEL_CODE", "qwen2.5-coder:7b"),
 }
 
@@ -511,7 +528,8 @@ class Brain:
     Weighted consensus produces the final directive.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, memory_system) -> None:
+        self.memory = memory_system
         self.cells: List[BrainCell] = [
             RevenueCell(),       # Cell 1: Money health
             AgentCell(),         # Cell 2: Agent performance
@@ -642,6 +660,13 @@ class AgentProfile:
     agent_id: str
     model_key: str  # "reasoning", "creative", "code"
     system_prompt: str
+    
+    # ─── ROLE CARD ───
+    ownership: str = "TBD"
+    deliverables: str = "TBD"
+    constraints: str = "None"
+    escalation: str = "If stuck, ask Strategy Agent"
+
     revenue: float = 0.0
     tasks_done: int = 0
     tasks_failed: int = 0
@@ -657,60 +682,67 @@ class AgentProfile:
 AGENT_CONFIGS: Dict[str, Dict[str, str]] = {
     "sales": {
         "model_key": "reasoning",
-        "system": (
-            "Du bist ein Elite Sales Agent. Schreibe überzeugende, personalisierte "
-            "Verkaufs-Emails und Proposals für AI Automation Services. "
-            "Hook → Pain Point → Lösung → Social Proof → CTA. Kurz und konvertierend."
-        ),
+        "system": "Du bist ein Elite Sales Agent. Fokus: High-Ticket Closing.",
+        "ownership": "Inbound Leads & Email Pipeline",
+        "deliverables": "50 Qualifizierte Leads/Tag, 10 Proposals/Woche, 20% Conversion Rate",
+        "constraints": "Keine Fake-Versprechungen. Preise nicht unter 1000€ ohne Approval. Max 2 Follow-ups pro Tag.",
+        "escalation": "Wenn Lead Budget < 500€ hat -> Downsell. Wenn Lead Technical Questions hat -> Code Agent.",
     },
     "content": {
         "model_key": "creative",
-        "system": (
-            "Du bist ein viraler Content Creator. Erstelle Posts für X/Twitter, "
-            "TikTok Scripts, YouTube Shorts. Hook + Value + CTA. Max 280 Zeichen für Tweets."
-        ),
+        "system": "Du bist ein viraler Content Creator. Fokus: Attention Engineering.",
+        "ownership": "Social Media Feed (Twitter/X, LinkedIn)",
+        "deliverables": "3 Threads/Woche, 5 Tweets/Tag, 1 LinkedIn Deep Dive/Woche",
+        "constraints": "Keine Politik, keine Negativität. Alles muss 'High Agency' vibe haben. Max 280 Zeichen für Tweets.",
+        "escalation": "Wenn Engagement < 1% -> Style ändern. Wenn Shitstorm -> Strategy Agent.",
     },
     "tiktok": {
         "model_key": "creative",
-        "system": (
-            "Du bist ein TikTok-Experte. Max 60s Sprechtext. "
-            "Hook (3s) + Story + CTA. Emotional, punchy, viral."
-        ),
+        "system": "Du bist ein TikTok-Experte. Fokus: Retention Maximierung.",
+        "ownership": "TikTok & Shorts Scripting",
+        "deliverables": "7 Scripts/Woche (Daily Upload). 1 Viral Hit/Monat (>10k Views).",
+        "constraints": "Max 60s. Hook in den ersten 3s ist PFLICHT. Keine langsamen Intros.",
+        "escalation": "Wenn Trend verpasst -> sofort Research Agent fragen.",
     },
     "research": {
         "model_key": "reasoning",
-        "system": (
-            "Du bist ein Research & Trend Agent. Analysiere Märkte, Technologien, "
-            "Opportunities. Strukturiert, faktenbasiert, mit Action Items."
-        ),
+        "system": "Du bist der Intelligence Officer. Fokus: Market Alpha.",
+        "ownership": "Market Trends & Competitor Analysis",
+        "deliverables": "Daily Alpha Report. Competitor Watchlist Updates. Tech Stack Radar.",
+        "constraints": "Nur verifizierte Quellen. Keine Halluzinationen. Fakten > Meinung.",
+        "escalation": "Wenn Info unklar -> 'Uncertainty' flaggen.",
     },
     "code": {
         "model_key": "code",
-        "system": (
-            "Expert Python/Go developer. Production-ready code with error handling, "
-            "type hints, and documentation. Clean architecture."
-        ),
+        "system": "Du bist der Lead Developer. Fokus: Production Stability.",
+        "ownership": "Codebase (Python/Go) & System Architecture",
+        "deliverables": "Bug-free Code. Test Coverage > 80%. Self-healing Scripts.",
+        "constraints": "Keine Breaking Changes ohne Backup. Keine unkommentierten Funktionen. PEP8/GoFmt Pflicht.",
+        "escalation": "Wenn API down -> Circuit Breaker aktivieren -> Admin informieren.",
     },
     "strategy": {
         "model_key": "reasoning",
-        "system": (
-            "Du bist ein Business-Stratege. Revenue-Maximierung, Marktanalyse, "
-            "Action Plans. Schnellster Weg zu Profit identifizieren."
-        ),
+        "system": "Du bist der CEO / Chef-Stratege. Fokus: Profit Maximierung.",
+        "ownership": "Business Model, Pricing & Agent Orchestration",
+        "deliverables": "Weekly Growth Plan. Revenue Forecasting. Agent Audits.",
+        "constraints": "Kein Micro-Management. Fokus auf die 20% die 80% Impact bringen.",
+        "escalation": "Wenn Revenue < Target -> 'War Room' Mode aktivieren.",
     },
     "outreach": {
         "model_key": "reasoning",
-        "system": (
-            "Du bist ein Outreach-Spezialist. Schreibe personalisierte DMs und "
-            "Cold Emails die Antworten generieren. Kurz, relevant, nicht spammy."
-        ),
+        "system": "Du bist der Hunter. Fokus: Cold Contact Volume.",
+        "ownership": "Cold Outreach (DM/Email) & Initial Contact",
+        "deliverables": "50 DMs/Tag. 5 Calls gebucht/Woche.",
+        "constraints": "Nicht spammy wirken. Immer Value-First. Keine generischen Templates.",
+        "escalation": "Wenn Response Rate < 5% -> Script ändern via Content Agent.",
     },
     "closer": {
         "model_key": "reasoning",
-        "system": (
-            "Du bist ein Closing-Experte. Handle Einwände, verhandle Preise, "
-            "und bringe Deals zum Abschluss. Value-basierte Argumentation."
-        ),
+        "system": "Du bist der Deal Maker. Fokus: Revenue Capture.",
+        "ownership": "Contract Negotiation & Closing",
+        "deliverables": "Signed Contracts. Up-Sells beim Closing.",
+        "constraints": "Rabatte max 10%. Payment Terms max 30 Tage.",
+        "escalation": "Wenn Deal > 5k -> Strategy Agent konsultieren.",
     },
 }
 
@@ -718,8 +750,11 @@ AGENT_CONFIGS: Dict[str, Dict[str, str]] = {
 class AgentSwarm:
     """Centralized agent management with auto-ranking."""
 
-    def __init__(self, bus: EventBus) -> None:
+    def __init__(self, bus: EventBus, skills, tools, memory) -> None:
         self.bus = bus
+        self.skills = skills
+        self.tools = tools
+        self.memory = memory
         self.agents: Dict[str, AgentProfile] = {}
         self.engines: Dict[str, Any] = {}  # model_key -> OllamaEngine
         self._init_agents()
@@ -727,10 +762,31 @@ class AgentSwarm:
 
     def _init_agents(self) -> None:
         for aid, cfg in AGENT_CONFIGS.items():
+            # Build robust Role Card System Prompt
+            base_sys = cfg["system"]
+            ownership = cfg.get("ownership", "General Task")
+            deliverables = cfg.get("deliverables", "High Quality Output")
+            constraints = cfg.get("constraints", "None")
+            escalation = cfg.get("escalation", "Ask human if unsure")
+            
+            # Format: ROLE CARD
+            full_system_prompt = (
+                f"{base_sys}\n\n"
+                f"📋 ROLE CARD:\n"
+                f"• OWNERSHIP: {ownership}\n"
+                f"• DELIVERABLES: {deliverables}\n"
+                f"• CONSTRAINTS: {constraints}\n"
+                f"• ESCALATION: {escalation}\n"
+            )
+
             self.agents[aid] = AgentProfile(
                 agent_id=aid,
                 model_key=cfg["model_key"],
-                system_prompt=cfg["system"],
+                system_prompt=full_system_prompt,
+                ownership=ownership,
+                deliverables=deliverables,
+                constraints=constraints,
+                escalation=escalation,
             )
         # Init Ollama engines (deduplicated by model)
         if HAS_OLLAMA and OFFLINE_MODE and OllamaEngine is not None:
@@ -758,7 +814,22 @@ class AgentSwarm:
         return "content"
 
     async def execute(self, prompt: str, agent_id: str | None = None) -> Dict[str, Any]:
-        """Execute a task with the optimal agent."""
+        """Execute a task. Checks for Skills first, then AI Agents."""
+        # 1. Check for Power-Skills (1-word commands)
+        skill_name = prompt.lower().strip().replace(" ", "_")
+        if hasattr(self.skills, skill_name):
+            try:
+                method = getattr(self.skills, skill_name)
+                result = method()  # Execute skill
+                self.memory.add_event("skill", f"Executed: {skill_name}", 2)
+                return {
+                    "agent": "SKILL_ENGINE",
+                    "content": result,
+                    "model": "deterministic"
+                }
+            except Exception as e:
+                logger.error(f"Skill execution failed: {e}")
+
         if agent_id is None:
             agent_id = self.route(prompt)
 
@@ -1118,8 +1189,8 @@ class EmpireNucleus:
 
     def __init__(self) -> None:
         self.bus = EventBus()
-        self.brain = Brain()
-        self.swarm = AgentSwarm(self.bus)
+        self.brain = Brain(runtime_memory)
+        self.swarm = AgentSwarm(self.bus, runtime_skills, runtime_tools, runtime_memory)
         self.revenue = RevenueCore(self.bus)
         self.autopilot = AutoPilot(self.swarm, self.revenue, self.brain, self.bus)
 
