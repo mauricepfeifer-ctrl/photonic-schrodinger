@@ -8,72 +8,57 @@ import (
 )
 
 // Configuration
-const NUM_AGENTS = 10000
-const VIRAL_PROBABILITY = 0.005 // 0.5% chance to find a viral hit
-
-type Agent struct {
-	ID int
-}
-
-// Agent worker function
-func (a *Agent) Run(wg *sync.WaitGroup, results chan<- string) {
-	defer wg.Done()
-
-	// Simulate "work" (e.g. scanning TikTok API, analyzing trends)
-	// Random latency between 10ms and 100ms
-	latency := time.Duration(10+rand.Intn(90)) * time.Millisecond
-	time.Sleep(latency)
-
-	// Simulate finding a viral video
-	if rand.Float64() < VIRAL_PROBABILITY {
-		results <- fmt.Sprintf("Agent %d found a VIRAL GEM! 💎", a.ID)
-	}
-}
+const (
+	NUM_AGENTS         = 10000
+	VIRAL_PROBABILITY  = 0.005 // 0.5% (Go filters out 99.5% garbage)
+	KIMI_COST_PER_TASK = 0.0005 // $0.50 per 1M tokens -> 0.0005 per 1k task
+	TASKS_PER_DAY      = 24     // Each agent scans once per hour
+)
 
 func main() {
-	// Seed random number generator
 	rand.Seed(time.Now().UnixNano())
 
 	fmt.Println("========================================")
-	fmt.Printf("🚀 LAUNCHING %d AGENT SWARM\n", NUM_AGENTS)
+	fmt.Printf("🚀 LAUNCHING %d AGENT SWARM (HYBRID MODE)\n", NUM_AGENTS)
 	fmt.Println("========================================")
-	fmt.Println("Goal: Find viral content candidates...")
-	fmt.Println("Status: Spawning goroutines...")
 	
+	// Simulation
+	fmt.Println("Status: Agents scanning (Go Routine)...")
 	start := time.Now()
-
+	
+	hits := 0
 	var wg sync.WaitGroup
-	results := make(chan string, NUM_AGENTS)
-
-	// Spawn Agents
+	
+	// Fast simulation of 1 hour workload
 	for i := 0; i < NUM_AGENTS; i++ {
 		wg.Add(1)
-		agent := Agent{ID: i + 1}
-		go agent.Run(&wg, results)
+		go func() {
+			defer wg.Done()
+			// Tiny sleep to simulate network request
+			time.Sleep(time.Duration(rand.Intn(10)) * time.Millisecond)
+			if rand.Float64() < VIRAL_PROBABILITY {
+				hits++
+			}
+		}()
 	}
-
-	// Background monitor to close channel when done
-	go func() {
-		wg.Wait()
-		close(results)
-	}()
-
-	// Collect Results
-	viralCount := 0
-	for msg := range results {
-		viralCount++
-		// Print only first 5 to avoid spam
-		if viralCount <= 5 {
-			fmt.Println(msg)
-		}
-	}
-
+	wg.Wait()
+	
 	elapsed := time.Since(start)
-
-	fmt.Println("========================================")
-	fmt.Printf("✅ MISSION COMPLETE\n")
-	fmt.Printf("⏱  Time Elapsed: %s\n", elapsed)
-	fmt.Printf("💎 Viral Hits Found: %d\n", viralCount)
-	fmt.Printf("⚡️ Speed: %.0f agents/second\n", float64(NUM_AGENTS)/elapsed.Seconds())
+	
+	// Cost Calculation
+	dailyHits := hits * 24
+	monthlyHits := dailyHits * 30
+	monthlyCost := float64(monthlyHits) * KIMI_COST_PER_TASK
+	
+	fmt.Println("----------------------------------------")
+	fmt.Printf("⚡️ Speed: %d scans in %s\n", NUM_AGENTS, elapsed)
+	fmt.Printf("🔍 Viral Candidates Found (1 Hour): %d\n", hits)
+	fmt.Printf("📅 Monthly Candidates (Projected): %d\n", monthlyHits)
+	fmt.Println("----------------------------------------")
+	fmt.Printf("💰 ESTIMATED MONTHLY COST (Kimi AI): $%.2f\n", monthlyCost)
+	fmt.Println("----------------------------------------")
+	fmt.Println("Breakdown:")
+	fmt.Printf("- 10,000 Agents scanning 24/7 (Go): $0.00\n")
+	fmt.Printf("- %d AI Analyses (Kimi 2.5): $%.2f\n", monthlyHits, monthlyCost)
 	fmt.Println("========================================")
 }
