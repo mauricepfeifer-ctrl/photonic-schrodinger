@@ -27,6 +27,10 @@ fi
 
 # 2. Build & Start Docker Stack
 echo -e "${GREEN}[2/4] Deploying Swarm Containers...${NC}"
+
+# Ensure agents directory permissions
+chmod +x agents/*.py empire_orchestrator.py telegram_bot.py
+
 echo "Running docker-compose up --build -d..."
 docker-compose up --build -d
 
@@ -50,7 +54,7 @@ echo -e "${BLUE}║  📊 Grafana (Monitoring):  http://localhost:3001          
 echo -e "${BLUE}║  🕸️ n8n (Workflows):       http://localhost:5678                        ║${NC}"
 echo -e "${BLUE}║  💬 Open WebUI:            http://localhost:3000                        ║${NC}"
 echo -e "${BLUE}║                                                                          ║${NC}"
+echo -e "${BLUE}║  📱 Telegram Bot:          Active (Publishing to Redis)                 ║${NC}"
 echo -e "${BLUE}║  👉 Monitor Logs:          docker-compose logs -f                       ║${NC}"
-echo -e "${BLUE}║  👉 Simulate Voice:        python3 voice_input_simulator.py 'Start...'  ║${NC}"
 echo -e "${BLUE}╚════════════════════════════════════════════════════════════════════════╝${NC}"
 echo ""

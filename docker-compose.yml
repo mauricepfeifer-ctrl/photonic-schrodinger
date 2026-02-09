@@ -13,24 +13,73 @@ services:
     networks:
       - empire-net
 
-  # 🤖 ORCHESTRATOR & AGENTS (Python Swarm)
-  # This container runs the Python scripts. In dev, we mount the local dir.
-  empire-swarm:
+  # 🤖 ORCHESTRATOR (The Brain)
+  orchestrator:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: empire-swarm
+    container_name: empire-orchestrator
     volumes:
       - .:/app
     environment:
       - REDIS_HOST=redis
       - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
-      - OLLAMA_HOST=http://host.docker.internal:11434
     depends_on:
       - redis
     networks:
       - empire-net
     command: python3 empire_orchestrator.py
+
+  # 📱 TELEGRAM INTERFACE (Mobile Control)
+  telegram-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-telegram
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_USER_ID=${TELEGRAM_USER_ID}
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 telegram_bot.py
+
+  # 📹 CONTENT AGENT
+  content-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-agent-content
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 agents/content_agent.py
+
+  # 🔬 RESEARCH AGENT
+  research-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-agent-research
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 agents/research_agent.py
 
   # 🕸️ AUTOMATION (Workflows)
   n8n:
@@ -87,72 +136,6 @@ services:
     restart: always
     networks:
       - empire-net
-
-  # 📹 CONTENT AGENT
-  content-agent:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: empire-agent-content
-    volumes:
-      - .:/app
-    environment:
-      - REDIS_HOST=redis
-      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
-    depends_on:
-      - redis
-    networks:
-      - empire-net
-    command: python3 agents/content_agent.py
-
-  # 💰 SALES AGENT
-  sales-agent:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: empire-agent-sales
-    volumes:
-      - .:/app
-    environment:
-      - REDIS_HOST=redis
-      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
-    depends_on:
-      - redis
-    networks:
-      - empire-net
-    command: python3 agents/sales_agent.py
-
-  # 🔬 RESEARCH AGENT
-  research-agent:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: empire-agent-research
-    volumes:
-      - .:/app
-    environment:
-      - REDIS_HOST=redis
-    depends_on:
-      - redis
-    networks:
-      - empire-net
-    command: python3 agents/research_agent.py
-
-  # 🎵 TIKTOK AGENT
-  tiktok-agent:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: empire-agent-tiktok
-    volumes:
-      - .:/app
-    environment:
-      - REDIS_HOST=redis
-    depends_on:
-      - redis
-    networks:
-      - empire-net
-    command: python3 agents/tiktok_agent.py
 
 networks:
   empire-net:
