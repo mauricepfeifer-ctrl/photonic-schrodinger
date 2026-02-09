@@ -1,0 +1,205 @@
+{
+    "seo": {
+        "title": "Social Media Autopilot — Maurice Pfeifer | KI-gesteuerte Content-Maschine",
+        "meta_description": "30 Tage Content in 30 Minuten. KI-gesteuerte Social Media Automation für Unternehmer. X, LinkedIn, TikTok — alles auf Autopilot.",
+        "lang": "de"
+    },
+    "brand": {
+        "name": "MP · SOCIAL AUTOPILOT",
+        "accent_color": "#ec4899",
+        "accent_light": "#f472b6",
+        "secondary_glow": "#8b5cf6",
+        "paypal_email": "mauricepfeifer@icloud.com",
+        "currency": "EUR",
+        "contact_email": "mauricepfeifer@icloud.com"
+    },
+    "nav": {
+        "cta_text": "Autopilot starten",
+        "cta_anchor": "#pakete"
+    },
+    "hero": {
+        "badge": "📱 Social Media auf Autopilot",
+        "headline_before": "0 Posts seit Wochen? ",
+        "headline_highlight": "Dein Business stirbt leise.",
+        "headline_after": "Meine KI postet für dich.",
+        "subtext": "Ich erstelle dir 30 Tage Content in 30 Minuten — für X, LinkedIn und TikTok. KI-generiert, manuell geprüft, ready to publish. Du fokussierst dich aufs Geschäft.",
+        "cta_text": "Content-Maschine starten →",
+        "cta_anchor": "#pakete",
+        "stats": [
+            {
+                "number": "200+",
+                "label": "Unternehmer auf Autopilot"
+            },
+            {
+                "number": "15.000+",
+                "label": "Posts generiert"
+            },
+            {
+                "number": "40h/Mo",
+                "label": "Durchschn. Zeitersparnis"
+            }
+        ]
+    },
+    "pain": {
+        "title": "Kommt dir das bekannt vor?",
+        "subtitle": "Social Media ohne System = verbrannte Zeit.",
+        "cards": [
+            {
+                "icon": "📉",
+                "title": "Kein Content = Keine Kunden",
+                "text": "Du weißt, dass du posten musst. Aber zwischen Tagesgeschäft und Meetings bleibt keine Zeit für Content.",
+                "cost": "→ Kosten: 5-10 potenzielle Kunden/Monat verloren"
+            },
+            {
+                "icon": "🧠",
+                "title": "Keine Ideen mehr",
+                "text": "Du sitzt vor dem leeren Bildschirm und weißt nicht, was du posten sollst. Writer's Block auf Dauerschleife.",
+                "cost": "→ Kosten: 2h+ pro Post statt 5 Minuten"
+            },
+            {
+                "icon": "🎯",
+                "title": "Inkonsistenz killt Reichweite",
+                "text": "Mal 3 Posts pro Woche, dann 2 Wochen Funkstille. Der Algorithmus bestraft Inkonsistenz gnadenlos.",
+                "cost": "→ Kosten: 70% weniger Reach durch unregelmäßiges Posting"
+            }
+        ]
+    },
+    "pricing": {
+        "section_title": "Wähle deinen Autopilot-Plan",
+        "section_subtitle": "Von der Content-Erstellung bis zum Full-Service Management.",
+        "anchor_id": "pakete",
+        "tiers": [
+            {
+                "tier_label": "Starter",
+                "name": "Content Sprint",
+                "description": "30 Tage Content für 1 Plattform",
+                "price": 197,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Spare 20+ Stunden Content-Erstellung",
+                "features": [
+                    "30 maßgeschneiderte Posts",
+                    "1 Plattform (X, LinkedIn ODER TikTok)",
+                    "Hashtag-Strategie",
+                    "Content-Kalender",
+                    "Alle Posts als Copy-Paste-Ready Dokument",
+                    "1 Revisions-Runde"
+                ],
+                "cta_text": "Sprint starten →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "Social Autopilot - Content Sprint"
+            },
+            {
+                "tier_label": "Professional",
+                "name": "Multi-Channel",
+                "description": "90 Posts für alle 3 Plattformen + Strategie",
+                "price": 497,
+                "price_suffix": "einmalig",
+                "value_text": "↗ 3 Plattformen, 1 Preis — spare 60+ Stunden",
+                "features": [
+                    "90 Posts (30 pro Plattform)",
+                    "X + LinkedIn + TikTok Scripts",
+                    "Plattform-spezifische Optimierung",
+                    "Viral Hook Templates",
+                    "Engagement-Strategie pro Kanal",
+                    "Content-Kalender mit Posting-Zeiten",
+                    "2 Revisions-Runden"
+                ],
+                "cta_text": "Multi-Channel buchen →",
+                "cta_style": "primary",
+                "featured": true,
+                "featured_label": "🔥 MEISTGEBUCHT",
+                "item_name": "Social Autopilot - Multi-Channel"
+            },
+            {
+                "tier_label": "Enterprise",
+                "name": "Full Autopilot",
+                "description": "Komplett-Service: Erstellung + Scheduling + Optimierung",
+                "price": 1497,
+                "price_suffix": "pro Monat",
+                "value_text": "↗ Full-Service — du musst NICHTS tun",
+                "features": [
+                    "Alles aus Multi-Channel",
+                    "Tägliches Posting auf allen Kanälen",
+                    "Community Management (Kommentare/DMs)",
+                    "Monatliche Performance-Reports",
+                    "A/B Testing von Hooks und Formaten",
+                    "Wöchentliche Strategie-Calls",
+                    "Dedizierter Content Manager"
+                ],
+                "cta_text": "Full Autopilot anfragen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "Social Autopilot - Full Service"
+            }
+        ]
+    },
+    "authority": {
+        "title": "Warum mein System funktioniert",
+        "paragraphs": [
+            "Ich nutze eigene KI-Agents die deine Branche analysieren, virale Hooks generieren und plattform-optimierte Posts erstellen — schneller als jede Agentur.",
+            "Kein generischer Content. Jeder Post ist auf deine Brand Voice, deine Zielgruppe und deinen Conversion-Funnel optimiert."
+        ],
+        "badges": [
+            {
+                "icon": "🤖",
+                "title": "KI-Powered",
+                "text": "Custom AI Agents für Content-Erstellung"
+            },
+            {
+                "icon": "📊",
+                "title": "Datengetrieben",
+                "text": "Hooks basierend auf viralen Mustern"
+            },
+            {
+                "icon": "🎯",
+                "title": "Conversion-First",
+                "text": "Jeder Post führt zum Funnel"
+            },
+            {
+                "icon": "⚡",
+                "title": "Blitzschnell",
+                "text": "30 Tage Content in 30 Minuten"
+            }
+        ]
+    },
+    "guarantee": {
+        "icon": "🛡️",
+        "title": "Zufriedenheitsgarantie",
+        "text": "Wenn dir die Posts nicht gefallen, überarbeite ich sie kostenlos. Kein Risiko für dich."
+    },
+    "faq": [
+        {
+            "question": "Ist das KI-generierter Spam?",
+            "answer": "Nein. Die KI erstellt den Entwurf, ich prüfe und optimiere jeden Post manuell. Das Ergebnis: Qualität + Geschwindigkeit."
+        },
+        {
+            "question": "Für welche Branchen funktioniert das?",
+            "answer": "Coaches, Agenturen, SaaS, E-Commerce, Freelancer, Berater — jedes B2B oder Personal Brand Business profitiert."
+        },
+        {
+            "question": "Kann ich die Posts anpassen?",
+            "answer": "Klar! Du bekommst alles als editierbares Dokument. Ändern, ergänzen, personalisieren — so wie du willst."
+        },
+        {
+            "question": "Wie läuft die Zusammenarbeit ab?",
+            "answer": "15-Min Kickoff Call → Du beschreibst dein Business und deine Zielgruppe → Innerhalb von 48h bekommst du alle Posts + Content-Kalender."
+        }
+    ],
+    "final_cta": {
+        "headline": "Bereit, nie wieder Content-Stress zu haben?",
+        "subtext": "Starte mit dem Content Sprint — 30 Posts, 1 Plattform, in 48h geliefert.",
+        "cta_text": "Autopilot starten →",
+        "cta_anchor": "#pakete",
+        "scarcity_text": "🔥 Nur noch {slots} Plätze diesen Monat"
+    },
+    "footer": {
+        "copyright": "© 2026 Maurice Pfeifer · Social Autopilot · Alle Rechte vorbehalten.",
+        "impressum": {
+            "name": "Maurice Pfeifer",
+            "address": "[Adresse hier einfügen]",
+            "city": "[PLZ Ort]",
+            "note": "Dieses Angebot umfasst Content-Erstellung als Dienstleistung."
+        }
+    }
+}

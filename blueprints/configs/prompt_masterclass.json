@@ -1,0 +1,203 @@
+{
+    "seo": {
+        "title": "Prompt Engineering Masterclass — Maurice Pfeifer | KI-Prompts die Geld verdienen",
+        "meta_description": "Lerne die Prompt-Techniken, die Profis nutzen. Von Zero-Shot bis Chain-of-Thought — in 3 Stunden zum Prompt-Profi. Sofort anwendbar.",
+        "lang": "de"
+    },
+    "brand": {
+        "name": "MP · PROMPT MASTERCLASS",
+        "accent_color": "#f59e0b",
+        "accent_light": "#fbbf24",
+        "secondary_glow": "#ef4444",
+        "paypal_email": "mauricepfeifer@icloud.com",
+        "currency": "EUR",
+        "contact_email": "mauricepfeifer@icloud.com"
+    },
+    "nav": {
+        "cta_text": "Kurs kaufen",
+        "cta_anchor": "#pakete"
+    },
+    "hero": {
+        "badge": "🎯 Die #1 Prompt-Masterclass im DACH-Raum",
+        "headline_before": "Deine KI-Prompts sind ",
+        "headline_highlight": "Müll?",
+        "headline_after": "Das ändern wir heute.",
+        "subtext": "95% aller ChatGPT-Nutzer verschenken 80% der Power. Ich zeige dir die Profi-Techniken, mit denen ich Businesses automatisiere — Zero-Shot, Few-Shot, Chain-of-Thought, System Prompts.",
+        "cta_text": "Jetzt Prompt-Profi werden →",
+        "cta_anchor": "#pakete",
+        "stats": [
+            {
+                "number": "500+",
+                "label": "Teilnehmer ausgebildet"
+            },
+            {
+                "number": "10x",
+                "label": "Bessere KI-Outputs"
+            },
+            {
+                "number": "4.9★",
+                "label": "Durchschnittliche Bewertung"
+            }
+        ]
+    },
+    "pain": {
+        "title": "Erkennst du dich wieder?",
+        "subtitle": "So nutzen 95% der Menschen KI — und verschenken Potenzial.",
+        "cards": [
+            {
+                "icon": "🤖",
+                "title": "ChatGPT gibt dir generischen Müll",
+                "text": "Du tippst rein, bekommst 08/15-Antworten und denkst: 'KI ist überbewertet.' Nein — deine Prompts sind das Problem.",
+                "cost": "→ Kosten: Stunden mit nutzlosen Outputs verschwendet"
+            },
+            {
+                "icon": "💸",
+                "title": "Du bezahlst $20/Monat für 20% Nutzung",
+                "text": "ChatGPT Plus, Claude Pro, Gemini — du zahlst, aber nutzt nur die Oberfläche. Die echte Power liegt in den Techniken.",
+                "cost": "→ Kosten: €240/Jahr für ein Tool, das du nicht ausreizt"
+            },
+            {
+                "icon": "⏰",
+                "title": "Copy-Paste aus YouTube-Videos",
+                "text": "Du kopierst 'magische Prompts' von Influencern, die 2 Wochen später nicht mehr funktionieren. Technik > Templates.",
+                "cost": "→ Kosten: Abhängigkeit statt Kompetenz"
+            }
+        ]
+    },
+    "pricing": {
+        "section_title": "Wähle dein Paket",
+        "section_subtitle": "Vom Einsteiger zum Prompt-Profi. Einmal lernen — für immer besser prompten.",
+        "anchor_id": "pakete",
+        "tiers": [
+            {
+                "tier_label": "Starter",
+                "name": "Video-Kurs",
+                "description": "3h Masterclass als Video + alle Vorlagen",
+                "price": 67,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Spare 100+ Stunden schlechte Outputs",
+                "features": [
+                    "3 Stunden HD-Videokurs",
+                    "50+ getestete Prompt-Templates",
+                    "Zero-Shot, Few-Shot, Chain-of-Thought",
+                    "System Prompts für jeden Anwendungsfall",
+                    "Bonus: ChatGPT vs Claude vs Gemini Vergleich",
+                    "Lebenslanger Zugang + Updates"
+                ],
+                "cta_text": "Kurs kaufen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "Prompt Masterclass - Video-Kurs"
+            },
+            {
+                "tier_label": "Professional",
+                "name": "Kurs + Live-Workshop",
+                "description": "Videokurs + 2h Live-Session mit persönlichem Feedback",
+                "price": 197,
+                "price_suffix": "einmalig",
+                "value_text": "↗ 10x bessere Outputs garantiert",
+                "features": [
+                    "Alles aus dem Video-Kurs",
+                    "2h Live-Workshop (Zoom, max 10 Teilnehmer)",
+                    "Persönliches Prompt-Review deiner Use Cases",
+                    "Private Community-Zugang",
+                    "Bonus: Meine persönliche Prompt-Library (200+)",
+                    "Aufzeichnung des Workshops"
+                ],
+                "cta_text": "Workshop sichern →",
+                "cta_style": "primary",
+                "featured": true,
+                "featured_label": "🔥 BESTSELLER",
+                "item_name": "Prompt Masterclass - Workshop"
+            },
+            {
+                "tier_label": "VIP",
+                "name": "1:1 Coaching",
+                "description": "Individuelles Prompt-Coaching für dein Business",
+                "price": 497,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Maßgeschneidert auf dein Business",
+                "features": [
+                    "Alles aus Kurs + Workshop",
+                    "3x 1:1 Coaching-Sessions (je 60 min)",
+                    "Custom Prompt-Library für dein Business",
+                    "Workflow-Automation mit deinen Prompts",
+                    "90 Tage Support via WhatsApp/Telegram",
+                    "Quartals-Update Session"
+                ],
+                "cta_text": "VIP Coaching anfragen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "Prompt Masterclass - VIP Coaching"
+            }
+        ]
+    },
+    "authority": {
+        "title": "Warum ich das unterrichte",
+        "paragraphs": [
+            "Ich nutze KI nicht als Hobby — ich automatisiere damit ganze Geschäftsprozesse. Von Content-Erstellung bis Datenanalyse, von Sales-Funnels bis technische Beratung.",
+            "Die Prompt-Techniken in diesem Kurs sind die gleichen, die ich für meine €4.997-Enterprise-Kunden einsetze. Jetzt für einen Bruchteil des Preises."
+        ],
+        "badges": [
+            {
+                "icon": "🧠",
+                "title": "Multi-Model Expertise",
+                "text": "ChatGPT, Claude, Gemini, Kimi, Ollama"
+            },
+            {
+                "icon": "💰",
+                "title": "Revenue-Focused",
+                "text": "Prompts die Geld verdienen, nicht nur Text generieren"
+            },
+            {
+                "icon": "🔬",
+                "title": "Technik > Templates",
+                "text": "Verstehe WARUM Prompts funktionieren"
+            },
+            {
+                "icon": "🎯",
+                "title": "Praxis-First",
+                "text": "Echte Business Use Cases, keine Spielereien"
+            }
+        ]
+    },
+    "guarantee": {
+        "icon": "🛡️",
+        "title": "14-Tage Geld-zurück-Garantie",
+        "text": "Wenn du nach 14 Tagen nicht merklich bessere KI-Outputs bekommst, erstatte ich dir den vollen Preis. Ohne Fragen."
+    },
+    "faq": [
+        {
+            "question": "Brauche ich Vorkenntnisse?",
+            "answer": "Nein. Wenn du schon mal ChatGPT benutzt hast, bist du ready. Der Kurs baut von Grundlagen bis zu Profi-Techniken auf."
+        },
+        {
+            "question": "Für welche KI funktioniert das?",
+            "answer": "Die Techniken funktionieren mit ALLEN großen Modellen: ChatGPT, Claude, Gemini, Kimi, Mistral — und sogar lokalen Modellen wie Llama."
+        },
+        {
+            "question": "Ist das nur für Unternehmer?",
+            "answer": "Nein! Studenten, Freelancer, Angestellte — jeder der KI nutzt, profitiert. Aber ja, Unternehmer sehen den ROI am schnellsten."
+        },
+        {
+            "question": "Wie lange habe ich Zugriff?",
+            "answer": "Lebenslang. Inklusive aller zukünftigen Updates. Wenn OpenAI ein neues Feature rausbringt, bekommst du ein Update-Video."
+        }
+    ],
+    "final_cta": {
+        "headline": "Bereit, KI wirklich zu beherrschen?",
+        "subtext": "Starte mit dem Video-Kurs — 3 Stunden, die deine KI-Nutzung für immer verändern.",
+        "cta_text": "Jetzt Prompt-Profi werden →",
+        "cta_anchor": "#pakete",
+        "scarcity_text": "🔥 Nur noch {slots} Plätze für den Live-Workshop"
+    },
+    "footer": {
+        "copyright": "© 2026 Maurice Pfeifer · Prompt Masterclass · Alle Rechte vorbehalten.",
+        "impressum": {
+            "name": "Maurice Pfeifer",
+            "address": "[Adresse hier einfügen]",
+            "city": "[PLZ Ort]",
+            "note": "Digitales Bildungsprodukt. Widerrufsrecht gemäß § 356 Abs. 5 BGB bei digitalen Inhalten."
+        }
+    }
+}

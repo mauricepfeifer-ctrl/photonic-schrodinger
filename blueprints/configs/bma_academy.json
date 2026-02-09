@@ -1,0 +1,207 @@
+{
+    "seo": {
+        "title": "BMA Academy — Maurice Pfeifer | Brandmeldeanlagen Online-Kurs",
+        "meta_description": "Werde BMA-Experte: DIN 14675, Planung, Abnahme, Normen. 16+ Jahre Praxiswissen als Online-Kurs. Für Planer, Errichter und Sachverständige.",
+        "lang": "de"
+    },
+    "brand": {
+        "name": "MP · BMA ACADEMY",
+        "accent_color": "#10b981",
+        "accent_light": "#34d399",
+        "secondary_glow": "#f59e0b",
+        "paypal_email": "mauricepfeifer@icloud.com",
+        "currency": "EUR",
+        "contact_email": "mauricepfeifer@icloud.com"
+    },
+    "nav": {
+        "cta_text": "Kurs starten",
+        "cta_anchor": "#pakete"
+    },
+    "hero": {
+        "badge": "🎓 Die #1 BMA-Akademie im deutschsprachigen Raum",
+        "headline_before": "DIN 14675 verwirrt dich? ",
+        "headline_highlight": "Schluss damit.",
+        "headline_after": "16 Jahre Praxis in einem Kurs.",
+        "subtext": "Lerne alles über Brandmeldeanlagen — von der Normanalyse bis zur Abnahme. Praxiswissen aus 200+ Projekten, kompakt aufbereitet für Planer, Errichter und Sachverständige.",
+        "cta_text": "Jetzt BMA-Profi werden →",
+        "cta_anchor": "#pakete",
+        "stats": [
+            {
+                "number": "16+",
+                "label": "Jahre Berufserfahrung"
+            },
+            {
+                "number": "200+",
+                "label": "Projekte begleitet"
+            },
+            {
+                "number": "DIN 14675",
+                "label": "Kompetenznachweis"
+            }
+        ]
+    },
+    "pain": {
+        "title": "Kennst du das?",
+        "subtitle": "BMA-Planung ohne System = teure Fehler.",
+        "cards": [
+            {
+                "icon": "📚",
+                "title": "Normen-Dschungel",
+                "text": "DIN 14675, VDE 0833, VdS 2095, LAR — welche Norm gilt wann? Die meisten Planer kennen nur die Hälfte.",
+                "cost": "→ Kosten: Abnahme-Verweigerung + Nacharbeit"
+            },
+            {
+                "icon": "🏗️",
+                "title": "Planungsfehler ab Tag 1",
+                "text": "Falsche Meldertypen, fehlende Linientrennung, Leitungsführung im Brandabschnitt — Fehler die erst bei der Abnahme auffallen.",
+                "cost": "→ Kosten: €10.000–€50.000 Nachbesserung"
+            },
+            {
+                "icon": "⚖️",
+                "title": "Haftungsrisiko",
+                "text": "Als Errichter oder Planer haftest DU für normgerechte Ausführung. Fehler können existenzbedrohend sein.",
+                "cost": "→ Kosten: Berufliche Existenz"
+            }
+        ]
+    },
+    "pricing": {
+        "section_title": "Wähle deinen Lernpfad",
+        "section_subtitle": "Vom Einsteiger zum zertifizierten BMA-Experten.",
+        "anchor_id": "pakete",
+        "tiers": [
+            {
+                "tier_label": "Grundkurs",
+                "name": "BMA Basics",
+                "description": "Normen verstehen + erste Planungen sicher durchführen",
+                "price": 297,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Verhindere den ersten teuren Fehler",
+                "features": [
+                    "8 Stunden Video-Kurs",
+                    "DIN 14675 komplett erklärt",
+                    "VDE 0833-1/2 Überblick",
+                    "Praxis-Checklisten (PDF)",
+                    "Quiz nach jedem Modul",
+                    "Abschlusszertifikat",
+                    "Lebenslanger Zugang"
+                ],
+                "cta_text": "Grundkurs starten →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "BMA Academy - Grundkurs"
+            },
+            {
+                "tier_label": "Professional",
+                "name": "BMA Profi",
+                "description": "Komplettes Expertenwissen + Live-Workshops + Community",
+                "price": 997,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Spare €50.000+ durch fehlerfreie Planung",
+                "features": [
+                    "Alles aus BMA Basics",
+                    "20+ Stunden vertieftes Fachwissen",
+                    "Reale Projekt-Fallstudien",
+                    "VdS-Richtlinien im Detail",
+                    "4x Live-Q&A Sessions (Zoom)",
+                    "BMA-Planer Community Zugang",
+                    "Bonus: Abnahme-Simulation",
+                    "Bonus: Mängel-Katalog (100+ echte Fälle)"
+                ],
+                "cta_text": "Profi-Kurs sichern →",
+                "cta_style": "primary",
+                "featured": true,
+                "featured_label": "🔥 EMPFOHLEN",
+                "item_name": "BMA Academy - Profi"
+            },
+            {
+                "tier_label": "Expert",
+                "name": "BMA Meister",
+                "description": "1:1 Mentoring + Projektbegleitung + Netzwerk",
+                "price": 2997,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Der schnellste Weg zum BMA-Experten",
+                "features": [
+                    "Alles aus BMA Profi",
+                    "6x 1:1 Mentoring Sessions",
+                    "Individuelle Projekt-Reviews",
+                    "Direkte Prüfung deiner Planungen",
+                    "Netzwerk-Zugang (Errichter, Planer, Sachverständige)",
+                    "6 Monate Premium-Support",
+                    "Empfehlungsschreiben bei Abschluss"
+                ],
+                "cta_text": "Meister-Programm anfragen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "BMA Academy - Meister"
+            }
+        ]
+    },
+    "authority": {
+        "title": "Dein Dozent: Maurice Pfeifer",
+        "paragraphs": [
+            "16+ Jahre in der Sicherheitstechnik. Wirtschaftsingenieur. Über 200 BMA-Projekte begleitet — von der Erstplanung bis zur Abnahme.",
+            "Ich kenne jeden Fehler, der gemacht werden kann — weil ich sie in 16 Jahren alle gesehen habe. Dieses Wissen gebe ich jetzt als Kurs weiter."
+        ],
+        "badges": [
+            {
+                "icon": "🎓",
+                "title": "16+ Jahre Praxis",
+                "text": "Errichter, Planer, Berater"
+            },
+            {
+                "icon": "📋",
+                "title": "DIN 14675",
+                "text": "Kompetenznachweis Fachkraft"
+            },
+            {
+                "icon": "🏗️",
+                "title": "200+ Projekte",
+                "text": "Industrie, Handel, Sonderbauten"
+            },
+            {
+                "icon": "🔬",
+                "title": "Wirtschaftsingenieur",
+                "text": "Technik + Business kombiniert"
+            }
+        ]
+    },
+    "guarantee": {
+        "icon": "🛡️",
+        "title": "30-Tage Geld-zurück-Garantie",
+        "text": "Wenn der Kurs nicht hält, was er verspricht, bekommst du dein Geld zurück. Ohne Wenn und Aber."
+    },
+    "faq": [
+        {
+            "question": "Für wen ist der Kurs geeignet?",
+            "answer": "Für Errichter, Planer, Sachverständige, Facility Manager und alle, die beruflich mit Brandmeldeanlagen zu tun haben. Auch für Quereinsteiger geeignet."
+        },
+        {
+            "question": "Brauche ich Vorkenntnisse?",
+            "answer": "Für den Grundkurs: Nein. Für den Profi-Kurs empfehle ich Grundkenntnisse in der Elektrotechnik oder erste Berufserfahrung."
+        },
+        {
+            "question": "Wird der Kurs aktualisiert?",
+            "answer": "Ja! Bei Normenänderungen (z.B. neue VDE 0833 oder DIN-Revision) bekommst du kostenlose Updates. Lebenslanger Zugang."
+        },
+        {
+            "question": "Kann ich das steuerlich absetzen?",
+            "answer": "Ja, als berufliche Weiterbildung ist der Kurs in der Regel voll absetzbar. Du erhältst eine Rechnung mit ausgewiesener MwSt."
+        }
+    ],
+    "final_cta": {
+        "headline": "Bereit, BMA-Experte zu werden?",
+        "subtext": "Starte mit dem Grundkurs — 8 Stunden, die deine Karriere in der Sicherheitstechnik beschleunigen.",
+        "cta_text": "Jetzt starten →",
+        "cta_anchor": "#pakete",
+        "scarcity_text": "🔥 Einführungspreis — nur noch {slots} Plätze zum aktuellen Preis"
+    },
+    "footer": {
+        "copyright": "© 2026 Maurice Pfeifer · BMA Academy · Alle Rechte vorbehalten.",
+        "impressum": {
+            "name": "Maurice Pfeifer",
+            "address": "[Adresse hier einfügen]",
+            "city": "[PLZ Ort]",
+            "note": "Berufliche Weiterbildung im Bereich Sicherheitstechnik / Brandmeldeanlagen. Steuerlich absetzbar."
+        }
+    }
+}
