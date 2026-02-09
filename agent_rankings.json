@@ -7,11 +7,9 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
-      "rank": 5,
-      "status": "active",
-      "priority_multiplier": 1.0,
-      "created_at": "",
-      "last_active": ""
+      "rank": 1,
+      "status": "boosted",
+      "priority_multiplier": 3.0
     },
     {
       "agent_id": "content",
@@ -20,11 +18,9 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
-      "rank": 6,
-      "status": "active",
-      "priority_multiplier": 1.0,
-      "created_at": "",
-      "last_active": ""
+      "rank": 2,
+      "status": "boosted",
+      "priority_multiplier": 2.5
     },
     {
       "agent_id": "tiktok",
@@ -33,11 +29,9 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
-      "rank": 7,
-      "status": "active",
-      "priority_multiplier": 1.0,
-      "created_at": "",
-      "last_active": ""
+      "rank": 3,
+      "status": "boosted",
+      "priority_multiplier": 2.0
     },
     {
       "agent_id": "research",
@@ -46,11 +40,9 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
-      "rank": 8,
-      "status": "demoted",
-      "priority_multiplier": 0.5,
-      "created_at": "",
-      "last_active": ""
+      "rank": 4,
+      "status": "active",
+      "priority_multiplier": 1.0
     },
     {
       "agent_id": "code",
@@ -59,11 +51,9 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
-      "rank": 9,
-      "status": "demoted",
-      "priority_multiplier": 0.5,
-      "created_at": "",
-      "last_active": ""
+      "rank": 5,
+      "status": "active",
+      "priority_multiplier": 1.0
     },
     {
       "agent_id": "strategy",
@@ -72,11 +62,9 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
-      "rank": 10,
-      "status": "demoted",
-      "priority_multiplier": 0.5,
-      "created_at": "",
-      "last_active": ""
+      "rank": 6,
+      "status": "active",
+      "priority_multiplier": 1.0
     },
     {
       "agent_id": "outreach",
@@ -85,11 +73,9 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
-      "rank": 11,
-      "status": "paused",
-      "priority_multiplier": 0.1,
-      "created_at": "",
-      "last_active": ""
+      "rank": 7,
+      "status": "demoted",
+      "priority_multiplier": 0.5
     },
     {
       "agent_id": "closer",
@@ -98,65 +84,11 @@
       "tasks_completed": 0,
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
-      "rank": 12,
-      "status": "paused",
-      "priority_multiplier": 0.1,
-      "created_at": "",
-      "last_active": ""
-    },
-    {
-      "agent_id": "party_content",
-      "agent_type": "content",
-      "revenue_eur": 86.82770502912679,
-      "tasks_completed": 2,
-      "tasks_failed": 0,
-      "avg_response_ms": 807.9604696313226,
-      "rank": 1,
-      "status": "boosted",
-      "priority_multiplier": 3.0,
-      "created_at": "2026-02-09T23:18:36.693620",
-      "last_active": "2026-02-09T23:19:12.773347"
-    },
-    {
-      "agent_id": "party_sales",
-      "agent_type": "sales",
-      "revenue_eur": 78.84083966673576,
-      "tasks_completed": 2,
-      "tasks_failed": 0,
-      "avg_response_ms": 503.1173374179974,
-      "rank": 2,
-      "status": "boosted",
-      "priority_multiplier": 2.5,
-      "created_at": "2026-02-09T23:18:36.694536",
-      "last_active": "2026-02-09T23:19:12.773926"
-    },
-    {
-      "agent_id": "party_research",
-      "agent_type": "research",
-      "revenue_eur": 67.0736071106636,
-      "tasks_completed": 2,
-      "tasks_failed": 0,
-      "avg_response_ms": 1033.9666630401518,
-      "rank": 3,
-      "status": "boosted",
-      "priority_multiplier": 2.0,
-      "created_at": "2026-02-09T23:18:36.694829",
-      "last_active": "2026-02-09T23:19:12.774101"
-    },
-    {
-      "agent_id": "party_strategy",
-      "agent_type": "strategy",
-      "revenue_eur": 29.198578604867897,
-      "tasks_completed": 2,
-      "tasks_failed": 0,
-      "avg_response_ms": 1597.0418360601423,
-      "rank": 4,
-      "status": "active",
-      "priority_multiplier": 1.0,
-      "created_at": "2026-02-09T23:18:36.695016",
-      "last_active": "2026-02-09T23:19:12.774261"
+      "rank": 8,
+      "status": "demoted",
+      "priority_multiplier": 0.5
     }
   ],
-  "last_updated": "2026-02-09T23:19:12.774308",
-  "total_revenue_eur": 261.94073041139404
+  "last_updated": "2026-02-09T23:58:39.110887",
+  "total_revenue_eur": 0.0
 }

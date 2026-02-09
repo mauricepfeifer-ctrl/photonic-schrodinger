@@ -40,6 +40,9 @@ from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Union
 
 # ─── OPTIONAL IMPORTS (graceful degradation) ─────────
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(SCRIPT_DIR)
+
 try:
     from ollama_engine import OllamaEngine, LLMResponse
     HAS_OLLAMA = True
@@ -1134,17 +1137,19 @@ class AutoPilot:
             logger.info("📝 Phase 1: Content Generation")
             content_mix = decision.get("content_mix", {})
             content_prompts = [
-                "Erstelle einen viralen Tweet über AI Automation. Hook + Value + CTA.",
-                "Schreibe ein TikTok Script: Warum jede Firma AI braucht. 30 Sekunden.",
+                "Erstelle einen viralen Tweet über AI Automation. Hook + Value + CTA. Max 280 Zeichen.",
                 "LinkedIn Post: Wie AI 15h/Woche spart. Professionell, mit Zahlen.",
             ]
-            batch_size = decision.get("batch_size", 2)
+            # Offline: serialize requests (Ollama serves 1 model at a time)
+            batch_size = 1 if OFFLINE_MODE else decision.get("batch_size", 2)
             await self.swarm.batch(content_prompts, max_concurrent=batch_size)
 
             # Phase 2: Revenue Pipeline (leads scaled by urgency)
             logger.info("💰 Phase 2: Revenue Pipeline")
             urgency = decision.get("urgency", 50)
             leads_count = 3 if urgency < 60 else (5 if urgency < 80 else 8)
+            if OFFLINE_MODE:
+                leads_count = min(leads_count, 3)  # Cap for local models
             result = await self.revenue.run_pipeline(self.swarm, waves=1, leads=leads_count)
             logger.info(f"Pipeline Result: {result['sales']} sales, €{result['revenue']:.2f}")
 

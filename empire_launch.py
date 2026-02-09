@@ -45,6 +45,7 @@ logger = logging.getLogger("EmpireLaunch")
 
 # ─── SAFE IMPORTS (graceful degradation) ────────────────
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(SCRIPT_DIR)  # Ensure local imports work
 os.chdir(SCRIPT_DIR)
 
 # Core
@@ -108,6 +109,20 @@ try:
 except ImportError:
     HAS_BURST = False
 
+# Sales Force (Agencies)
+try:
+    from sales_force import SalesForce, SALES_ROLES
+    HAS_SALES_FORCE = True
+except ImportError:
+    HAS_SALES_FORCE = False
+
+# Content Blitz
+try:
+    from content_blitz import ContentBlitz
+    HAS_CONTENT_BLITZ = True
+except ImportError:
+    HAS_CONTENT_BLITZ = False
+
 # Agent Manager
 try:
     from agent_manager import AgentManager
@@ -141,6 +156,8 @@ class EmpireState:
             "arbitrage": HAS_ARBITRAGE,
             "burst": HAS_BURST,
             "agent_mgr": HAS_AGENT_MGR,
+            "sales_force": HAS_SALES_FORCE,
+            "content_blitz": HAS_CONTENT_BLITZ,
         }
         self.tasks_completed = 0
         self.tasks_failed = 0
@@ -195,7 +212,8 @@ class N8nBridge:
             self.connector = N8nConnector(webhook_url=self.url)
 
     async def fire(self, event_type: str, data: Dict[str, Any]) -> bool:
-        if not self.connector:
+        connector = self.connector
+        if not connector:
             return False
         payload = {
             "event": event_type,
@@ -203,7 +221,7 @@ class N8nBridge:
             **data,
         }
         try:
-            result = await self.connector.send_data(payload)
+            result = await connector.send_data(payload)
             return bool(result)
         except Exception as e:
             logger.debug(f"n8n skip: {e}")
@@ -307,6 +325,8 @@ class EmpireLaunch:
         self.pipeline: Optional[RevenuePipeline] = None
         self.kreuter: Optional[DirkKreuterEngine] = None
         self.stripe: Optional[StripeManager] = None
+        self.sales_force: Optional[SalesForce] = None
+        self.content_blitz: Optional[ContentBlitz] = None
 
         # Initialize what's available
         if HAS_NUCLEUS:
@@ -317,6 +337,10 @@ class EmpireLaunch:
             self.kreuter = DirkKreuterEngine()
         if HAS_STRIPE:
             self.stripe = StripeManager()
+        if HAS_SALES_FORCE:
+            self.sales_force = SalesForce()
+        if HAS_CONTENT_BLITZ:
+            self.content_blitz = ContentBlitz()
 
     async def health_check(self) -> Dict[str, Any]:
         """Check all systems."""
@@ -332,10 +356,11 @@ class EmpireLaunch:
             results["ollama"] = {"status": "NOT_INSTALLED"}
 
         # Stripe
-        if self.stripe:
+        stripe = self.stripe
+        if stripe:
             results["stripe"] = {
-                "status": "LIVE" if self.stripe.live else "SIMULATION",
-                "revenue": f"€{self.stripe.stats.total_eur():.2f}",
+                "status": "LIVE" if stripe.live else "SIMULATION",
+                "revenue": f"€{stripe.stats.total_eur():.2f}",
             }
         else:
             results["stripe"] = {"status": "NOT_LOADED"}
@@ -388,7 +413,7 @@ class EmpireLaunch:
         # 3. Run Nucleus Autopilot (connects Swarm + Revenue + Brain)
         if self.nucleus:
             ok = await self.nucleus.health_check()
-            if ok:
+            if ok and getattr(self.nucleus, 'autopilot', None):
                 logger.info("🧠 Nucleus online — starting autopilot")
                 await self.nucleus.autopilot.run(cycles=cycles)
                 self.state.tasks_completed += sum(
@@ -400,9 +425,12 @@ class EmpireLaunch:
                 self.state.revenue_eur = self.nucleus.revenue.total_eur
                 self.nucleus.swarm.save_rankings()
             else:
-                logger.warning("⚠️ Nucleus health check failed")
+                logger.warning("⚠️ Nucleus health check failed or autopilot missing")
 
-        # 4. Fire completion event
+        # 4. Launch Sales Force & Content Blitz (New System)
+        await self.launch_sales_force()
+
+        # 5. Fire completion event
         await self.n8n.fire("empire_cycle_complete", {
             "revenue_eur": self.state.revenue_eur,
             "tasks_completed": self.state.tasks_completed,
@@ -410,7 +438,7 @@ class EmpireLaunch:
         })
         self.state.n8n_events_fired += 1
 
-        # 5. Show Kreuter sales sequence for top product
+        # 6. Show Kreuter sales sequence for top product
         if self.kreuter:
             logger.info("\n💼 Dirk Kreuter Sales Sequence (AI Consulting):")
             sequence = self.kreuter.generate_complete_sequence("core", slots_taken=2)
@@ -418,11 +446,11 @@ class EmpireLaunch:
                 logger.info(f"  {i}. [{msg.principle.value}] {msg.headline}")
             self.state.sales_messages_sent += len(sequence)
 
-        # 6. Stripe status
+        # 7. Stripe status
         if self.stripe:
             logger.info(f"\n💳 Stripe: {self.stripe.get_revenue_summary()}")
 
-        # 7. Final dashboard
+        # 8. Final dashboard
         logger.info(self.state.summary())
 
         return {
@@ -431,6 +459,22 @@ class EmpireLaunch:
             "content_generated": self.state.content_generated,
         }
 
+    async def launch_sales_force(self):
+        """Run the new specialized Sales Force and Content Blitz."""
+        logger.info("🚀 LAUNCHING SALES FORCE & CONTENT BLITZ...")
+        
+        # 1. Content Blitz
+        if self.content_blitz:
+            logger.info("⚡ Executing Content Blitz (3 pieces)...")
+            await self.content_blitz.run_blitz(count=3)
+            self.state.content_generated += 9 # 3 topics * 3 platforms
+        
+        # 2. Sales Force
+        if self.sales_force:
+            logger.info("🕵️ Executing Sales Force (Prospecting)...")
+            await self.sales_force.run_all()
+            self.state.tasks_completed += 6 # 6 agents
+
     async def launch_revenue(self, waves: int = 3, leads: int = 10) -> Dict[str, Any]:
         """Revenue-focused launch: pipeline + outreach."""
         logger.info("💰 REVENUE LAUNCH — Maximum Money Mode")
@@ -438,16 +482,17 @@ class EmpireLaunch:
         results: Dict[str, Any] = {"mode": "revenue"}
 
         # Run nucleus revenue pipeline
-        if self.nucleus:
-            ok = await self.nucleus.health_check()
+        nucleus = self.nucleus
+        if nucleus:
+            ok = await nucleus.health_check()
             if ok:
-                r = await self.nucleus.revenue.run_pipeline(
-                    self.nucleus.swarm, waves=waves, leads=leads
+                r = await nucleus.revenue.run_pipeline(
+                    nucleus.swarm, waves=waves, leads=leads
                 )
                 results["nucleus_pipeline"] = r
-                self.state.revenue_eur = self.nucleus.revenue.total_eur
+                self.state.revenue_eur = nucleus.revenue.total_eur
                 self.state.leads_processed += waves * leads
-                self.nucleus.swarm.save_rankings()
+                nucleus.swarm.save_rankings()
 
         # Run standalone pipeline if nucleus failed
         if not self.nucleus and self.pipeline:
@@ -455,9 +500,10 @@ class EmpireLaunch:
             results["standalone_pipeline"] = r
 
         # Generate Kreuter sales messages
-        if self.kreuter:
+        kreuter = self.kreuter
+        if kreuter:
             for product in ["tripwire", "core", "pro"]:
-                seq = self.kreuter.generate_complete_sequence(product)
+                seq = kreuter.generate_complete_sequence(product)
                 self.state.sales_messages_sent += len(seq)
             results["sales_sequences"] = self.state.sales_messages_sent
 
@@ -477,8 +523,9 @@ class EmpireLaunch:
 
         results: Dict[str, Any] = {"mode": "content", "pieces": []}
 
-        if self.nucleus:
-            ok = await self.nucleus.health_check()
+        nucleus = self.nucleus
+        if nucleus:
+            ok = await nucleus.health_check()
             if ok:
                 # Split tasks across content agents
                 task_split = TaskSplitter.split_tasks(count)
@@ -487,7 +534,7 @@ class EmpireLaunch:
                         continue
                     prompts = TaskSplitter.generate_prompts(agent_type, task_count)
                     logger.info(f"  🤖 {agent_type}: {task_count} tasks")
-                    batch_results = await self.nucleus.swarm.batch(
+                    batch_results = await nucleus.swarm.batch(
                         prompts, max_concurrent=2
                     )
                     for r in batch_results:
@@ -501,7 +548,7 @@ class EmpireLaunch:
                             self.state.tasks_failed += 1
 
                 self.state.tasks_completed += self.state.content_generated
-                self.nucleus.swarm.save_rankings()
+                nucleus.swarm.save_rankings()
 
         # Fire n8n
         await self.n8n.fire("content_blast_complete", {
@@ -551,32 +598,43 @@ class EmpireLaunch:
         lines.append(f"💰 Revenue Log: €{r.get('total_eur', 0):,.2f} ({r.get('transactions', 0)} txns)")
 
         # Products
-        if HAS_NUCLEUS:
+        nucleus = self.nucleus
+        if nucleus:
             lines.append(f"\n📦 Products ({len(PRODUCTS)}):")
             for pid, prod in PRODUCTS.items():
                 lines.append(f"   └─ {prod['name']}: €{prod['price']}")
+
+        # Sales Force
+        if self.sales_force:
+            lines.append(f"🕵️ Sales Force: ✅ Active (Agents: {len(SALES_ROLES)})")
+        
+        # Content Blitz
+        if self.content_blitz:
+            lines.append(f"⚡ Content Blitz: ✅ Active")
 
         # Agent leaderboard
         if self.nucleus:
             lines.append(self.nucleus.swarm.leaderboard())
 
         # Kreuter status
-        if self.kreuter:
+        kreuter = self.kreuter
+        if kreuter:
             lines.append(f"\n📊 Dirk Kreuter Engine: ✅ Active")
-            lines.append(f"   └─ Products: {len(self.kreuter.products)}")
-            lines.append(f"   └─ Tripwire Steps: {len(self.kreuter.get_tripwire_sequence())}")
+            lines.append(f"   └─ Products: {len(kreuter.products)}")
+            lines.append(f"   └─ Tripwire Steps: {len(kreuter.get_tripwire_sequence())}")
 
         lines.append(f"\n{'═'*65}")
         return "\n".join(lines)
 
     async def interactive(self):
         """Interactive REPL mode — the cockpit."""
-        if not self.nucleus:
+        nucleus = self.nucleus
+        if not nucleus:
             logger.error("❌ Nucleus required for interactive mode")
             return
 
         print(BANNER)
-        ok = await self.nucleus.health_check()
+        ok = await nucleus.health_check()
         if not ok:
             print("❌ Ollama offline — starte: ollama serve")
             return
@@ -596,14 +654,16 @@ class EmpireLaunch:
                 if cmd == "!revenue":
                     if self.nucleus:
                         print(self.nucleus.revenue.dashboard())
+                    if self.stripe:
+                        print(f"Stripe: {self.stripe.get_revenue_summary()}")
                     continue
                 if cmd == "!rank":
-                    if self.nucleus:
-                        print(self.nucleus.swarm.leaderboard())
+                    print(nucleus.swarm.leaderboard())
                     continue
                 if cmd == "!kreuter":
-                    if self.kreuter:
-                        seq = self.kreuter.generate_complete_sequence("core", slots_taken=2)
+                    kreuter = self.kreuter
+                    if kreuter:
+                        seq = kreuter.generate_complete_sequence("core", slots_taken=2)
                         for i, msg in enumerate(seq, 1):
                             print(f"\n--- {i}. {msg.principle.value.upper()} ---")
                             print(f"📌 {msg.headline}")
@@ -611,8 +671,9 @@ class EmpireLaunch:
                             print(f"🎯 CTA: {msg.cta}")
                     continue
                 if cmd == "!stripe":
-                    if self.stripe:
-                        print(self.stripe.get_revenue_summary())
+                    stripe = self.stripe
+                    if stripe:
+                        print(stripe.get_revenue_summary())
                     continue
                 if cmd.startswith("!launch"):
                     await self.launch_full(cycles=2, leads_per_wave=3)
@@ -625,6 +686,9 @@ class EmpireLaunch:
                     n = int(cmd.split()[-1]) if len(cmd.split()) > 1 else 10
                     await self.launch_revenue(waves=1, leads=n)
                     continue
+                if cmd.startswith("!sales"):
+                    await self.launch_sales_force()
+                    continue
 
                 # Default: route to nucleus agent
                 agent_override = None
@@ -634,7 +698,7 @@ class EmpireLaunch:
                         cmd = cmd[len(prefix) + 2:]
                         break
 
-                result = await self.nucleus.swarm.execute(cmd, agent_override)
+                result = await nucleus.swarm.execute(cmd, agent_override)
                 if "response" in result:
                     print(f"\n{'─'*60}")
                     print(result["response"])
@@ -702,6 +766,7 @@ async def main() -> None:
     parser.add_argument("--content", "-c", type=int, default=0, help="Content blast (N pieces)")
     parser.add_argument("--interactive", "-i", action="store_true", help="Interactive REPL")
     parser.add_argument("--full", "-f", action="store_true", help="Full autopilot launch")
+    parser.add_argument("--sales", action="store_true", help="Launch Sales Force & Content Blitz")
     parser.add_argument("--cycles", type=int, default=3, help="Autopilot cycles")
     parser.add_argument("--leads", type=int, default=5, help="Leads per wave")
     parser.add_argument("prompt", nargs="*", help="Single task prompt")
@@ -712,6 +777,10 @@ async def main() -> None:
     try:
         if args.status:
             print(await empire.show_status())
+            return
+
+        if args.sales:
+            await empire.launch_sales_force()
             return
 
         if args.revenue:
