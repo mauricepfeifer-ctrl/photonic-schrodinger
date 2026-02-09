@@ -1,0 +1,110 @@
+{
+  "dashboard": {
+    "title": "Maurice's AI Empire",
+    "tags": [
+      "empire",
+      "ai",
+      "revenue"
+    ],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Revenue (EUR)",
+        "type": "stat",
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 6,
+          "h": 4
+        },
+        "targets": [
+          {
+            "expr": "sum(empire_revenue_sale_eur)"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Active Agents",
+        "type": "gauge",
+        "gridPos": {
+          "x": 6,
+          "y": 0,
+          "w": 6,
+          "h": 4
+        },
+        "targets": [
+          {
+            "expr": "sum(empire_agent_active)"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Tasks/sec",
+        "type": "graph",
+        "gridPos": {
+          "x": 12,
+          "y": 0,
+          "w": 12,
+          "h": 4
+        },
+        "targets": [
+          {
+            "expr": "rate(empire_agent_task_total[1m])"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Kimi Cost ($)",
+        "type": "stat",
+        "gridPos": {
+          "x": 0,
+          "y": 4,
+          "w": 6,
+          "h": 4
+        },
+        "targets": [
+          {
+            "expr": "sum(empire_kimi_cost_usd)"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Conversion Rate",
+        "type": "stat",
+        "gridPos": {
+          "x": 6,
+          "y": 4,
+          "w": 6,
+          "h": 4
+        },
+        "targets": [
+          {
+            "expr": "avg(empire_funnel_conversion)"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Error Rate",
+        "type": "graph",
+        "gridPos": {
+          "x": 12,
+          "y": 4,
+          "w": 12,
+          "h": 4
+        },
+        "targets": [
+          {
+            "expr": "rate(empire_error_total[5m])"
+          }
+        ]
+      }
+    ]
+  },
+  "overwrite": true
+}
