@@ -1,165 +1,123 @@
 #!/usr/bin/env python3
 """
-🚀 Revenue Content Burst Generator
-Generates X/Twitter content for ALL landing pages.
-Uses Kimi AI to create viral threads promoting each product.
-"""
+🚀 revenue_burst.py
 
+Automated "Money Printer" Script.
+1. Scans (Simulated) Upwork/Fiverr for AI Automation Gigs.
+2. Uses DeepSeek-R1 (Sales Agent) to write hyper-personalized proposals.
+3. Saves drafts to 'revenue_drafts/' for one-click sending.
+
+Usage:
+  python revenue_burst.py
+"""
 import asyncio
 import json
 import os
-import aiohttp
+import time
 from datetime import datetime
+from typing import List, Dict, Any
 
-KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "sk-e57Q5aDfcpXpHkYfgeWCU3xjuqf2ZPoYxhuRH0kEZXGBeoMF")
-OUTPUT_DIR = "x_content"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from ollama_engine import OllamaEngine, LLMResponse
 
-PRODUCTS = [
+# ─── CONFIG ─────────────────────────────────────────
+OUTPUT_DIR = "revenue_drafts"
+MODEL_SALES = "deepseek-r1:8b"  # Reasoning model for high-conversion copy
+
+# ─── MOCKED GIG DATA (Real scraping is hard without API) ──
+# In a real version, we'd use `requests` to scrape RSS feeds or APIs.
+MOCK_GIGS = [
     {
-        "name": "BMA Consulting",
-        "url": "https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/consulting/",
-        "hook": "BMA-Planung ohne Normen-Check = russisches Roulette mit deinem Budget.",
-        "topic": "Brandmeldeanlagen, DIN 14675, Normprüfung, Bauabnahme",
-        "price": "ab €197"
+        "id": "gig_101",
+        "platform": "Upwork",
+        "title": "Need AI Chatbot for Real Estate Agency",
+        "description": "Looking for a developer to build a chatbot that qualifies leads for my real estate agency. Must connect to KVCore.",
+        "budget": "$500 - $1000",
+        "client": "Marcus R."
     },
     {
-        "name": "AI Consulting",
-        "url": "https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/ai-consulting/",
-        "hook": "Dein Unternehmen bezahlt 3 Mitarbeiter für Aufgaben, die eine KI in 5 Minuten erledigt.",
-        "topic": "KI-Automatisierung, Geschäftsprozesse, AI Agents, Produktivität",
-        "price": "ab €297"
+        "id": "gig_102",
+        "platform": "Fiverr",
+        "title": "Automate my Instagram Content Creation",
+        "description": "I need a system that takes my blog posts and turns them into IG captions and images automatically.",
+        "budget": "$200",
+        "client": "Sarah L."
     },
     {
-        "name": "File Cleaner Pro",
-        "url": "https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/file-cleaner/",
-        "hook": "Du hast 10.000+ Dateien und findest nichts? Meine KI räumt das in 30 Minuten auf.",
-        "topic": "Datei-Organisation, Digitales Aufräumen, KI-Sortierung, Produktivität",
-        "price": "ab €47"
+        "id": "gig_103",
+        "platform": "Upwork",
+        "title": "Scrape emails from LinkedIn and enrich data",
+        "description": "Need a python script to scrape leads and find emails. Export to CSV.",
+        "budget": "$150",
+        "client": "TechFlow Inc."
     }
 ]
 
-CONTENT_MODES = [
-    {
-        "mode": "viral_thread",
-        "prompt": """Write a 5-tweet viral thread in GERMAN. Rules:
-- First tweet is a HOOK that stops scrolling. Bold claim. No hashtags.
-- Use short, punchy sentences. Max 280 chars per tweet.
-- Include specific numbers and pain points.
-- Last tweet is a CTA with the link.
-- Output ONLY valid JSON: {{"tweets": ["tweet1", "tweet2", ...]}}"""
-    },
-    {
-        "mode": "single_banger",
-        "prompt": """Write ONE single high-engagement tweet in GERMAN. Rules:
-- Max 280 characters
-- Controversial or bold statement
-- Include a CTA at the end with the link
-- No hashtags
-- Output ONLY valid JSON: {{"tweets": ["the single tweet"]}}"""
-    },
-    {
-        "mode": "pain_agitation",
-        "prompt": """Write a 3-tweet thread in GERMAN using Pain-Agitation-Solution framework. Rules:
-- Tweet 1: Describe a specific PAIN the target audience feels
-- Tweet 2: AGITATE — make it worse, show the cost of inaction
-- Tweet 3: SOLUTION with CTA and link
-- Max 280 chars per tweet. No hashtags.
-- Output ONLY valid JSON: {{"tweets": ["pain", "agitation", "solution"]}}"""
-    }
-]
+SYSTEM_PROMPT = (
+    "You are an Elite Upwork/Fiverr Proposal Writer. "
+    "Write high-converting, personalized proposals. "
+    "Structure: 1. Hook (Address pain point) 2. Solution (How you fix it) 3. Proof/Authority 4. CTA (Call to Action). "
+    "Keep it under 150 words. Professional but punchy."
+)
 
 
-async def generate_content(session, product, mode_config):
-    """Generate one piece of content via Kimi."""
-    prompt = f"""
-{mode_config['prompt']}
+class RevenueBurst:
+    def __init__(self):
+        self.llm = OllamaEngine(model=MODEL_SALES)
+        if not os.path.exists(OUTPUT_DIR):
+            os.makedirs(OUTPUT_DIR)
 
-PRODUCT: {product['name']}
-PRICE: {product['price']}
-LINK: {product['url']}
-HOOK INSPIRATION: {product['hook']}
-TOPIC KEYWORDS: {product['topic']}
-"""
-    try:
-        async with session.post(
-            "https://api.moonshot.ai/v1/chat/completions",
-            headers={"Authorization": f"Bearer {KIMI_API_KEY}", "Content-Type": "application/json"},
-            json={
-                "model": "moonshot-v1-8k",
-                "messages": [
-                    {"role": "system", "content": "Du bist ein Top-Tier X/Twitter Ghostwriter. Du schreibst auf Deutsch. Dein Content geht viral. Du verstehst Engagement-Algorithmen. Antworte NUR mit validem JSON."},
-                    {"role": "user", "content": prompt}
-                ],
-                "temperature": 0.85
-            }
-        ) as resp:
-            if resp.status == 200:
-                data = await resp.json()
-                content = data["choices"][0]["message"]["content"]
-                if "```json" in content:
-                    content = content.split("```json")[1].split("```")[0]
-                elif "```" in content:
-                    content = content.split("```")[1].split("```")[0]
-                return json.loads(content.strip())
-            else:
-                print(f"  ❌ Kimi Error {resp.status}: {await resp.text()}")
-                return None
-    except Exception as e:
-        print(f"  ❌ Error: {e}")
-        return None
+    async def generate_proposal(self, gig: Dict[str, Any]) -> str:
+        """Generates a proposal for a specific gig."""
+        print(f"⚡ Generating proposal for: {gig['title']} ({gig['budget']})...")
+        
+        prompt = (
+            f"Write a proposal for this gig:\n"
+            f"Title: {gig['title']}\n"
+            f"Description: {gig['description']}\n"
+            f"Client: {gig['client']}\n"
+            f"Platform: {gig['platform']}\n"
+            f"Budget: {gig['budget']}\n\n"
+            f"Focus on the client's goal. Don't be generic."
+        )
 
+        resp = await self.llm.chat([
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": prompt}
+        ])
+        assert isinstance(resp, LLMResponse)
+        return resp.content
 
-async def main():
-    print("🚀 REVENUE CONTENT BURST — Generating for all products...")
-    print("=" * 60)
+    async def run(self):
+        print(f"💰 STARTING REVENUE BURST SCAN...")
+        print(f"🎯 Target: Lead Generation & Automation Gigs")
+        print(f"🤖 Model: {MODEL_SALES} (DeepSeek-R1)\n")
 
-    all_content = []
+        tasks = []
+        for gig in MOCK_GIGS:
+            tasks.append(self.process_gig(gig))
+        
+        await asyncio.gather(*tasks)
+        print(f"\n✅ DONE! Check '{OUTPUT_DIR}' for your proposals.")
 
-    async with aiohttp.ClientSession() as session:
-        for product in PRODUCTS:
-            print(f"\n📦 {product['name']} ({product['price']})")
-            print(f"   🔗 {product['url']}")
+    async def process_gig(self, gig: Dict[str, Any]):
+        """Pipeline: Gen Proposal -> Save File"""
+        try:
+            proposal = await self.generate_proposal(gig)
+            self._save_draft(gig, proposal)
+        except Exception as e:
+            print(f"❌ Failed {gig['id']}: {e}")
 
-            for mode_config in CONTENT_MODES:
-                print(f"   🎯 Mode: {mode_config['mode']}...", end=" ")
-                result = await generate_content(session, product, mode_config)
-
-                if result:
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    slug = product["name"].lower().replace(" ", "_")
-                    filename = f"{OUTPUT_DIR}/{timestamp}_{slug}_{mode_config['mode']}.json"
-
-                    output = {
-                        "product": product["name"],
-                        "url": product["url"],
-                        "mode": mode_config["mode"],
-                        "tweets": result.get("tweets", []),
-                        "generated_at": timestamp
-                    }
-
-                    with open(filename, "w") as f:
-                        json.dump(output, f, indent=2, ensure_ascii=False)
-
-                    all_content.append(output)
-                    tweet_count = len(result.get("tweets", []))
-                    print(f"✅ {tweet_count} tweets → {filename}")
-                else:
-                    print("❌ Failed")
-
-                await asyncio.sleep(1)  # Rate limit
-
-    print(f"\n{'=' * 60}")
-    print(f"🎯 TOTAL: {len(all_content)} content pieces generated")
-    print(f"📁 Output: {OUTPUT_DIR}/")
-
-    # Summary
-    for item in all_content:
-        print(f"\n--- {item['product']} / {item['mode']} ---")
-        for i, tweet in enumerate(item.get("tweets", []), 1):
-            preview = tweet[:100] + "..." if len(tweet) > 100 else tweet
-            print(f"  Tweet {i}: {preview}")
+    def _save_draft(self, gig: Dict[str, Any], proposal: str):
+        filename = f"{OUTPUT_DIR}/{gig['platform']}_{gig['id']}.txt"
+        with open(filename, "w") as f:
+            f.write(f"--- GIG DETAILS ---\n")
+            f.write(f"Title: {gig['title']}\n")
+            f.write(f"Budget: {gig['budget']}\n")
+            f.write(f"Link: [Insert Link]\n")
+            f.write(f"-------------------\n\n")
+            f.write(proposal)
+        print(f"📝 Saved draft: {filename}")
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(RevenueBurst().run())

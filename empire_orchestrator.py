@@ -26,6 +26,19 @@ from enum import Enum
 import random
 import time
 
+# ─── OFFLINE MODE: Use local Ollama instead of Kimi cloud ───
+OFFLINE_MODE = os.getenv("OFFLINE_MODE", "true").lower() == "true"
+
+try:
+    from ollama_engine import OllamaEngine
+except ImportError:
+    OllamaEngine = None
+
+try:
+    from agent_manager import AgentManager
+except ImportError:
+    AgentManager = None
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
@@ -203,6 +216,8 @@ class EmpireOrchestrator:
     def __init__(self):
         self.brain = PARL8Brain()
         self.swarm = KimiSwarmEngine(max_concurrent=50)
+        self.ollama = None  # Local engine (free, offline)
+        self.agent_manager = AgentManager() if AgentManager else None
         self.agent_distribution = {
             AgentType.SALES: 0.30,
             AgentType.CONTENT: 0.20,
@@ -214,7 +229,13 @@ class EmpireOrchestrator:
         self.bus = None
     
     async def init(self):
-        await self.swarm.init()
+        if OFFLINE_MODE and OllamaEngine:
+            logger.info("🧠 OFFLINE MODE: Using local Ollama (FREE)")
+            self.ollama = OllamaEngine(max_concurrent=4)
+            await self.ollama.init()
+        else:
+            logger.info("☁️ CLOUD MODE: Using Kimi API")
+            await self.swarm.init()
         if self.bus:
             # Subscribe to voice inputs
             self.bus.subscribe("input/voice", self.handle_voice_input)
