@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger(__name__)
 
 class N8nConnector:
-    def __init__(self, webhook_url: str = None):
+    def __init__(self, webhook_url: Optional[str] = None):
         self.webhook_url = webhook_url or os.getenv("N8N_WEBHOOK_URL", "https://ai1337empire.app.n8n.cloud/webhook/monster-machine")
         self.session = None
 

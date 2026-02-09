@@ -24,6 +24,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 import random
+import time
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -210,10 +211,61 @@ class EmpireOrchestrator:
             AgentType.OPTIMIZATION: 0.10,
             AgentType.ARBITRAGE: 0.05,
         }
+        self.bus = None
     
     async def init(self):
         await self.swarm.init()
-    
+        if self.bus:
+            # Subscribe to voice inputs
+            self.bus.subscribe("input/voice", self.handle_voice_input)
+            self.bus.subscribe("tasks/completed", self.handle_task_completion)
+
+    def handle_voice_input(self, message: Dict[str, Any]):
+        """Handle incoming voice commands (from iPhone)"""
+        text = message.get("transcribed_text", "")
+        logger.info(f"🎤 RECEIVED VOICE COMMAND: '{text}'")
+        
+        # Simple keyword based routing for now (LLM routing later)
+        if "tiktok" in text.lower():
+            task = AgentTask(
+                task_id=f"tiktok-{int(time.time())}",
+                agent_type=AgentType.CONTENT, # Or TikTok Logic
+                prompt=f"Create TikTok based on: {text}"
+            )
+            self.dispatch_task(task, "content") # Dispatch to content agent
+            
+            # Also trigger TikTok specific agent if needed
+            tiktok_task = AgentTask(
+                task_id=f"tiktok-specific-{int(time.time())}",
+                agent_type=AgentType.ARBITRAGE,
+                prompt=text
+            )
+            # We need to serialize tasks for Redis
+            self.bus.publish("tasks/tiktok", {"prompt": text, "task_id": tiktok_task.task_id})
+            
+        elif "sales" in text.lower() or "mail" in text.lower():
+            self.bus.publish("tasks/sales", {"prompt": text, "task_id": f"sales-{int(time.time())}"})
+            
+        elif "research" in text.lower() or "trend" in text.lower():
+            self.bus.publish("tasks/research", {"prompt": text, "task_id": f"research-{int(time.time())}"})
+            
+        else:
+            logger.info("🤔 Unknown command type, defaulting to General Content")
+            self.bus.publish("tasks/content", {"prompt": text, "task_id": f"gen-content-{int(time.time())}"})
+
+    def handle_task_completion(self, message: Dict[str, Any]):
+        """Handle completed tasks from agents"""
+        logger.info(f"✅ Agent {message.get('agent_id')} completed task {message.get('task_id')}")
+        # Here we could chain subsequent tasks (e.g. Research -> Content)
+
+    def dispatch_task(self, task: AgentTask, channel_suffix: str):
+        if self.bus:
+            self.bus.publish(f"tasks/{channel_suffix}", {
+                "task_id": task.task_id,
+                "prompt": task.prompt,
+                "parameters": task.parameters
+            })
+
     async def close(self):
         await self.swarm.close()
     
@@ -238,6 +290,9 @@ class EmpireOrchestrator:
         """Run a wave of tasks across all agent types"""
         logger.info(f"🚀 Starting wave with {total_tasks} tasks...")
         
+        if self.bus:
+            self.bus.publish("system/wave_start", {"tasks": total_tasks})
+        
         # Distribute tasks
         tasks = []
         for agent_type, ratio in self.agent_distribution.items():
@@ -252,6 +307,8 @@ class EmpireOrchestrator:
         
         if not decision["proceed"]:
             logger.warning("⚠️ Brain says: Too risky, aborting wave")
+            if self.bus:
+                self.bus.publish("system/alert", {"type": "risk_abort", "level": decision["risk_level"]})
             return {"status": "aborted", "reason": "risk_too_high"}
         
         # Execute in batches
@@ -266,11 +323,18 @@ class EmpireOrchestrator:
             completed = len([r for r in all_results if r.status == "completed"])
             logger.info(f"Progress: {completed}/{len(tasks)} ({100*completed/len(tasks):.1f}%)")
             
+            if self.bus:
+                self.bus.publish("system/progress", {"completed": completed, "total": len(tasks)})
+            
             await asyncio.sleep(0.5)  # Rate limiting
         
         # Estimate revenue (1% conversion, EUR 97 average)
         successful = len([r for r in all_results if r.status == "completed"])
-        self.swarm.stats.estimated_revenue_eur += successful * 0.01 * 97
+        revenue = successful * 0.01 * 97
+        self.swarm.stats.estimated_revenue_eur += revenue
+        
+        if self.bus and revenue > 0:
+             self.bus.publish("business/revenue", {"amount": revenue, "currency": "EUR"})
         
         return {
             "status": "completed",
@@ -320,7 +384,18 @@ async def main():
     empire = EmpireOrchestrator()
     
     # Small test run
-    await empire.run_empire(waves=2, tasks_per_wave=20)
+
+    # Initialize Redis Bus
+    from redis_bus import RedisBus
+    bus = RedisBus()
+    if bus.connect():
+        empire.bus = bus
+    else:
+        logger.warning("⚠️ Running without Redis (Simulation Mode)")
+
+    # Run Empire
+    await empire.run_empire(waves=3, tasks_per_wave=50)
+
 
 
 if __name__ == "__main__":

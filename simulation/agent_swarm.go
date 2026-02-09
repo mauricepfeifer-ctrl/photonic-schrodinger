@@ -7,19 +7,19 @@ import (
 	"time"
 )
 
-// Configuration
+// Configuration (unique names to avoid conflict with production_swarm_main.go)
 const (
-	NUM_AGENTS         = 10000
+	SWARM_AGENTS       = 10000
 	VIRAL_PROBABILITY  = 0.005 // 0.5% (Go filters out 99.5% garbage)
 	KIMI_COST_PER_TASK = 0.0005 // $0.50 per 1M tokens -> 0.0005 per 1k task
 	TASKS_PER_DAY      = 24     // Each agent scans once per hour
 )
 
-func main() {
+func runAgentSwarm() {
 	rand.Seed(time.Now().UnixNano())
 
 	fmt.Println("========================================")
-	fmt.Printf("🚀 LAUNCHING %d AGENT SWARM (HYBRID MODE)\n", NUM_AGENTS)
+	fmt.Printf("🚀 LAUNCHING %d AGENT SWARM (HYBRID MODE)\n", SWARM_AGENTS)
 	fmt.Println("========================================")
 	
 	// Simulation
@@ -30,7 +30,7 @@ func main() {
 	var wg sync.WaitGroup
 	
 	// Fast simulation of 1 hour workload
-	for i := 0; i < NUM_AGENTS; i++ {
+	for i := 0; i < SWARM_AGENTS; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
@@ -51,7 +51,7 @@ func main() {
 	monthlyCost := float64(monthlyHits) * KIMI_COST_PER_TASK
 	
 	fmt.Println("----------------------------------------")
-	fmt.Printf("⚡️ Speed: %d scans in %s\n", NUM_AGENTS, elapsed)
+	fmt.Printf("⚡️ Speed: %d scans in %s\n", SWARM_AGENTS, elapsed)
 	fmt.Printf("🔍 Viral Candidates Found (1 Hour): %d\n", hits)
 	fmt.Printf("📅 Monthly Candidates (Projected): %d\n", monthlyHits)
 	fmt.Println("----------------------------------------")

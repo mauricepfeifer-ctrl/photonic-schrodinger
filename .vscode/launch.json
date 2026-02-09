@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "👑 Local Swarm (God Mode)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/local_launcher.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: X Monster",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/x_monster.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Go: Production Swarm",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/production_swarm_main.go"
+        },
+        {
+            "name": "Go: Simulation Swarm",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/simulation/agent_swarm.go"
+        }
+    ]
+}
