@@ -1,0 +1,208 @@
+{
+    "seo": {
+        "title": "BMA Beratung — Maurice Pfeifer | Brandmeldeanlagen Experte",
+        "meta_description": "Professionelle BMA-Beratung: Normen-Checks, Planungsprüfungen & Konzeptberatung. 16+ Jahre Erfahrung. Spare Tausende durch frühzeitige Fehlerkennung.",
+        "lang": "de"
+    },
+    "brand": {
+        "name": "MP · BMA BERATUNG",
+        "accent_color": "#f97316",
+        "accent_light": "#fb923c",
+        "secondary_glow": "#6366f1",
+        "paypal_email": "mauricepfeifer@icloud.com",
+        "currency": "EUR",
+        "contact_email": "mauricepfeifer@icloud.com"
+    },
+    "nav": {
+        "cta_text": "Pakete ansehen",
+        "cta_anchor": "#pakete"
+    },
+    "hero": {
+        "badge": "⚡ Beratung, die sich auszahlt",
+        "headline_before": "Dein BMA-Projekt ",
+        "headline_highlight": "scheitert?",
+        "headline_after": "Nicht mit mir.",
+        "subtext": "Ich prüfe deine BMA-Planung, bevor teure Fehler entstehen. 16+ Jahre Erfahrung – von der Normanalyse bis zum Gesamtkonzept.",
+        "cta_text": "Jetzt Beratungspaket wählen →",
+        "cta_anchor": "#pakete",
+        "stats": [
+            {
+                "number": "16+",
+                "label": "Jahre Erfahrung"
+            },
+            {
+                "number": "200+",
+                "label": "Projekte beraten"
+            },
+            {
+                "number": "€50M+",
+                "label": "Einsparpotential realisiert"
+            }
+        ]
+    },
+    "pain": {
+        "title": "Kennst du das?",
+        "subtitle": "Diese Fehler kosten Unternehmen jährlich Millionen.",
+        "cards": [
+            {
+                "icon": "🚨",
+                "title": "Abnahme nicht bestanden",
+                "text": "Wochenlange Verzögerung, weil die BMA-Planung nicht normgerecht war.",
+                "cost": "→ Kosten: €10.000 – €50.000 Nacharbeit"
+            },
+            {
+                "icon": "📋",
+                "title": "Normen-Chaos",
+                "text": "DIN 14675, VDE 0833, VdS-Richtlinien — welche Version gilt überhaupt?",
+                "cost": "→ Kosten: Wochen verlorene Planungszeit"
+            },
+            {
+                "icon": "💸",
+                "title": "Überdimensionierte Anlagen",
+                "text": "Zu viele Melder, falsche Leitungswege — du zahlst für eine Anlage, die du nicht brauchst.",
+                "cost": "→ Kosten: €20.000 – €100.000 verschwendet"
+            }
+        ]
+    },
+    "pricing": {
+        "section_title": "Wähle dein Beratungspaket",
+        "section_subtitle": "Drei Optionen – von der schnellen Prüfung bis zum Komplett-Gutachten. Investition, die sich 10x zurückzahlt.",
+        "anchor_id": "pakete",
+        "tiers": [
+            {
+                "tier_label": "Paket 1",
+                "name": "Quick Check",
+                "description": "Schnelle Prüfung deiner BMA-Planung per Video-Call",
+                "price": 197,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Typisches Einsparpotenzial: €5.000+",
+                "features": [
+                    "60-Minuten Video-Call",
+                    "Normen-Check (DIN 14675, VDE 0833)",
+                    "Prüfung deiner Planungsunterlagen",
+                    "Schriftlicher Kurz-Report",
+                    "Top-3 Optimierungsempfehlungen"
+                ],
+                "cta_text": "Quick Check buchen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "BMA Quick Check - Beratungspaket"
+            },
+            {
+                "tier_label": "Paket 2",
+                "name": "Konzept PRO",
+                "description": "Umfassende Planungsprüfung + Maßnahmenkatalog",
+                "price": 497,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Typisches Einsparpotenzial: €20.000+",
+                "features": [
+                    "Alles aus Quick Check",
+                    "Detaillierte Planungsanalyse",
+                    "Vollständiger Normen-Abgleich",
+                    "Individueller Maßnahmenkatalog",
+                    "Kostenoptimierungs-Analyse",
+                    "Ausführlicher Beratungsbericht (PDF)",
+                    "2 Follow-up-Calls (je 30 Min)"
+                ],
+                "cta_text": "Konzept PRO sichern →",
+                "cta_style": "primary",
+                "featured": true,
+                "featured_label": "🔥 BELIEBTESTE WAHL",
+                "item_name": "BMA Konzept PRO - Beratungspaket"
+            },
+            {
+                "tier_label": "Paket 3",
+                "name": "Enterprise",
+                "description": "Komplett-Gutachten für Großprojekte",
+                "price": 1497,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Typisches Einsparpotenzial: €50.000+",
+                "features": [
+                    "Alles aus Konzept PRO",
+                    "Komplett-Gutachten nach DIN 14675",
+                    "Sachverständigen-Niveau Beratung",
+                    "4 Wochen persönlicher Support",
+                    "Team-Workshop (online, 2h)",
+                    "Abnahme-Vorbereitung & Checklisten",
+                    "Priorität-Support per Telefon"
+                ],
+                "cta_text": "Enterprise anfragen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "BMA Enterprise - Beratungspaket"
+            }
+        ]
+    },
+    "authority": {
+        "title": "Warum mir über 200 Unternehmen vertrauen",
+        "paragraphs": [
+            "Seit über 16 Jahren berate ich Unternehmen im Bereich Brandmeldeanlagen – vom Mittelstand bis zum Konzern. Mein Fokus: Fehler finden, bevor sie teuer werden.",
+            "Keine generischen Templates. Keine Copy-Paste-Berichte. Jede Beratung ist individuell auf dein Projekt zugeschnitten."
+        ],
+        "badges": [
+            {
+                "icon": "🎯",
+                "title": "Normen-Expertise",
+                "text": "DIN 14675, VDE 0833, VdS Richtlinien"
+            },
+            {
+                "icon": "🏗️",
+                "title": "Branchenübergreifend",
+                "text": "Industrie, Büro, Handel, Sonderbauten"
+            },
+            {
+                "icon": "⚡",
+                "title": "Schnelle Ergebnisse",
+                "text": "Quick Check Report innerhalb von 48h"
+            },
+            {
+                "icon": "🛡️",
+                "title": "Reine Beratung",
+                "text": "Unabhängig — kein Verkauf von Produkten oder Anlagen"
+            }
+        ]
+    },
+    "guarantee": {
+        "icon": "🛡️",
+        "title": "100% Zufriedenheitsgarantie",
+        "text": "Wenn du nach dem Beratungsgespräch keinen klaren Mehrwert siehst, bekommst du dein Geld zurück. Ohne Wenn und Aber."
+    },
+    "faq": [
+        {
+            "question": "Ist das auch für bestehende Anlagen?",
+            "answer": "Ja! Ich berate sowohl bei Neuplanungen als auch bei bestehenden Anlagen — z.B. Erweiterungen, Umbauten oder Normen-Updates. Ich prüfe deine Unterlagen und gebe dir konkrete Empfehlungen."
+        },
+        {
+            "question": "Führst du auch Installation oder Wartung durch?",
+            "answer": "Nein. Mein Angebot umfasst ausschließlich Beratung, Planungsprüfung und Gutachten. Das garantiert absolute Unabhängigkeit — ich empfehle nur, was wirklich sinnvoll ist."
+        },
+        {
+            "question": "Wie läuft der Quick Check ab?",
+            "answer": "Du schickst mir deine Planungsunterlagen vorab per E-Mail. Im 60-minütigen Video-Call gehen wir alles durch. Innerhalb von 48h bekommst du einen schriftlichen Report mit konkreten Handlungsempfehlungen."
+        },
+        {
+            "question": "Wie schnell kann ich einen Termin bekommen?",
+            "answer": "In der Regel innerhalb von 3-5 Werktagen. Bei Enterprise-Kunden mit dringenden Projekten auch kurzfristiger möglich."
+        },
+        {
+            "question": "Wie bezahle ich?",
+            "answer": "Bequem per PayPal. Nach der Zahlung nehme ich innerhalb von 24h Kontakt auf, um einen Termin zu vereinbaren."
+        }
+    ],
+    "final_cta": {
+        "headline": "Bereit, teure BMA-Fehler zu vermeiden?",
+        "subtext": "Starte mit dem Quick Check — 60 Minuten, die dir Tausende Euro sparen können.",
+        "cta_text": "Paket wählen & loslegen →",
+        "cta_anchor": "#pakete",
+        "scarcity_text": "🔥 Nur noch {slots} Enterprise-Plätze diesen Monat"
+    },
+    "footer": {
+        "copyright": "© 2026 Maurice Pfeifer · BMA Beratung · Alle Rechte vorbehalten.",
+        "impressum": {
+            "name": "Maurice Pfeifer",
+            "address": "[Adresse hier einfügen]",
+            "city": "[PLZ Ort]",
+            "note": "Dieses Angebot umfasst ausschließlich Beratungsleistungen. Es werden keine Installations-, Wartungs- oder Serviceleistungen für Brandmeldeanlagen erbracht."
+        }
+    }
+}

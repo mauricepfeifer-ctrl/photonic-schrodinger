@@ -2,82 +2,40 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "🚀 SHIP: Empire Orchestrator (Offline)",
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "👑 Local Swarm (God Mode)",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/local_launcher.py",
-            "console": "integratedTerminal",
-            "env": {
-                "OFFLINE_MODE": "1",
-                "OLLAMA_BASE_URL": "http://localhost:11434",
-                "REVENUE_RELIGION": "1",
-                "RANKING_MODE": "TOP100",
-                "GOLD_CREW_TOP": "10"
-            },
-            "args": [
-                "--mode",
-                "orchestrator"
-            ]
+            "console": "integratedTerminal"
         },
         {
-            "name": "⚙️ SHIP: Agent Manager (Ranking + Karma)",
+            "name": "Python: X Monster",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/agent_manager.py",
-            "console": "integratedTerminal",
-            "env": {
-                "REVENUE_RELIGION": "1",
-                "RANKING_MODE": "TOP100",
-                "KARMA_ENABLED": "1",
-                "HEARTBEAT_BACKEND": "redis",
-                "REDIS_URL": "redis://localhost:6379/0"
-            },
-            "args": [
-                "--daemon"
-            ]
+            "program": "${workspaceFolder}/x_monster.py",
+            "console": "integratedTerminal"
         },
         {
-            "name": "🌐 SHIP: Web API (File Chaos Cleaner)",
-            "type": "python",
+            "name": "Go: Production Swarm",
+            "type": "go",
             "request": "launch",
-            "program": "${workspaceFolder}/apps/filecleaner/api_main.py",
-            "console": "integratedTerminal",
-            "env": {
-                "APP_ENV": "local",
-                "REDIS_URL": "redis://localhost:6379/0",
-                "UPLOAD_DIR": "${workspaceFolder}/runtime/uploads",
-                "RESULTS_DIR": "${workspaceFolder}/runtime/results",
-                "AUTO_DELETE_HOURS": "48"
-            }
+            "mode": "auto",
+            "program": "${workspaceFolder}/production_swarm_main.go"
         },
         {
-            "name": "🧱 SHIP: Worker (Scan → Struktur → Index)",
-            "type": "python",
+            "name": "Go: Simulation Swarm",
+            "type": "go",
             "request": "launch",
-            "program": "${workspaceFolder}/apps/filecleaner/worker_main.py",
-            "console": "integratedTerminal",
-            "env": {
-                "APP_ENV": "local",
-                "REDIS_URL": "redis://localhost:6379/0",
-                "UPLOAD_DIR": "${workspaceFolder}/runtime/uploads",
-                "RESULTS_DIR": "${workspaceFolder}/runtime/results",
-                "ENABLE_CLAMAV": "1",
-                "ZIP_BOMB_PROTECTION": "1",
-                "OFFLINE_MODE": "1",
-                "OLLAMA_BASE_URL": "http://localhost:11434"
-            }
-        },
-        {
-            "name": "📣 SHIP: Marketing Engine (mp-ai)",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/apps/marketing/marketing_main.py",
-            "console": "integratedTerminal",
-            "env": {
-                "BRAND_NAME": "mp-ai",
-                "REVENUE_RELIGION": "1",
-                "CONTENT_TARGETS_PER_DAY": "5"
-            }
+            "mode": "auto",
+            "program": "${workspaceFolder}/simulation/agent_swarm.go"
         }
     ]
 }

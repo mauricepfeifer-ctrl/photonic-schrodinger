@@ -1,0 +1,209 @@
+{
+    "seo": {
+        "title": "KI-Automatisierung für Unternehmen — Maurice Pfeifer | AI Consulting",
+        "meta_description": "KI-Prozesse automatisieren, Kosten senken, Umsatz steigern. Individuelle AI-Strategieberatung für Unternehmen. Erste Ergebnisse in 48h.",
+        "lang": "de"
+    },
+    "brand": {
+        "name": "MP · AI CONSULTING",
+        "accent_color": "#8b5cf6",
+        "accent_light": "#a78bfa",
+        "secondary_glow": "#06b6d4",
+        "paypal_email": "mauricepfeifer@icloud.com",
+        "currency": "EUR",
+        "contact_email": "mauricepfeifer@icloud.com"
+    },
+    "nav": {
+        "cta_text": "Pakete ansehen",
+        "cta_anchor": "#pakete"
+    },
+    "hero": {
+        "badge": "🤖 KI-Revolution für dein Business",
+        "headline_before": "Dein Unternehmen ",
+        "headline_highlight": "verschläft KI?",
+        "headline_after": "Ich ändere das.",
+        "subtext": "Ich automatisiere deine Geschäftsprozesse mit KI — von der Content-Erstellung bis zur Datenanalyse. Messbare Ergebnisse in 48 Stunden.",
+        "cta_text": "Jetzt KI-Paket wählen →",
+        "cta_anchor": "#pakete",
+        "stats": [
+            {
+                "number": "50+",
+                "label": "Unternehmen automatisiert"
+            },
+            {
+                "number": "300%",
+                "label": "Durchschnittl. Effizienzsteigerung"
+            },
+            {
+                "number": "€2M+",
+                "label": "Eingespart für Kunden"
+            }
+        ]
+    },
+    "pain": {
+        "title": "Erkennst du dich wieder?",
+        "subtitle": "Diese Probleme kosten dich jeden Tag bares Geld.",
+        "cards": [
+            {
+                "icon": "⏰",
+                "title": "Manuelle Prozesse fressen Zeit",
+                "text": "Dein Team verbringt 60% der Zeit mit repetitiven Aufgaben, die eine KI in Sekunden erledigt.",
+                "cost": "→ Kosten: €5.000+/Monat verschwendete Arbeitszeit"
+            },
+            {
+                "icon": "📉",
+                "title": "Konkurrenz zieht davon",
+                "text": "Deine Wettbewerber nutzen bereits KI für Content, Sales und Support — du noch nicht.",
+                "cost": "→ Kosten: Marktanteile, die du nicht zurückbekommst"
+            },
+            {
+                "icon": "🤯",
+                "title": "KI-Dschungel überfordert",
+                "text": "ChatGPT, Claude, Midjourney, Automation Tools — welches Tool passt wirklich zu deinem Business?",
+                "cost": "→ Kosten: Monate Trial-and-Error ohne Ergebnis"
+            }
+        ]
+    },
+    "pricing": {
+        "section_title": "Wähle dein KI-Paket",
+        "section_subtitle": "Von der Quick-Analyse bis zur Komplett-Automatisierung. ROI ab Tag 1.",
+        "anchor_id": "pakete",
+        "tiers": [
+            {
+                "tier_label": "Starter",
+                "name": "KI Quick-Audit",
+                "description": "Analyse deiner Prozesse + konkreter KI-Fahrplan",
+                "price": 297,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Typisches Einsparpotenzial: €3.000+/Monat",
+                "features": [
+                    "90-Minuten Strategy-Call",
+                    "Analyse deiner Top-5 Zeitfresser-Prozesse",
+                    "KI-Tool-Empfehlungen für dein Business",
+                    "Konkreter 30-Tage Implementierungsplan",
+                    "Follow-up Call nach 2 Wochen"
+                ],
+                "cta_text": "Quick-Audit buchen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "KI Quick-Audit - AI Consulting"
+            },
+            {
+                "tier_label": "Professional",
+                "name": "KI-Turbo",
+                "description": "Komplett-Setup deiner ersten 3 KI-Automationen",
+                "price": 997,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Typisches Einsparpotenzial: €10.000+/Monat",
+                "features": [
+                    "Alles aus Quick-Audit",
+                    "Setup von 3 maßgeschneiderten KI-Workflows",
+                    "Content-Automation (Blog, Social, Newsletter)",
+                    "Kunden-Support Chatbot Einrichtung",
+                    "Team-Training (2h Workshop)",
+                    "30 Tage E-Mail-Support",
+                    "Dokumentation aller Workflows"
+                ],
+                "cta_text": "KI-Turbo sichern →",
+                "cta_style": "primary",
+                "featured": true,
+                "featured_label": "🔥 BELIEBTESTE WAHL",
+                "item_name": "KI-Turbo - AI Consulting"
+            },
+            {
+                "tier_label": "Enterprise",
+                "name": "AI Transformation",
+                "description": "Komplette KI-Transformation deines Unternehmens",
+                "price": 4997,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Typisches Einsparpotenzial: €50.000+/Monat",
+                "features": [
+                    "Alles aus KI-Turbo",
+                    "Unbegrenzte KI-Workflow-Automationen",
+                    "Custom AI Agent Development",
+                    "CRM + Sales Pipeline Automation",
+                    "Datenanalyse + Reporting Dashboard",
+                    "90 Tage Premium-Support",
+                    "Monatliche Optimierungs-Reviews",
+                    "Dedizierter AI Success Manager"
+                ],
+                "cta_text": "Transformation starten →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "AI Transformation - Enterprise Paket"
+            }
+        ]
+    },
+    "authority": {
+        "title": "Warum Unternehmen mir vertrauen",
+        "paragraphs": [
+            "Ich baue nicht nur KI-Tools — ich automatisiere komplette Geschäftsprozesse. Von der Idee bis zur laufenden Automation in unter 48 Stunden.",
+            "Keine Buzzwords. Keine überteuerten Enterprise-Lizenzen. Nur messbare Ergebnisse, die sofort Geld sparen oder Umsatz bringen."
+        ],
+        "badges": [
+            {
+                "icon": "🧠",
+                "title": "Multi-AI Expertise",
+                "text": "Claude, GPT-4, Kimi, Ollama, Custom Agents"
+            },
+            {
+                "icon": "⚡",
+                "title": "48h First Results",
+                "text": "Erste automatisierte Workflows innerhalb von 2 Tagen"
+            },
+            {
+                "icon": "🔧",
+                "title": "Full-Stack Automation",
+                "text": "Von n8n bis Custom Python — alles aus einer Hand"
+            },
+            {
+                "icon": "📊",
+                "title": "ROI-Garantie",
+                "text": "Messbare Ergebnisse oder Geld zurück"
+            }
+        ]
+    },
+    "guarantee": {
+        "icon": "🛡️",
+        "title": "100% ROI-Garantie",
+        "text": "Wenn die implementierten Automationen nicht mindestens das 3-fache der Investition einsparen, bekommst du dein Geld komplett zurück."
+    },
+    "faq": [
+        {
+            "question": "Brauche ich technische Vorkenntnisse?",
+            "answer": "Nein! Ich richte alles für dich ein und trainiere dein Team. Die Workflows sind so gebaut, dass jeder sie bedienen kann — keine Programmierkenntnisse nötig."
+        },
+        {
+            "question": "Welche Branchen profitieren am meisten?",
+            "answer": "E-Commerce, Agenturen, Coaches, SaaS-Unternehmen und Dienstleister sehen die schnellsten Ergebnisse. Aber grundsätzlich profitiert jedes Unternehmen mit repetitiven Prozessen."
+        },
+        {
+            "question": "Wie schnell sehe ich Ergebnisse?",
+            "answer": "Beim KI-Turbo Paket sind die ersten 3 Automationen innerhalb von 5 Werktagen live. Die meisten Kunden sparen ab Woche 2 messbar Zeit und Geld."
+        },
+        {
+            "question": "Was passiert nach der Zusammenarbeit?",
+            "answer": "Alle Workflows gehören dir. Du bekommst vollständige Dokumentation und Video-Tutorials. Beim Enterprise-Paket gibt es zusätzlich 90 Tage Premium-Support."
+        },
+        {
+            "question": "Nutzt du nur ChatGPT?",
+            "answer": "Nein — ich nutze die beste KI für jeden Anwendungsfall: Claude für Analyse, GPT-4 für Creative, Kimi für Research, lokale LLMs für datensensible Prozesse. Immer das richtige Tool."
+        }
+    ],
+    "final_cta": {
+        "headline": "Bereit, dein Business mit KI zu beschleunigen?",
+        "subtext": "Starte mit dem Quick-Audit — 90 Minuten, die dein Unternehmen transformieren.",
+        "cta_text": "Paket wählen & loslegen →",
+        "cta_anchor": "#pakete",
+        "scarcity_text": "🔥 Nur noch {slots} Plätze diesen Monat verfügbar"
+    },
+    "footer": {
+        "copyright": "© 2026 Maurice Pfeifer · AI Consulting · Alle Rechte vorbehalten.",
+        "impressum": {
+            "name": "Maurice Pfeifer",
+            "address": "[Adresse hier einfügen]",
+            "city": "[PLZ Ort]",
+            "note": "Dieses Angebot umfasst ausschließlich Beratungs- und Automatisierungsleistungen im Bereich Künstliche Intelligenz."
+        }
+    }
+}
