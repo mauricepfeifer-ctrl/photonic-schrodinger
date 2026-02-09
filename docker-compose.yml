@@ -1,0 +1,166 @@
+version: '3.8'
+
+services:
+  # 🧠 MESSAGE BUS (Central Nervous System)
+  redis:
+    image: redis:alpine
+    container_name: empire-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+    networks:
+      - empire-net
+
+  # 🤖 ORCHESTRATOR & AGENTS (Python Swarm)
+  # This container runs the Python scripts. In dev, we mount the local dir.
+  empire-swarm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-swarm
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 empire_orchestrator.py
+
+  # 🕸️ AUTOMATION (Workflows)
+  n8n:
+    image: n8nio/n8n
+    container_name: empire-n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+    volumes:
+      - n8n_data:/home/node/.n8n
+    restart: always
+    networks:
+      - empire-net
+
+  # 💬 CHAT UI (Human Interface)
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: empire-webui
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    volumes:
+      - open_webui_data:/app/backend/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    networks:
+      - empire-net
+
+  # 📊 MONITORING (The Watcher)
+  prometheus:
+    image: prom/prometheus
+    container_name: empire-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    restart: always
+    networks:
+      - empire-net
+
+  grafana:
+    image: grafana/grafana
+    container_name: empire-grafana
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    restart: always
+    networks:
+      - empire-net
+
+  # 📹 CONTENT AGENT
+  content-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-agent-content
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 agents/content_agent.py
+
+  # 💰 SALES AGENT
+  sales-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-agent-sales
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 agents/sales_agent.py
+
+  # 🔬 RESEARCH AGENT
+  research-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-agent-research
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 agents/research_agent.py
+
+  # 🎵 TIKTOK AGENT
+  tiktok-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-agent-tiktok
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 agents/tiktok_agent.py
+
+networks:
+  empire-net:
+    driver: bridge
+
+volumes:
+  redis_data:
+  n8n_data:
+  open_webui_data:
+  prometheus_data:
+  grafana_data:

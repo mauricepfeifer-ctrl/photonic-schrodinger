@@ -13,7 +13,7 @@ class TrendHunter:
         await asyncio.sleep(1.5)
         
         # Simulated Trend Data (would come from Google Trends API / TikTok Creative Center)
-        trends = [
+        trends: list[dict[str, int | str]] = [
             {"topic": "AI Girlfriends", "momentum": 98, "status": "EXPLODING"},
             {"topic": "Faceless YouTube Automation", "momentum": 85, "status": "Stable"},
             {"topic": "Quantum Manifestation", "momentum": 92, "status": "Rising"},

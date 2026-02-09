@@ -5,7 +5,7 @@ import logging
 import asyncio
 import aiohttp
 from datetime import datetime
-from typing import List, Dict
+from typing import List, Dict, Optional
 import random
 
 # Import our new modules
@@ -38,7 +38,7 @@ class XMonsterEngine:
         else:
             logger.warning("⚠️ No knowledge file found. Running in blind mode.")
 
-    async def generate_thread(self, topic: str, mode: str = "viral") -> Dict:
+    async def generate_thread(self, topic: str, mode: str = "viral") -> Optional[Dict]:
         """Use Kimi to write a thread."""
         logger.info(f"🧠 Generating {mode} thread about {topic}...")
         

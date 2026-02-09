@@ -1,0 +1,83 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "🚀 SHIP: Empire Orchestrator (Offline)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/local_launcher.py",
+            "console": "integratedTerminal",
+            "env": {
+                "OFFLINE_MODE": "1",
+                "OLLAMA_BASE_URL": "http://localhost:11434",
+                "REVENUE_RELIGION": "1",
+                "RANKING_MODE": "TOP100",
+                "GOLD_CREW_TOP": "10"
+            },
+            "args": [
+                "--mode",
+                "orchestrator"
+            ]
+        },
+        {
+            "name": "⚙️ SHIP: Agent Manager (Ranking + Karma)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/agent_manager.py",
+            "console": "integratedTerminal",
+            "env": {
+                "REVENUE_RELIGION": "1",
+                "RANKING_MODE": "TOP100",
+                "KARMA_ENABLED": "1",
+                "HEARTBEAT_BACKEND": "redis",
+                "REDIS_URL": "redis://localhost:6379/0"
+            },
+            "args": [
+                "--daemon"
+            ]
+        },
+        {
+            "name": "🌐 SHIP: Web API (File Chaos Cleaner)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/filecleaner/api_main.py",
+            "console": "integratedTerminal",
+            "env": {
+                "APP_ENV": "local",
+                "REDIS_URL": "redis://localhost:6379/0",
+                "UPLOAD_DIR": "${workspaceFolder}/runtime/uploads",
+                "RESULTS_DIR": "${workspaceFolder}/runtime/results",
+                "AUTO_DELETE_HOURS": "48"
+            }
+        },
+        {
+            "name": "🧱 SHIP: Worker (Scan → Struktur → Index)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/filecleaner/worker_main.py",
+            "console": "integratedTerminal",
+            "env": {
+                "APP_ENV": "local",
+                "REDIS_URL": "redis://localhost:6379/0",
+                "UPLOAD_DIR": "${workspaceFolder}/runtime/uploads",
+                "RESULTS_DIR": "${workspaceFolder}/runtime/results",
+                "ENABLE_CLAMAV": "1",
+                "ZIP_BOMB_PROTECTION": "1",
+                "OFFLINE_MODE": "1",
+                "OLLAMA_BASE_URL": "http://localhost:11434"
+            }
+        },
+        {
+            "name": "📣 SHIP: Marketing Engine (mp-ai)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/apps/marketing/marketing_main.py",
+            "console": "integratedTerminal",
+            "env": {
+                "BRAND_NAME": "mp-ai",
+                "REVENUE_RELIGION": "1",
+                "CONTENT_TARGETS_PER_DAY": "5"
+            }
+        }
+    ]
+}
