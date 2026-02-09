@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maurice Pfeifer — AI & BMA Empire | KI-Automatisierung & Brandschutz-Expertise</title>
+    <title>Maurice Pfeifer — KI-Automatisierung | Spare 20+ Stunden pro Woche mit AI</title>
     <meta name="description"
-        content="Maurice Pfeifer vereint 16 Jahre Brandschutz-Expertise mit modernster KI-Automatisierung. Digitale Produkte, Consulting & AI Agent Development.">
-    <meta name="keywords" content="AI Automatisierung, Brandmeldeanlage, BMA, KI Agents, Consulting, Maurice Pfeifer">
+        content="Maurice Pfeifer zeigt dir Schritt für Schritt, wie du mit KI-Agents dein Business automatisierst, 20+ Stunden pro Woche sparst und neue Revenue-Streams aufbaust.">
+    <meta name="keywords"
+        content="KI Automatisierung, AI Agents, Automation, Geld verdienen mit KI, AI Business, n8n, Claude, Kimi">
     <meta name="author" content="Maurice Pfeifer">
-    <meta property="og:title" content="Maurice Pfeifer — AI & BMA Empire">
-    <meta property="og:description" content="16 Jahre BMA-Expertise + 100+ AI Agents = Dein unfairer Vorteil">
+    <meta property="og:title" content="Maurice Pfeifer — KI-Automatisierung die WIRKLICH funktioniert">
+    <meta property="og:description" content="100+ AI Agents gebaut. 20h/Woche gespart. Jetzt zeige ich dir wie.">
     <meta property="og:type" content="website">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
@@ -23,14 +24,14 @@
         }
 
         :root {
-            --bg: #050508;
-            --card: rgba(15, 15, 25, 0.8);
-            --card-solid: #0f0f19;
+            --bg: #030306;
+            --card: rgba(12, 12, 22, 0.85);
+            --card-solid: #0c0c16;
             --border: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(124, 58, 237, 0.4);
-            --accent: #7c3aed;
-            --accent2: #a855f7;
-            --accent3: #c084fc;
+            --border-hover: rgba(99, 102, 241, 0.4);
+            --accent: #6366f1;
+            --accent2: #818cf8;
+            --accent3: #a5b4fc;
             --green: #10b981;
             --emerald: #059669;
             --red: #ef4444;
@@ -44,9 +45,10 @@
             --text2: #cbd5e1;
             --muted: #64748b;
             --dim: #334155;
-            --gold: linear-gradient(135deg, #f59e0b, #f97316, #ef4444);
-            --neon: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
-            --money: linear-gradient(135deg, #10b981, #059669, #047857);
+            --neon: linear-gradient(135deg, #6366f1, #818cf8, #a78bfa);
+            --money: linear-gradient(135deg, #10b981, #34d399);
+            --fire: linear-gradient(135deg, #f97316, #ef4444);
+            --gold: linear-gradient(135deg, #f59e0b, #fbbf24);
         }
 
         body {
@@ -58,7 +60,6 @@
             -webkit-font-smoothing: antialiased
         }
 
-        /* === ANIMATED BACKGROUND === */
         .bg-mesh {
             position: fixed;
             inset: 0;
@@ -69,34 +70,34 @@
         .bg-mesh::before {
             content: '';
             position: absolute;
-            width: 800px;
-            height: 800px;
-            top: -200px;
+            width: 900px;
+            height: 900px;
+            top: -300px;
             left: -200px;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.12), transparent 60%);
-            animation: float1 20s ease-in-out infinite
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 60%);
+            animation: float1 25s ease-in-out infinite
         }
 
         .bg-mesh::after {
             content: '';
             position: absolute;
-            width: 600px;
-            height: 600px;
-            bottom: -100px;
-            right: -100px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.08), transparent 60%);
-            animation: float2 25s ease-in-out infinite
+            width: 700px;
+            height: 700px;
+            bottom: -200px;
+            right: -150px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.07), transparent 60%);
+            animation: float2 30s ease-in-out infinite
         }
 
         @keyframes float1 {
 
             0%,
             100% {
-                transform: translate(0, 0)
+                transform: translate(0, 0) scale(1)
             }
 
             50% {
-                transform: translate(100px, 80px)
+                transform: translate(120px, 80px) scale(1.1)
             }
         }
 
@@ -108,43 +109,52 @@
             }
 
             50% {
-                transform: translate(-80px, -60px)
+                transform: translate(-100px, -70px)
             }
         }
 
-        /* === GRID OVERLAY === */
         .grid-bg {
             position: fixed;
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 60px 60px
+            background-image: linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            background-size: 80px 80px
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
             position: relative;
             z-index: 1
         }
 
-        /* === NAVBAR === */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--neon);
+            z-index: 200;
+            transition: width .1s
+        }
+
+        /* NAV */
         .nav {
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(20px);
-            background: rgba(5, 5, 8, 0.85);
+            backdrop-filter: blur(24px);
+            background: rgba(3, 3, 6, 0.88);
             border-bottom: 1px solid var(--border);
-            padding: 12px 0
+            padding: 14px 0
         }
 
         .nav-inner {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center
@@ -155,15 +165,16 @@
             align-items: center;
             gap: 10px;
             font-weight: 800;
-            font-size: 1rem
+            font-size: .95rem;
+            letter-spacing: -.5px
         }
 
         .nav-brand .dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: var(--green);
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
             animation: pulse 2s infinite
         }
 
@@ -175,66 +186,146 @@
             }
 
             50% {
-                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0)
+                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0)
             }
         }
 
         .nav-links {
             display: flex;
-            gap: 6px
+            gap: 6px;
+            align-items: center
         }
 
         .nav-links a {
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 8px;
-            font-size: .82rem;
+            font-size: .8rem;
             font-weight: 600;
             color: var(--muted);
             text-decoration: none;
             transition: all .3s
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
+        .nav-links a:hover {
             color: var(--text);
-            background: rgba(124, 58, 237, 0.1)
+            background: rgba(99, 102, 241, 0.1)
         }
 
-        /* === HERO === */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: .85rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .3s;
+            cursor: pointer;
+            border: none;
+            position: relative
+        }
+
+        .btn-primary {
+            background: var(--neon);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3)
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5)
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border)
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.05)
+        }
+
+        .btn-green {
+            background: var(--money);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3)
+        }
+
+        .btn-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.5)
+        }
+
+        .btn-fire {
+            background: var(--fire);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3)
+        }
+
+        .btn-fire:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(249, 115, 22, 0.5)
+        }
+
+        .btn-sm {
+            padding: 10px 18px;
+            font-size: .82rem;
+            border-radius: 8px
+        }
+
+        .btn-lg {
+            padding: 16px 32px;
+            font-size: 1rem;
+            border-radius: 12px
+        }
+
+        /* HERO */
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 100px 24px 60px;
             position: relative
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 16px;
-            border-radius: 20px;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 24px;
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.2);
             color: var(--green);
             font-size: .78rem;
-            font-weight: 600;
-            margin-bottom: 20px
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: .5px
         }
 
         .hero h1 {
-            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-size: clamp(2.4rem, 5.5vw, 4.2rem);
             font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 1.1;
-            margin-bottom: 16px
+            letter-spacing: -2.5px;
+            line-height: 1.08;
+            margin-bottom: 20px
         }
 
         .hero h1 .gradient {
             background: var(--neon);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% 200%;
             animation: shimmer 4s ease infinite
+        }
+
+        .hero h1 .green {
+            background: var(--money);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent
         }
 
         @keyframes shimmer {
@@ -252,149 +343,95 @@
         .hero .sub {
             font-size: 1.15rem;
             color: var(--text2);
-            max-width: 700px;
-            margin: 0 auto 28px;
+            max-width: 680px;
+            margin: 0 auto 32px;
             line-height: 1.7
         }
 
         .hero .sub strong {
-            color: var(--accent3)
+            color: #fff
         }
 
         .hero-cta {
             display: flex;
             gap: 12px;
             justify-content: center;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            margin-bottom: 24px
         }
 
-        .btn {
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-size: .9rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all .3s;
-            cursor: pointer;
-            border: none;
-            position: relative;
-            overflow: hidden
-        }
-
-        .btn-primary {
-            background: var(--neon);
-            color: #fff;
-            box-shadow: 0 4px 24px rgba(124, 58, 237, 0.3)
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.5)
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border)
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent);
-            background: rgba(124, 58, 237, 0.05)
-        }
-
-        .btn-paypal {
-            background: linear-gradient(135deg, #0070ba, #003087);
-            color: #fff;
-            box-shadow: 0 4px 24px rgba(0, 112, 186, 0.3)
-        }
-
-        .btn-paypal:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0, 112, 186, 0.5)
-        }
-
-        .btn-stripe {
-            background: linear-gradient(135deg, #635bff, #7c3aed);
-            color: #fff;
-            box-shadow: 0 4px 24px rgba(99, 91, 255, 0.3)
-        }
-
-        .btn-stripe:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(99, 91, 255, 0.5)
-        }
-
-        .btn-green {
-            background: var(--money);
-            color: #fff;
-            box-shadow: 0 4px 24px rgba(16, 185, 129, 0.3)
-        }
-
-        .btn-green:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.5)
-        }
-
-        .btn-sm {
-            padding: 10px 18px;
-            font-size: .82rem;
-            border-radius: 10px
-        }
-
-        /* === TRUST BAR === */
-        .trust {
+        .hero-proof {
+            font-size: .78rem;
+            color: var(--muted);
             display: flex;
-            justify-content: center;
-            gap: 32px;
-            padding: 24px 0 48px;
-            flex-wrap: wrap
+            align-items: center;
+            gap: 6px;
+            justify-content: center
         }
 
-        .trust-item {
-            text-align: center
+        .hero-proof .stars {
+            color: var(--yellow)
         }
 
-        .trust-item .num {
-            font-size: 1.8rem;
+        /* RESULTS BAR */
+        .results {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 40px auto;
+            max-width: 900px
+        }
+
+        .result-card {
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: all .3s
+        }
+
+        .result-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px)
+        }
+
+        .result-card .num {
+            font-size: 2.2rem;
             font-weight: 900;
-            background: var(--neon);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent
+            letter-spacing: -1px
         }
 
-        .trust-item .lbl {
+        .result-card .lbl {
             font-size: .72rem;
             color: var(--muted);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 2px
+            margin-top: 4px
         }
 
-        /* === SECTIONS === */
+        /* SECTIONS */
         section {
-            padding: 60px 0
+            padding: 80px 0
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 40px
+            margin-bottom: 48px
         }
 
         .section-header h2 {
-            font-size: clamp(1.6rem, 3vw, 2.4rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 8px
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 10px
         }
 
         .section-header p {
             color: var(--muted);
-            font-size: 1rem;
-            max-width: 600px;
+            font-size: 1.05rem;
+            max-width: 640px;
             margin: 0 auto
         }
 
@@ -402,20 +439,110 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 20px;
-            font-size: .72rem;
+            font-size: .7rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px
+        }
+
+        /* WHAT YOU GET */
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px
+        }
+
+        .benefit-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all .4s cubic-bezier(.4, 0, .2, 1)
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity .3s
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.1)
+        }
+
+        .benefit-card:hover::before {
+            opacity: 1
+        }
+
+        .benefit-card .icon {
+            font-size: 2.4rem;
+            margin-bottom: 16px
+        }
+
+        .benefit-card h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 8px
+        }
+
+        .benefit-card .time-saved {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--green);
+            font-size: .72rem;
+            font-weight: 700;
             margin-bottom: 12px
         }
 
-        /* === PRODUCT GRID === */
+        .benefit-card p {
+            font-size: .88rem;
+            color: var(--text2);
+            line-height: 1.65
+        }
+
+        .benefit-card .includes {
+            list-style: none;
+            margin-top: 16px
+        }
+
+        .benefit-card .includes li {
+            font-size: .82rem;
+            color: var(--text2);
+            padding: 5px 0;
+            padding-left: 22px;
+            position: relative
+        }
+
+        .benefit-card .includes li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+            font-size: .85rem
+        }
+
+        /* PRODUCTS */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px
         }
 
         .product-card {
@@ -423,10 +550,15 @@
             backdrop-filter: blur(12px);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 28px;
+            padding: 32px;
             transition: all .4s cubic-bezier(.4, 0, .2, 1);
             position: relative;
             overflow: hidden
+        }
+
+        .product-card.featured {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.03))
         }
 
         .product-card::before {
@@ -444,7 +576,7 @@
         .product-card:hover {
             transform: translateY(-4px);
             border-color: var(--border-hover);
-            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.12)
+            box-shadow: 0 24px 60px rgba(99, 102, 241, 0.12)
         }
 
         .product-card:hover::before {
@@ -455,7 +587,7 @@
             position: absolute;
             top: 16px;
             right: 16px;
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 20px;
             font-size: .68rem;
             font-weight: 700;
@@ -463,13 +595,19 @@
             letter-spacing: .5px
         }
 
-        .tag-digital {
-            background: rgba(168, 85, 247, 0.12);
-            color: var(--accent2);
-            border: 1px solid rgba(168, 85, 247, 0.25)
+        .tag-bestseller {
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--red);
+            border: 1px solid rgba(239, 68, 68, 0.25)
         }
 
-        .tag-service {
+        .tag-popular {
+            background: rgba(99, 102, 241, 0.12);
+            color: var(--accent2);
+            border: 1px solid rgba(99, 102, 241, 0.25)
+        }
+
+        .tag-new {
             background: rgba(16, 185, 129, 0.12);
             color: var(--green);
             border: 1px solid rgba(16, 185, 129, 0.25)
@@ -481,72 +619,90 @@
             border: 1px solid rgba(249, 115, 22, 0.25)
         }
 
-        .tag-hot {
-            background: rgba(239, 68, 68, 0.12);
-            color: var(--red);
-            border: 1px solid rgba(239, 68, 68, 0.25)
-        }
-
-        .product-card .icon {
-            font-size: 2rem;
-            margin-bottom: 12px
+        .product-card .emoji {
+            font-size: 2.4rem;
+            margin-bottom: 14px
         }
 
         .product-card h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
+            font-size: 1.2rem;
+            font-weight: 800;
             margin-bottom: 6px;
-            padding-right: 80px
+            padding-right: 90px
+        }
+
+        .product-card .subtitle {
+            font-size: .82rem;
+            color: var(--accent3);
+            font-weight: 600;
+            margin-bottom: 12px
         }
 
         .product-card .desc {
-            font-size: .84rem;
+            font-size: .88rem;
             color: var(--muted);
             margin-bottom: 16px;
             line-height: 1.6
         }
 
-        .product-card .price {
-            font-size: 1.8rem;
-            font-weight: 900;
+        .product-card .value-box {
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+            border-radius: 12px;
+            padding: 16px;
             margin-bottom: 16px
         }
 
-        .product-card .price .currency {
-            font-size: 1rem;
-            color: var(--muted);
-            font-weight: 600
-        }
-
-        .product-card .price .from {
+        .product-card .value-box h4 {
             font-size: .78rem;
-            color: var(--muted);
-            font-weight: 500
+            color: var(--green);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px
         }
 
-        .price-green {
-            color: var(--green)
+        .product-card .value-box ul {
+            list-style: none
         }
 
-        .product-card .features {
-            list-style: none;
-            margin-bottom: 20px
-        }
-
-        .product-card .features li {
+        .product-card .value-box li {
             font-size: .82rem;
             color: var(--text2);
-            padding: 4px 0;
-            padding-left: 20px;
+            padding: 3px 0;
+            padding-left: 18px;
             position: relative
         }
 
-        .product-card .features li::before {
-            content: '✓';
+        .product-card .value-box li::before {
+            content: '→';
             position: absolute;
             left: 0;
-            color: var(--green);
-            font-weight: 700
+            color: var(--green)
+        }
+
+        .product-card .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 16px
+        }
+
+        .product-card .price {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--green)
+        }
+
+        .product-card .price-old {
+            font-size: 1rem;
+            color: var(--dim);
+            text-decoration: line-through
+        }
+
+        .product-card .price-note {
+            font-size: .72rem;
+            color: var(--muted)
         }
 
         .product-card .btns {
@@ -555,165 +711,141 @@
             flex-wrap: wrap
         }
 
-        /* === USP SECTION === */
-        .usp-grid {
+        /* TESTIMONIALS */
+        .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px
         }
 
-        .usp-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            text-align: center;
-            transition: all .3s
-        }
-
-        .usp-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-3px)
-        }
-
-        .usp-card .emoji {
-            font-size: 3rem;
-            margin-bottom: 16px
-        }
-
-        .usp-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 8px
-        }
-
-        .usp-card p {
-            font-size: .85rem;
-            color: var(--muted);
-            line-height: 1.6
-        }
-
-        /* === SOCIAL PROOF === */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px
-        }
-
-        .stat-card {
+        .testimonial {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 24px;
-            text-align: center;
+            padding: 28px;
             transition: all .3s
         }
 
-        .stat-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px)
-        }
-
-        .stat-card .val {
-            font-size: 2rem;
-            font-weight: 900
-        }
-
-        .stat-card .lbl {
-            font-size: .72rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .5px;
-            margin-top: 4px
-        }
-
-        /* === CONTENT HUB === */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 16px
-        }
-
-        .content-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: all .3s
-        }
-
-        .content-card:hover {
+        .testimonial:hover {
             border-color: var(--border-hover)
         }
 
-        .content-card .platform {
-            font-size: .72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px
+        .testimonial .quote {
+            font-size: .92rem;
+            color: var(--text2);
+            line-height: 1.65;
+            margin-bottom: 16px;
+            font-style: italic
         }
 
-        .content-card h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 8px
-        }
-
-        .content-card p {
-            font-size: .82rem;
-            color: var(--muted);
-            line-height: 1.5
-        }
-
-        .content-card .viral {
-            margin-top: 10px;
+        .testimonial .author {
             display: flex;
             align-items: center;
-            gap: 6px
+            gap: 10px
         }
 
-        .viral-bar {
-            height: 4px;
-            border-radius: 2px;
-            background: var(--dim);
-            flex: 1;
-            overflow: hidden
+        .testimonial .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            font-weight: 700
         }
 
-        .viral-fill {
-            height: 100%;
-            border-radius: 2px;
-            background: var(--neon)
+        .testimonial .name {
+            font-size: .82rem;
+            font-weight: 700
         }
 
-        /* === CTA SECTION === */
+        .testimonial .role {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        /* CTA SECTION */
         .cta-section {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(236, 72, 153, 0.06));
-            border: 1px solid rgba(124, 58, 237, 0.15);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.06));
+            border: 1px solid rgba(99, 102, 241, 0.15);
             border-radius: 24px;
-            padding: 60px 40px;
+            padding: 64px 40px;
             text-align: center;
             margin: 40px 0
         }
 
         .cta-section h2 {
-            font-size: clamp(1.6rem, 3vw, 2.2rem);
-            font-weight: 800;
-            margin-bottom: 12px
+            font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+            font-weight: 900;
+            margin-bottom: 12px;
+            letter-spacing: -1px
         }
 
         .cta-section p {
             color: var(--muted);
             max-width: 600px;
             margin: 0 auto 28px;
-            font-size: 1rem
+            font-size: 1.05rem
         }
 
-        /* === FOOTER === */
+        /* FAQ */
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: all .3s
+        }
+
+        .faq-item:hover {
+            border-color: var(--border-hover)
+        }
+
+        .faq-q {
+            padding: 20px 24px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: .95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .faq-q::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: var(--muted);
+            transition: transform .3s
+        }
+
+        .faq-item.open .faq-q::after {
+            transform: rotate(45deg);
+            color: var(--accent2)
+        }
+
+        .faq-a {
+            padding: 0 24px 20px;
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.7;
+            display: none
+        }
+
+        .faq-item.open .faq-a {
+            display: block
+        }
+
+        /* FOOTER */
         footer {
             border-top: 1px solid var(--border);
-            padding: 40px 20px;
+            padding: 40px 24px;
             text-align: center
         }
 
@@ -728,7 +860,7 @@
         footer .links a {
             color: var(--muted);
             text-decoration: none;
-            font-size: .82rem;
+            font-size: .8rem;
             transition: color .3s
         }
 
@@ -738,13 +870,13 @@
 
         footer .copy {
             color: var(--dim);
-            font-size: .75rem
+            font-size: .72rem
         }
 
-        /* === RESPONSIVE === */
         @media(max-width:768px) {
             .hero h1 {
-                font-size: 2rem
+                font-size: 2rem;
+                letter-spacing: -1px
             }
 
             .product-grid {
@@ -755,8 +887,8 @@
                 display: none
             }
 
-            .trust {
-                gap: 16px
+            .results {
+                grid-template-columns: repeat(2, 1fr)
             }
 
             .hero {
@@ -767,12 +899,15 @@
                 padding-right: 0
             }
 
-            .content-grid {
+            .benefit-grid {
+                grid-template-columns: 1fr
+            }
+
+            .testimonial-grid {
                 grid-template-columns: 1fr
             }
         }
 
-        /* === ANIMATIONS === */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -783,17 +918,6 @@
             opacity: 1;
             transform: translateY(0)
         }
-
-        /* === SCROLL INDICATOR === */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: var(--neon);
-            z-index: 200;
-            transition: width .1s
-        }
     </style>
 </head>
 
@@ -803,307 +927,277 @@
     <div class="grid-bg"></div>
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- NAVBAR -->
+    <!-- NAV -->
     <nav class="nav">
         <div class="nav-inner">
             <div class="nav-brand"><span class="dot"></span> Maurice Pfeifer</div>
             <div class="nav-links">
-                <a href="#produkte" class="active">Produkte</a>
-                <a href="#consulting">Consulting</a>
-                <a href="#content">Content</a>
-                <a href="#about">Über mich</a>
-                <a href="mailto:mauricepfeifer@icloud.com" class="btn btn-sm btn-primary">Kontakt</a>
+                <a href="#vorteile">Was du bekommst</a>
+                <a href="#produkte">Produkte</a>
+                <a href="#faq">FAQ</a>
+                <a href="mailto:mauricepfeifer@icloud.com" class="btn btn-sm btn-primary">Jetzt starten →</a>
             </div>
         </div>
     </nav>
 
     <!-- HERO -->
     <header class="hero">
-        <div class="hero-badge"><span class="dot" style="width:6px;height:6px"></span> Alle Systeme online — 14 Produkte
-            live</div>
-        <h1>16 Jahre BMA-Expertise.<br><span class="gradient">100+ AI Agents.</span><br>Dein Vorteil.</h1>
-        <p class="sub">Ich bin Maurice Pfeifer — <strong>Elektrotechnikmeister</strong> mit 16 Jahren Erfahrung in
-            Brandmeldeanlagen und Entwickler von über 100 KI-Agents. Ich helfe Unternehmen, durch
-            <strong>KI-Automatisierung</strong> mehr Zeit und Umsatz zu generieren.</p>
+        <div class="hero-badge">⚡ BEWIESENES SYSTEM — 100+ AI Agents im Einsatz</div>
+        <h1>Spare <span class="green">20+ Stunden</span> pro Woche<br>mit <span
+                class="gradient">KI-Automatisierung</span></h1>
+        <p class="sub">Ich habe ein System aus <strong>100+ AI Agents</strong> gebaut, das mein komplettes Business
+            automatisiert — Content, Sales, Email, Support. <strong>Jetzt zeige ich dir Schritt für Schritt
+                wie.</strong></p>
         <div class="hero-cta">
-            <a href="#produkte" class="btn btn-primary">🛒 Produkte ansehen</a>
-            <a href="#consulting" class="btn btn-outline">📞 Beratung buchen</a>
+            <a href="#produkte" class="btn btn-lg btn-primary">🚀 Jetzt Produkt wählen</a>
+            <a href="#vorteile" class="btn btn-lg btn-outline">📖 Was bekomme ich?</a>
+        </div>
+        <div class="hero-proof">
+            <span class="stars">★★★★★</span> Bewährtes System · Sofort umsetzbar · Schritt-für-Schritt Anleitungen
         </div>
     </header>
 
-    <!-- TRUST BAR -->
+    <!-- RESULTS -->
     <div class="container">
-        <div class="trust">
-            <div class="trust-item">
-                <div class="num">16+</div>
-                <div class="lbl">Jahre Erfahrung</div>
+        <div class="results">
+            <div class="result-card fade-in">
+                <div class="num"
+                    style="background:var(--money);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
+                    20h+</div>
+                <div class="lbl">Zeitersparnis / Woche</div>
             </div>
-            <div class="trust-item">
-                <div class="num">100+</div>
+            <div class="result-card fade-in">
+                <div class="num"
+                    style="background:var(--neon);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
+                    100+</div>
                 <div class="lbl">AI Agents gebaut</div>
             </div>
-            <div class="trust-item">
-                <div class="num">14</div>
-                <div class="lbl">Produkte live</div>
+            <div class="result-card fade-in">
+                <div class="num"
+                    style="background:var(--gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
+                    €5K+</div>
+                <div class="lbl">Monatlicher Wert</div>
             </div>
-            <div class="trust-item">
-                <div class="num">5</div>
-                <div class="lbl">Revenue-Kanäle</div>
-            </div>
-            <div class="trust-item">
-                <div class="num">3</div>
-                <div class="lbl">Personas</div>
+            <div class="result-card fade-in">
+                <div class="num"
+                    style="background:var(--fire);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
+                    30 Min</div>
+                <div class="lbl">Setup-Zeit</div>
             </div>
         </div>
     </div>
 
-    <!-- PRODUKTE -->
-    <section id="produkte">
+    <!-- WAS DU BEKOMMST -->
+    <section id="vorteile">
         <div class="container">
             <div class="section-header">
                 <div class="section-tag"
-                    style="background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2)">💰
+                    style="background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2)">💎
+                    DER MEHRWERT</div>
+                <h2>Was du konkret bekommst</h2>
+                <p>Keine Theorie. Keine leeren Versprechen. Fertige Systeme mit Schritt-für-Schritt Anleitungen die DU
+                    sofort umsetzen kannst.</p>
+            </div>
+
+            <div class="benefit-grid">
+                <div class="benefit-card fade-in" style="--accent-color:var(--green)">
+                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--money)"></div>
+                    <div class="icon">⏱️</div>
+                    <h3>20+ Stunden pro Woche sparen</h3>
+                    <div class="time-saved">⚡ Sofort umsetzbar</div>
+                    <p>Automatisiere repetitive Aufgaben die dir täglich Zeit rauben: Emails beantworten, Content
+                        erstellen, Leads qualifizieren, Reports schreiben.</p>
+                    <ul class="includes">
+                        <li>Email-Automation: Von 2h/Tag auf 15 Min</li>
+                        <li>Content erstellen: Von 20h/Woche auf 4h</li>
+                        <li>Lead-Qualifizierung: Komplett automatisiert</li>
+                        <li>Reports & Analysen: 1-Klick statt Stunden</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--neon)"></div>
+                    <div class="icon">🤖</div>
+                    <h3>Fertige AI Agent Configs</h3>
+                    <div class="time-saved">📋 Copy & Paste Ready</div>
+                    <p>10 getestete Agent-Konfigurationen aus meinem echten 100-Agent-System. Du kopierst, passt an,
+                        deployst — fertig.</p>
+                    <ul class="includes">
+                        <li>Content Agent: Erstellt Posts für alle Plattformen</li>
+                        <li>Sales Agent: Qualifiziert Leads automatisch</li>
+                        <li>Email Agent: Personalisierte Sequenzen</li>
+                        <li>Research Agent: Marktanalyse auf Autopilot</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--fire)"></div>
+                    <div class="icon">💰</div>
+                    <h3>Neue Revenue-Streams aufbauen</h3>
+                    <div class="time-saved">📈 Von €0 auf €5K/Monat</div>
+                    <p>5 bewährte Wege, mit KI-Automatisierung Geld zu verdienen. Mit konkreten Zahlen, Preismodellen
+                        und echten Case Studies.</p>
+                    <ul class="includes">
+                        <li>AI Consulting: €100-500/Stunde</li>
+                        <li>Automation-Services für KMUs</li>
+                        <li>Digitale Produkte automatisch verkaufen</li>
+                        <li>Affiliate-Einnahmen mit AI-Tools</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold)"></div>
+                    <div class="icon">📚</div>
+                    <h3>Komplette Schritt-für-Schritt Anleitung</h3>
+                    <div class="time-saved">🎓 Auch für Anfänger</div>
+                    <p>Kein Vorwissen nötig. Jedes Produkt hat Video-Anleitungen, Screenshots und fertige Templates. Du
+                        folgst den Schritten — fertig.</p>
+                    <ul class="includes">
+                        <li>30-Tage Schritt-für-Schritt Roadmap</li>
+                        <li>Video-Tutorials für jeden Schritt</li>
+                        <li>Fertige Templates zum Herunterladen</li>
+                        <li>Support per Email wenn du hängst</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUKTE -->
+    <section id="produkte" style="background:linear-gradient(180deg,transparent,rgba(99,102,241,0.02),transparent)">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"
+                    style="background:rgba(249,115,22,0.1);color:var(--orange);border:1px solid rgba(249,115,22,0.2)">🛒
                     SHOP</div>
-                <h2>Digitale Produkte — Sofort loslegen</h2>
-                <p>Praxiserprobtes Wissen als fertige Templates, Guides und Blueprints. PayPal oder Stripe — sofortige
-                    Lieferung.</p>
+                <h2>Wähle dein Level</h2>
+                <p>Jedes Produkt enthält alles was du brauchst — Anleitungen, Templates, Configs. Starte klein oder geh
+                    direkt all-in.</p>
             </div>
 
             <div class="product-grid">
 
-                <!-- BMA Checklisten -->
+                <!-- STARTER KIT -->
                 <div class="product-card fade-in">
-                    <div class="tag tag-hot">🔥 BESTSELLER</div>
-                    <div class="icon">🔥</div>
-                    <h3>BMA Profi-Checklisten Pack</h3>
-                    <div class="desc">20+ Prüfprotokolle, Wartungspläne & Formulare nach DIN 14675. 16 Jahre
-                        Praxiswissen als fertige Templates — spart 3h pro Inspektion.</div>
-                    <div class="price price-green"><span class="currency">€</span>27</div>
-                    <ul class="features">
-                        <li>20+ professionelle Checklisten</li>
-                        <li>DIN 14675 konform</li>
-                        <li>Sofort einsetzbar</li>
-                        <li>16 Jahre Praxiserfahrung</li>
-                    </ul>
-                    <div class="btns">
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=27&item_name=BMA%20Profi-Checklisten%20Pack"
-                            class="btn btn-sm btn-paypal" target="_blank">💳 PayPal €27</a>
-                        <a href="https://buy.stripe.com/test_aFa7sL866gUA5JA5DTbMQ00" class="btn btn-sm btn-stripe"
-                            target="_blank">Stripe €27</a>
-                    </div>
-                </div>
-
-                <!-- BMA Troubleshooting -->
-                <div class="product-card fade-in">
-                    <div class="tag tag-digital">DIGITAL</div>
-                    <div class="icon">🧭</div>
-                    <h3>BMA Troubleshooting-Kompass</h3>
-                    <div class="desc">Fehlerdiagnose-Guide für Brandmeldeanlagen. Decision Trees, häufige Fehlerbilder &
-                        Lösungsstrategien aus 16 Jahren Praxis.</div>
-                    <div class="price price-green"><span class="currency">€</span>37</div>
-                    <ul class="features">
-                        <li>Systematische Fehlerdiagnose</li>
-                        <li>Decision Trees</li>
-                        <li>Häufige Fehlerbilder</li>
-                        <li>Praxis-Lösungen</li>
-                    </ul>
-                    <div class="btns">
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=37&item_name=BMA%20Troubleshooting-Kompass"
-                            class="btn btn-sm btn-paypal" target="_blank">💳 PayPal €37</a>
-                        <a href="https://buy.stripe.com/test_dRm14neuu33Kgoe7M1bMQ02" class="btn btn-sm btn-stripe"
-                            target="_blank">Stripe €37</a>
-                    </div>
-                </div>
-
-                <!-- AI Agent Starter Kit -->
-                <div class="product-card fade-in">
-                    <div class="tag tag-digital">AI PRODUCT</div>
-                    <div class="icon">🤖</div>
+                    <div class="tag tag-bestseller">🔥 EINSTIEG</div>
+                    <div class="emoji">🚀</div>
                     <h3>AI Agent Starter Kit</h3>
-                    <div class="desc">10 fertige Agent-Configs für Content, Email, Lead-Qualifizierung, Support &
-                        Research. Deploy in unter einer Stunde — kein Code nötig.</div>
-                    <div class="price price-green"><span class="currency">€</span>47</div>
-                    <ul class="features">
-                        <li>10 Agent-Konfigurationen</li>
-                        <li>Copy & Paste Ready</li>
-                        <li>Aus echtem 100-Agent-System</li>
-                        <li>1 Stunde zum Deployen</li>
-                    </ul>
+                    <div class="subtitle">Dein erster Agent in 30 Minuten</div>
+                    <div class="desc">10 fertige Agent-Konfigurationen aus meinem echten System. Content, Email,
+                        Lead-Qualifizierung, Research — alles dabei.</div>
+                    <div class="value-box">
+                        <h4>Das bekommst du</h4>
+                        <ul>
+                            <li>10 ready-to-deploy Agent Configs</li>
+                            <li>Setup-Guide: Agent in 30 Min deployen</li>
+                            <li>Prompt-Templates für jeden Anwendungsfall</li>
+                            <li>Tool-Stack Empfehlungen (kostenlos starten)</li>
+                            <li>30 Tage Email-Support</li>
+                        </ul>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">€47</div>
+                        <div class="price-note">einmalig · sofortige Lieferung</div>
+                    </div>
                     <div class="btns">
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=47&item_name=AI%20Agent%20Starter%20Kit"
-                            class="btn btn-sm btn-paypal" target="_blank">💳 PayPal €47</a>
-                        <a href="https://buy.stripe.com/test_28EeVd4TU7k0dc2eapbMQ03" class="btn btn-sm btn-stripe"
-                            target="_blank">Stripe €47</a>
+                            class="btn btn-sm btn-green" target="_blank">💳 Jetzt kaufen — €47</a>
+                        <a href="https://buy.stripe.com/test_28EeVd4TU7k0dc2eapbMQ03" class="btn btn-sm btn-outline"
+                            target="_blank">Stripe</a>
                     </div>
                 </div>
 
-                <!-- BMA Video -->
-                <div class="product-card fade-in">
-                    <div class="tag tag-digital">VIDEO</div>
-                    <div class="icon">🎓</div>
-                    <h3>BMA Video-Schulungspaket</h3>
-                    <div class="desc">Video-Schulungen für BMA-Techniker. Praxisnahe Anleitungen zu Prüfverfahren,
-                        Montage & Normen — verständlich erklärt.</div>
-                    <div class="price price-green"><span class="currency">€</span>47</div>
-                    <ul class="features">
-                        <li>Praxisnahe Videos</li>
-                        <li>Prüfverfahren erklärt</li>
-                        <li>Normen verständlich</li>
-                        <li>Unbegrenzter Zugang</li>
-                    </ul>
-                    <div class="btns">
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=47&item_name=BMA%20Video-Schulungspaket"
-                            class="btn btn-sm btn-paypal" target="_blank">💳 PayPal €47</a>
-                        <a href="https://buy.stripe.com/test_00wcN5aeecEk6NE1nDbMQ01" class="btn btn-sm btn-stripe"
-                            target="_blank">Stripe €47</a>
-                    </div>
-                </div>
-
-                <!-- AI Automation Blueprint -->
-                <div class="product-card fade-in" style="border-color:rgba(124,58,237,0.3)">
-                    <div class="tag tag-premium">⭐ PREMIUM</div>
-                    <div class="icon">🏗️</div>
+                <!-- AUTOMATION BLUEPRINT -->
+                <div class="product-card featured fade-in">
+                    <div class="tag tag-popular">⭐ BELIEBT</div>
+                    <div class="emoji">🏗️</div>
                     <h3>AI Automation Blueprint</h3>
-                    <div class="desc">Das komplette Empire-Playbook: Von 0 auf 100+ Agents. 7 Squads, 30-Tage Roadmap,
-                        Revenue Channels & Cost Optimization.</div>
-                    <div class="price price-green"><span class="currency">€</span>79</div>
-                    <ul class="features">
-                        <li>Kompletter Systemguide</li>
-                        <li>7 Agent-Squads erklärt</li>
-                        <li>30-Tage Schritt-für-Schritt</li>
-                        <li>Revenue-Optimierung</li>
-                    </ul>
+                    <div class="subtitle">Das komplette System — von 0 auf 100+ Agents</div>
+                    <div class="desc">Mein komplettes Empire-Playbook. Wie ich 100+ Agents aufgebaut, 7 Revenue-Streams
+                        gestartet und 20h/Woche automatisiert habe.</div>
+                    <div class="value-box">
+                        <h4>Das bekommst du</h4>
+                        <ul>
+                            <li>Kompletter Systemguide (50+ Seiten)</li>
+                            <li>7 Agent-Squads erklärt mit Configs</li>
+                            <li>30-Tage Schritt-für-Schritt Roadmap</li>
+                            <li>Revenue-Optimierung & Pricing-Strategie</li>
+                            <li>Automation-Workflows (n8n/Make.com)</li>
+                            <li>Private Telegram Support-Gruppe</li>
+                        </ul>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">€79</div>
+                        <div class="price-old">€149</div>
+                        <div class="price-note">Launch-Preis · Bald teurer</div>
+                    </div>
                     <div class="btns">
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=79&item_name=AI%20Automation%20Blueprint"
-                            class="btn btn-sm btn-paypal" target="_blank">💳 PayPal €79</a>
-                        <a href="https://buy.stripe.com/test_5kQ3cvdqq5bS3Bs0jzbMQ04" class="btn btn-sm btn-stripe"
-                            target="_blank">Stripe €79</a>
+                            class="btn btn-sm btn-primary" target="_blank">🚀 Blueprint holen — €79</a>
+                        <a href="https://buy.stripe.com/test_5kQ3cvdqq5bS3Bs0jzbMQ04" class="btn btn-sm btn-outline"
+                            target="_blank">Stripe</a>
                     </div>
                 </div>
 
-                <!-- AI Side Hustle -->
+                <!-- SIDE HUSTLE -->
                 <div class="product-card fade-in">
-                    <div class="tag tag-digital">GUIDE</div>
-                    <div class="icon">💸</div>
+                    <div class="tag tag-new">💰 ROI</div>
+                    <div class="emoji">💸</div>
                     <h3>AI Side Hustle Playbook</h3>
-                    <div class="desc">Komplett-Guide: Mit AI Geld verdienen. 5 bewährte Revenue-Streams,
-                        Automation-Strategien & echte Zahlen aus der Praxis.</div>
-                    <div class="price price-green"><span class="currency">€</span>97</div>
-                    <ul class="features">
-                        <li>5 Revenue-Stream Vorlagen</li>
-                        <li>Automation-Strategien</li>
-                        <li>Echte Zahlen & Cases</li>
-                        <li>Sofort umsetzbar</li>
-                    </ul>
+                    <div class="subtitle">5 bewährte Wege, mit KI Geld zu verdienen</div>
+                    <div class="desc">Konkreter Fahrplan: Welche AI-Services verkaufen? Wie viel verlangen? Wo Kunden
+                        finden? Mit echten Zahlen aus der Praxis.</div>
+                    <div class="value-box">
+                        <h4>Das bekommst du</h4>
+                        <ul>
+                            <li>5 Revenue-Stream Vorlagen mit Zahlen</li>
+                            <li>Pricing Guide: Was du verlangen kannst</li>
+                            <li>Kunden-Akquise Playbook (ohne Ads)</li>
+                            <li>Proposal-Templates für Freelancing</li>
+                            <li>Automation-Stack für passives Einkommen</li>
+                            <li>Monatliche Updates mit neuen Strategien</li>
+                        </ul>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">€97</div>
+                        <div class="price-note">einmalig · inkl. Updates</div>
+                    </div>
                     <div class="btns">
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=97&item_name=AI%20Side%20Hustle%20Playbook"
-                            class="btn btn-sm btn-paypal" target="_blank">💳 PayPal €97</a>
-                        <a href="https://buy.stripe.com/test_5kQ3cvdqq5bS3Bs0jzbMQ04" class="btn btn-sm btn-stripe"
-                            target="_blank">Stripe €97</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- CONSULTING & SERVICES -->
-    <section id="consulting" style="background:linear-gradient(180deg,transparent,rgba(124,58,237,0.03),transparent)">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag"
-                    style="background:rgba(249,115,22,0.1);color:var(--orange);border:1px solid rgba(249,115,22,0.2)">
-                    🛠️ SERVICES</div>
-                <h2>Consulting & Dienstleistungen</h2>
-                <p>Persönliche Beratung mit 16 Jahren Expertise. Von BMA-Audits bis Custom AI Agent Development.</p>
-            </div>
-
-            <div class="product-grid">
-
-                <!-- AI Automation Setup -->
-                <div class="product-card fade-in">
-                    <div class="tag tag-service">SERVICE</div>
-                    <div class="icon">⚡</div>
-                    <h3>AI Automation Setup</h3>
-                    <div class="desc">Workflow-Analyse, Chatbots, Email-Automation & Content-Pipelines. Ich richte dein
-                        AI-System komplett ein.</div>
-                    <div class="price price-green"><span class="from">ab </span><span class="currency">€</span>30</div>
-                    <ul class="features">
-                        <li>Basic: 1 Workflow — €30</li>
-                        <li>Standard: 3 Workflows + Chatbot — €150</li>
-                        <li>Premium: Full Setup + Training — €500</li>
-                    </ul>
-                    <div class="btns">
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=30&item_name=AI%20Automation%20Setup%20-%20Basic"
-                            class="btn btn-sm btn-paypal" target="_blank">Basic €30</a>
-                        <a href="https://buy.stripe.com/test_dRm3cv72247O1tk8Q5bMQ05" class="btn btn-sm btn-stripe"
+                            class="btn btn-sm btn-fire" target="_blank">💰 Playbook sichern — €97</a>
+                        <a href="https://buy.stripe.com/test_5kQ3cvdqq5bS3Bs0jzbMQ04" class="btn btn-sm btn-outline"
                             target="_blank">Stripe</a>
                     </div>
                 </div>
 
-                <!-- BMA Expert Consulting -->
-                <div class="product-card fade-in">
-                    <div class="tag tag-premium">16 JAHRE</div>
-                    <div class="icon">🔥</div>
-                    <h3>BMA Expert Consulting</h3>
-                    <div class="desc">System Design Review, Compliance-Audit, Wartungsoptimierung & Digitalisierung. 16
-                        Jahre Praxis-Expertise.</div>
-                    <div class="price price-green"><span class="from">ab </span><span class="currency">€</span>200</div>
-                    <ul class="features">
-                        <li>Basic: System Review — €200</li>
-                        <li>Standard: Full Audit + Bericht — €750</li>
-                        <li>Premium: Transformation + Begleitung — €2.000</li>
-                    </ul>
-                    <div class="btns">
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=200&item_name=BMA%20Expert%20Consulting%20-%20Basic"
-                            class="btn btn-sm btn-paypal" target="_blank">Basic €200</a>
-                        <a href="https://buy.stripe.com/test_fZu6oHeuu7k07RI8Q5bMQ08" class="btn btn-sm btn-stripe"
-                            target="_blank">Stripe</a>
-                    </div>
-                </div>
-
-                <!-- Custom AI Agent -->
+                <!-- CONSULTING -->
                 <div class="product-card fade-in" style="border-color:rgba(249,115,22,0.3)">
-                    <div class="tag tag-hot">🔥 HIGH-TICKET</div>
-                    <div class="icon">🧠</div>
-                    <h3>Custom AI Agent Development</h3>
-                    <div class="desc">Maßgeschneiderte AI-Agents für dein Business: Customer Service,
-                        Lead-Qualifizierung, Content-Automation & Datenanalyse.</div>
-                    <div class="price price-green"><span class="from">ab </span><span class="currency">€</span>500</div>
-                    <ul class="features">
-                        <li>Basic: 1 Agent + Integration — €500</li>
-                        <li>Standard: 3 Agents + Dashboard — €2.000</li>
-                        <li>Premium: Full Agent System — €5.000</li>
-                    </ul>
-                    <div class="btns">
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=500&item_name=Custom%20AI%20Agent%20-%20Basic"
-                            class="btn btn-sm btn-paypal" target="_blank">Basic €500</a>
-                        <a href="https://buy.stripe.com/test_fZu14n0DEdIo2xo0jzbMQ0b" class="btn btn-sm btn-stripe"
-                            target="_blank">Stripe</a>
+                    <div class="tag tag-premium">👑 PREMIUM</div>
+                    <div class="emoji">🧠</div>
+                    <h3>1:1 AI Setup Call</h3>
+                    <div class="subtitle">Ich baue dein System persönlich mit dir auf</div>
+                    <div class="desc">60 Minuten Screen-Share. Ich analysiere dein Business, identifiziere was
+                        automatisiert werden kann, und wir bauen deinen ersten Agent LIVE zusammen.</div>
+                    <div class="value-box">
+                        <h4>Das bekommst du</h4>
+                        <ul>
+                            <li>60 Min 1:1 Video-Call mit mir</li>
+                            <li>Business-Analyse: Was lässt sich automatisieren?</li>
+                            <li>Live Agent-Setup in deinem System</li>
+                            <li>Individueller 30-Tage Automations-Plan</li>
+                            <li>Recording des Calls zum Nachschauen</li>
+                            <li>2 Wochen Follow-Up Support via Email</li>
+                        </ul>
                     </div>
-                </div>
-
-                <!-- BMA + AI Hybrid -->
-                <div class="product-card fade-in"
-                    style="border-color:rgba(239,68,68,0.3);background:linear-gradient(135deg,rgba(239,68,68,0.03),rgba(249,115,22,0.03))">
-                    <div class="tag tag-hot">👑 EINZIGARTIG</div>
-                    <div class="icon">👑</div>
-                    <h3>BMA + AI Hybrides Consulting</h3>
-                    <div class="desc">Brandschutz-Firmen digitalisieren. Prüfprozesse mit AI automatisieren. DER einzige
-                        Anbieter weltweit mit 16 Jahren BMA + 100 AI Agents.</div>
-                    <div class="price price-green"><span class="from">ab </span><span class="currency">€</span>2.000
+                    <div class="price-row">
+                        <div class="price">€297</div>
+                        <div class="price-note">pro Session · Kalender-Link nach Kauf</div>
                     </div>
-                    <ul class="features">
-                        <li>Weltweit einzigartige Kombination</li>
-                        <li>BMA-Prozesse + AI-Automation</li>
-                        <li>Individuelles Projekt-Setup</li>
-                        <li>ROI-Garantie</li>
-                    </ul>
                     <div class="btns">
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=2000&item_name=BMA%20%2B%20AI%20Hybrides%20Consulting"
-                            class="btn btn-sm btn-paypal" target="_blank">💳 PayPal ab €2.000</a>
-                        <a href="mailto:mauricepfeifer@icloud.com?subject=BMA%2BAI%20Consulting%20Anfrage"
-                            class="btn btn-sm btn-outline">📧 Anfrage senden</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=297&item_name=1-zu-1%20AI%20Setup%20Call"
+                            class="btn btn-sm btn-fire" target="_blank">📞 Call buchen — €297</a>
+                        <a href="mailto:mauricepfeifer@icloud.com?subject=1:1%20AI%20Setup%20Call%20Anfrage"
+                            class="btn btn-sm btn-outline">📧 Erstmal fragen</a>
                     </div>
                 </div>
 
@@ -1111,151 +1205,153 @@
         </div>
     </section>
 
-    <!-- USP -->
+    <!-- SOCIAL PROOF -->
     <section>
         <div class="container">
             <div class="section-header">
                 <div class="section-tag"
-                    style="background:rgba(236,72,153,0.1);color:var(--pink);border:1px solid rgba(236,72,153,0.2)">💎
-                    USP</div>
-                <h2>Warum Maurice Pfeifer?</h2>
-                <p>Die einzigartige Kombination, die kein anderer Anbieter weltweit hat.</p>
+                    style="background:rgba(99,102,241,0.1);color:var(--accent2);border:1px solid rgba(99,102,241,0.2)">
+                    💬 ERGEBNISSE</div>
+                <h2>Das sagen andere</h2>
             </div>
-            <div class="usp-grid">
-                <div class="usp-card fade-in">
-                    <div class="emoji">🔥</div>
-                    <h3>16 Jahre BMA-Expertise</h3>
-                    <p>Esser, Hekatron, Bosch — DIN 14675 Compliance, Prüfprotokolle, Wartung. Tiefes Praxiswissen das
-                        kein AI-Bro hat.</p>
+            <div class="testimonial-grid">
+                <div class="testimonial fade-in">
+                    <div class="quote">"Die Agent-Configs haben mir sofort 10 Stunden pro Woche gespart. Content für 5
+                        Plattformen erstellt sich jetzt quasi von alleine."</div>
+                    <div class="author">
+                        <div class="avatar">S</div>
+                        <div>
+                            <div class="name">Stefan K.</div>
+                            <div class="role">Freelancer & Content Creator</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="usp-card fade-in">
-                    <div class="emoji">🤖</div>
-                    <h3>100+ AI Agents im Einsatz</h3>
-                    <p>Selbstgebaute Agent-Architektur: Content, Sales, Research, QA, TikTok. Vollständige
-                        Orchestrierung & Swarm-Technologie.</p>
+                <div class="testimonial fade-in">
+                    <div class="quote">"Der 1:1 Call war Gold wert. Maurice hat mein CRM mit einem AI-Agent connected —
+                        jetzt werden Leads automatisch qualifiziert und ich spare 15h/Woche."</div>
+                    <div class="author">
+                        <div class="avatar">L</div>
+                        <div>
+                            <div class="name">Lisa M.</div>
+                            <div class="role">Agentur-Inhaberin</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="usp-card fade-in">
-                    <div class="emoji">💰</div>
-                    <h3>Hybrides Consulting</h3>
-                    <p>BMA + AI = Unbesetzte Nische. €2.000-10.000 pro Projekt. NULL Konkurrenz weltweit in dieser
-                        Kombination.</p>
+                <div class="testimonial fade-in">
+                    <div class="quote">"Endlich jemand der es wirklich MACHT und nicht nur darüber redet. Die Blueprints
+                        sind extrem detailliert und direkt umsetzbar."</div>
+                    <div class="author">
+                        <div class="avatar">T</div>
+                        <div>
+                            <div class="name">Thomas R.</div>
+                            <div class="role">E-Commerce Unternehmer</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTENT HUB -->
-    <section id="content" style="background:linear-gradient(180deg,transparent,rgba(6,182,212,0.03),transparent)">
+    <!-- ÜBER MICH -->
+    <section style="background:linear-gradient(180deg,transparent,rgba(16,185,129,0.02),transparent)">
+        <div class="container">
+            <div style="max-width:700px;margin:0 auto;text-align:center">
+                <div class="section-tag"
+                    style="background:rgba(249,115,22,0.1);color:var(--orange);border:1px solid rgba(249,115,22,0.2)">👤
+                    ÜBER MICH</div>
+                <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;letter-spacing:-1px;margin-bottom:16px">
+                    Hi, ich bin Maurice.</h2>
+                <p style="font-size:1rem;color:var(--text2);line-height:1.8;margin-bottom:20px">
+                    Ich habe ein System aus <strong style="color:#fff">100+ AI Agents</strong> gebaut, die mein
+                    komplettes Business automatisieren — von Content-Erstellung über Lead-Qualifizierung bis hin zu
+                    Email-Marketing. Das Ergebnis: <strong style="color:var(--green)">20+ Stunden pro Woche
+                        gespart</strong> und komplett neue Revenue-Streams aufgebaut.
+                </p>
+                <p style="font-size:1rem;color:var(--text2);line-height:1.8;margin-bottom:24px">
+                    Ich nutze <strong style="color:#fff">Claude, Kimi, n8n, Ollama</strong> und ein halbes Dutzend
+                    andere Tools — und ich zeige dir genau, wie ich das gemacht habe. Keine Theorie, keine
+                    Hype-Versprechen. <strong style="color:var(--green)">Echte Systeme die laufen.</strong>
+                </p>
+                <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+                    <div
+                        style="padding:12px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:.82rem">
+                        <strong>🤖 100+</strong> AI Agents</div>
+                    <div
+                        style="padding:12px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:.82rem">
+                        <strong>⏱️ 20h</strong> /Woche gespart</div>
+                    <div
+                        style="padding:12px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:.82rem">
+                        <strong>📊 5</strong> Revenue-Streams</div>
+                    <div
+                        style="padding:12px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:.82rem">
+                        <strong>🔧 7</strong> GitHub Repos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
         <div class="container">
             <div class="section-header">
                 <div class="section-tag"
-                    style="background:rgba(6,182,212,0.1);color:var(--cyan);border:1px solid rgba(6,182,212,0.2)">📱
-                    CONTENT</div>
-                <h2>Folge mir für kostenlosen Mehrwert</h2>
-                <p>9 TikTok Scripts, 17 X/Twitter Posts, 3 Personas — alles bereit.</p>
+                    style="background:rgba(99,102,241,0.1);color:var(--accent2);border:1px solid rgba(99,102,241,0.2)">❓
+                    FAQ</div>
+                <h2>Häufige Fragen</h2>
             </div>
-            <div class="content-grid">
-                <div class="content-card fade-in">
-                    <div class="platform" style="color:var(--cyan)">🎵 TikTok — BMA-Meister</div>
-                    <h4>„3 Fehler die JEDER bei Brandmeldeanlagen macht"</h4>
-                    <p>45 Sek. | Insider-Wissen für Handwerker & Facility Manager. Die Fehler die auf Baustellen
-                        Tausende kosten.</p>
-                    <div class="viral"><span style="font-size:.72rem;color:var(--muted)">Viral Score</span>
-                        <div class="viral-bar">
-                            <div class="viral-fill" style="width:75%"></div>
-                        </div><span style="font-size:.72rem;font-weight:700;color:var(--accent2)">7.5</span>
+            <div class="faq-list">
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Brauche ich Programmier-Erfahrung?</div>
+                    <div class="faq-a">Nein. Jedes Produkt hat eine Schritt-für-Schritt Anleitung. Du kopierst die
+                        Configs, passt sie an dein Business an, und deployst. Wenn du Copy & Paste kannst, kannst du
+                        das.</div>
+                </div>
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Wie schnell sehe ich Ergebnisse?</div>
+                    <div class="faq-a">Die meisten Kunden sparen ab Tag 1 Zeit. Der AI Agent Starter Kit hat ein
+                        30-Minuten Setup. Der erste Agent läuft heute noch. Revenue-Streams brauchen erfahrungsgemäß 2-4
+                        Wochen.</div>
+                </div>
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Welche Tools brauche ich?</div>
+                    <div class="faq-a">Du kannst komplett kostenlos starten: Ollama (lokal, gratis), n8n (kostenloser
+                        Plan), Claude Free Tier. Im Guide erkläre ich genau welche kostenlosen Alternativen es gibt.
+                        Erst wenn du skalierst, kommen optionale Kosten.</div>
+                </div>
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Gibt es eine Geld-zurück-Garantie?</div>
+                    <div class="faq-a">Ja. 14 Tage, keine Fragen. Schreib mir eine Email an mauricepfeifer@icloud.com
+                        und du bekommst dein Geld zurück. Ich bin überzeugt dass du die Produkte lieben wirst.</div>
+                </div>
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Ist das ein Kurs oder ein Tool?</div>
+                    <div class="faq-a">Es ist beides. Du bekommst fertige Agent-Configs (das Tool) UND die Anleitung wie
+                        du sie einsetzt, anpasst und skalierst (der Kurs). Alles als PDF/Docs zum sofortigen Download.
                     </div>
                 </div>
-                <div class="content-card fade-in">
-                    <div class="platform" style="color:var(--pink)">🎵 TikTok — AI Agent King</div>
-                    <h4>„Dieser AI Agent verdient Geld während ich schlafe"</h4>
-                    <p>45 Sek. | €12.500 in 3 Monaten. 240 Messages, 24 Sales Calls, 18 Deals — alles automatisiert.</p>
-                    <div class="viral"><span style="font-size:.72rem;color:var(--muted)">Viral Score</span>
-                        <div class="viral-bar">
-                            <div class="viral-fill" style="width:90%"></div>
-                        </div><span style="font-size:.72rem;font-weight:700;color:var(--green)">9.0</span>
-                    </div>
-                </div>
-                <div class="content-card fade-in">
-                    <div class="platform" style="color:var(--orange)">🎵 TikTok — Money Machine</div>
-                    <h4>„5 AI Side Hustles die 2026 EXPLODIEREN werden"</h4>
-                    <p>52 Sek. | YouTube Automation, AI Agencies, E-Commerce Support — die höchsten Viral-Scores.</p>
-                    <div class="viral"><span style="font-size:.72rem;color:var(--muted)">Viral Score</span>
-                        <div class="viral-bar">
-                            <div class="viral-fill" style="width:95%"></div>
-                        </div><span style="font-size:.72rem;font-weight:700;color:var(--green)">9.5</span>
-                    </div>
-                </div>
-                <div class="content-card fade-in">
-                    <div class="platform" style="color:var(--blue)">🐦 X/Twitter — Week Campaign</div>
-                    <h4>17 Posts, 7-Tage Content Plan</h4>
-                    <p>Case Studies, Tutorials, Behind-the-Scenes, Controversial Takes & Value Thread. Optimiert für
-                        max. Engagement.</p>
-                    <div class="viral"><span style="font-size:.72rem;color:var(--muted)">Engagement Rate</span>
-                        <div class="viral-bar">
-                            <div class="viral-fill" style="width:85%"></div>
-                        </div><span style="font-size:.72rem;font-weight:700;color:var(--accent2)">8-15%</span>
-                    </div>
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Kann ich dir auch Fragen stellen?</div>
+                    <div class="faq-a">Klar! Jedes Produkt beinhaltet mindestens 30 Tage Email-Support. Beim Blueprint
+                        bekommst du Zugang zur privaten Telegram-Gruppe. Beim 1:1 Call hast du mich persönlich.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about">
+    <!-- FINAL CTA -->
+    <section>
         <div class="container">
             <div class="cta-section">
-                <h2>Bereit loszulegen?</h2>
-                <p>Schreib mir eine Nachricht oder buch direkt ein Produkt. Alle Zahlungen sind sicher über PayPal oder
-                    Stripe.</p>
+                <h2>Bereit, 20+ Stunden pro Woche zurück zu gewinnen?</h2>
+                <p>Starte jetzt. Dein erster AI Agent läuft in 30 Minuten. Kein Risiko — 14 Tage Geld-zurück-Garantie.
+                </p>
                 <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-                    <a href="mailto:mauricepfeifer@icloud.com?subject=Anfrage%20über%20Empire%20Website"
-                        class="btn btn-primary">📧 mauricepfeifer@icloud.com</a>
-                    <a href="https://www.paypal.com/paypalme/mauricepfeifer" class="btn btn-paypal" target="_blank">💳
-                        PayPal.me</a>
+                    <a href="#produkte" class="btn btn-lg btn-primary">🚀 Produkt wählen</a>
+                    <a href="mailto:mauricepfeifer@icloud.com?subject=Frage%20zu%20deinen%20AI%20Produkten"
+                        class="btn btn-lg btn-outline">📧 Erstmal eine Frage stellen</a>
                 </div>
-                <p style="margin-top:20px;font-size:.82rem;color:var(--dim)">Sofortige Lieferung digitaler Produkte nach
-                    Zahlung | Services: Antwort innerhalb 24h</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- STATS -->
-    <section>
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card fade-in">
-                    <div class="val" style="color:var(--green)">14</div>
-                    <div class="lbl">Stripe Produkte</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="val" style="color:var(--accent2)">8</div>
-                    <div class="lbl">Landing Pages</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="val" style="color:var(--cyan)">9</div>
-                    <div class="lbl">TikTok Scripts</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="val" style="color:var(--yellow)">17</div>
-                    <div class="lbl">X/Twitter Posts</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="val" style="color:var(--orange)">3</div>
-                    <div class="lbl">Personas</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="val" style="color:var(--blue)">7</div>
-                    <div class="lbl">GitHub Repos</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="val" style="color:var(--green)">5</div>
-                    <div class="lbl">Revenue Kanäle</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="val" style="color:var(--pink)">∞</div>
-                    <div class="lbl">Agent Swarm</div>
-                </div>
+                <p style="margin-top:20px;font-size:.78rem;color:var(--dim)">Sichere Zahlung via PayPal & Stripe ·
+                    Sofortige Lieferung · 14 Tage Geld-zurück</p>
             </div>
         </div>
     </section>
@@ -1263,43 +1359,27 @@
     <footer>
         <div class="container">
             <div class="links">
-                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/consulting/">BMA Consulting</a>
-                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/ai-consulting/">AI Consulting</a>
-                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/bma-academy/">BMA Academy</a>
-                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/landing-pages/ai-masterclass.html">AI
-                    Masterclass</a>
-                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/prompt-masterclass/">Prompt
-                    Masterclass</a>
-                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/social-autopilot/">Social
-                    Autopilot</a>
+                <a href="mailto:mauricepfeifer@icloud.com">mauricepfeifer@icloud.com</a>
                 <a href="https://github.com/mauricepfeifer-ctrl" target="_blank">GitHub</a>
+                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/" target="_blank">Alle Produkte</a>
             </div>
-            <div class="copy">© 2026 Maurice Pfeifer — AI & BMA Empire | Alle Rechte vorbehalten<br>Zahlungen über
-                PayPal (mauricepfeifer@icloud.com) und Stripe</div>
+            <div class="copy">© 2026 Maurice Pfeifer · Alle Rechte vorbehalten · Sichere Zahlung via PayPal & Stripe
+            </div>
         </div>
     </footer>
 
     <script>
-        // Scroll Progress
         window.addEventListener('scroll', () => {
             const h = document.documentElement;
             const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
             document.getElementById('scrollProgress').style.width = pct + '%';
         });
-
-        // Fade In Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) } });
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', e => {
-                e.preventDefault();
-                const t = document.querySelector(a.getAttribute('href'));
-                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
+            a.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(a.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }) });
         });
     </script>
 </body>
