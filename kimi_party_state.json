@@ -1,0 +1,296 @@
+{
+  "stats": {
+    "cycles_completed": 2,
+    "total_revenue_eur": 297.0,
+    "content_generated": 4,
+    "leads_processed": 10,
+    "agent_tasks_completed": 8,
+    "sales_messages_sent": 36,
+    "errors": 0,
+    "start_time": 1770675516.509726
+  },
+  "topology": {
+    "nodes": {
+      "nucleus": {
+        "status": "online",
+        "capabilities": [
+          "orchestration",
+          "autopilot",
+          "brain"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "mega_swarm": {
+        "status": "phantom",
+        "capabilities": [
+          "swarm",
+          "kimi_cloud",
+          "mass_agents"
+        ],
+        "pulses_in": 0,
+        "pulses_out": 0
+      },
+      "launch": {
+        "status": "online",
+        "capabilities": [
+          "launch",
+          "integration",
+          "status"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "orchestrator": {
+        "status": "online",
+        "capabilities": [
+          "tasks",
+          "brain_8cell",
+          "swarm_engine"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "intelligence": {
+        "status": "online",
+        "capabilities": [
+          "trends",
+          "research",
+          "signals"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 54
+      },
+      "brain": {
+        "status": "online",
+        "capabilities": [
+          "decision",
+          "market_scan",
+          "product_scout"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "ollama": {
+        "status": "online",
+        "capabilities": [
+          "local_llm",
+          "chat",
+          "generate"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "antigravity": {
+        "status": "online",
+        "capabilities": [
+          "optimization",
+          "parameters",
+          "learning"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "revenue_pipeline": {
+        "status": "online",
+        "capabilities": [
+          "leads",
+          "sales",
+          "conversion"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "dirk_kreuter": {
+        "status": "online",
+        "capabilities": [
+          "sales_psychology",
+          "copy",
+          "sequences"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "stripe": {
+        "status": "online",
+        "capabilities": [
+          "payments",
+          "checkout",
+          "webhooks"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "revenue_burst": {
+        "status": "online",
+        "capabilities": [
+          "burst_revenue",
+          "rapid_tasks"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "n8n": {
+        "status": "online",
+        "capabilities": [
+          "webhooks",
+          "automation",
+          "workflows"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "agent_manager": {
+        "status": "online",
+        "capabilities": [
+          "ranking",
+          "lifecycle",
+          "allocation"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "grafana": {
+        "status": "online",
+        "capabilities": [
+          "metrics",
+          "monitoring",
+          "export"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "youtube": {
+        "status": "online",
+        "capabilities": [
+          "video_scripts",
+          "faceless",
+          "content"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "x_monster": {
+        "status": "online",
+        "capabilities": [
+          "tweets",
+          "threads",
+          "viral"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "tiktok": {
+        "status": "phantom",
+        "capabilities": [
+          "short_form",
+          "mindset",
+          "hooks"
+        ],
+        "pulses_in": 2,
+        "pulses_out": 0
+      },
+      "arbitrage": {
+        "status": "online",
+        "capabilities": [
+          "content_remix",
+          "cross_platform"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "harvester": {
+        "status": "online",
+        "capabilities": [
+          "knowledge",
+          "context",
+          "data"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "power_launcher": {
+        "status": "online",
+        "capabilities": [
+          "launcher",
+          "agents",
+          "routing"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "bus": {
+        "status": "online",
+        "capabilities": [
+          "messaging",
+          "pubsub",
+          "events"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "content_agent": {
+        "status": "online",
+        "capabilities": [
+          "content_creation"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "sales_agent": {
+        "status": "online",
+        "capabilities": [
+          "sales_outreach"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "research_agent": {
+        "status": "online",
+        "capabilities": [
+          "research"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "qa_agent": {
+        "status": "online",
+        "capabilities": [
+          "quality_assurance"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "monitor_agent": {
+        "status": "online",
+        "capabilities": [
+          "monitoring"
+        ],
+        "pulses_in": 22,
+        "pulses_out": 0
+      },
+      "product_scout": {
+        "status": "online",
+        "capabilities": [
+          "product_discovery"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      },
+      "trend_hunter": {
+        "status": "online",
+        "capabilities": [
+          "trend_analysis"
+        ],
+        "pulses_in": 20,
+        "pulses_out": 52
+      }
+    },
+    "synapses": 705,
+    "active_connections": 705,
+    "total_pulses": 28,
+    "uptime_s": 69.4617919921875
+  },
+  "event_count": 32,
+  "last_updated": "2026-02-09T23:19:45.971519"
+}

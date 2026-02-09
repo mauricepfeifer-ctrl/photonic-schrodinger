@@ -1,8 +1,21 @@
 {
   "site_package_search_strategy": "pep561",
-  "source_directories": ["."],
+  "source_directories": [
+    "."
+  ],
   "search_path": [
     ".",
-    "venv/lib/python3.14/site-packages"
-  ]
+    "agents",
+    "modules",
+    "blueprints",
+    "/Users/maurice/AIEmpire-Core/.venv/lib/python3.14/site-packages"
+  ],
+  "exclude": [
+    "venv/.*",
+    ".git/.*",
+    "mega_swarm_output/.*",
+    "__pycache__/.*"
+  ],
+  "strict": false,
+  "python_version": "3.14"
 }

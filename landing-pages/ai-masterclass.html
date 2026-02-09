@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Automation Masterclass — Dein Weg zu EUR 100/Stunde mit KI</title>
+    <meta name="description"
+        content="Lerne in 30 Tagen, wie du mit AI Automation EUR 100+/Stunde verdienst. Bewährte Strategien, echte Ergebnisse, komplette Anleitung.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-glass: rgba(26, 26, 46, 0.7);
+            --accent-primary: #6c5ce7;
+            --accent-secondary: #a29bfe;
+            --accent-gold: #ffd32a;
+            --accent-green: #00d2d3;
+            --accent-red: #ff6b6b;
+            --accent-orange: #ff9f43;
+            --text-primary: #f5f6fa;
+            --text-secondary: #a4a6b3;
+            --text-muted: #6c6e7e;
+            --border: rgba(108, 92, 231, 0.2);
+            --gradient-hero: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #00d2d3 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd32a 0%, #ff9f43 100%);
+            --gradient-card: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            --shadow-glow: 0 0 40px rgba(108, 92, 231, 0.3);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ─── HERO ─────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(108, 92, 231, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(0, 210, 211, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(-20px, 20px) rotate(2deg);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-gold);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 211, 42, 0.4);
+            }
+
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 20px 5px rgba(255, 211, 42, 0.2);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ─── CTA BUTTON ──────────────────────────── */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 40px;
+            background: var(--gradient-hero);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.5);
+        }
+
+        .cta-btn-gold {
+            background: var(--gradient-gold);
+            color: #000;
+            box-shadow: 0 0 40px rgba(255, 211, 42, 0.3);
+        }
+
+        .cta-btn-gold:hover {
+            box-shadow: 0 10px 40px rgba(255, 211, 42, 0.5);
+        }
+
+        /* ─── SECTIONS ────────────────────────────── */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        /* ─── PROBLEM / AGITATE ───────────────────── */
+        .problem-section {
+            background: var(--bg-secondary);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .problem-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-red);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+        }
+
+        .problem-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .problem-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--accent-red);
+        }
+
+        .problem-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ─── SOLUTION ────────────────────────────── */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .solution-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-hero);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .solution-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .solution-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .solution-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .solution-card .tag {
+            display: inline-block;
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--accent-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        /* ─── CURRICULUM ──────────────────────────── */
+        .curriculum-section {
+            background: var(--bg-secondary);
+        }
+
+        .module-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .module-item {
+            background: var(--gradient-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 32px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .module-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateX(8px);
+        }
+
+        .module-number {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent-primary);
+            min-width: 40px;
+        }
+
+        .module-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .module-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .module-duration {
+            margin-left: auto;
+            color: var(--accent-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ─── PRICING ─────────────────────────────── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--accent-gold);
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(255, 211, 42, 0.15);
+        }
+
+        .pricing-card.featured::before {
+            content: '🔥 BESTSELLER';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-gold);
+            color: #000;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .pricing-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .pricing-price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .pricing-price .currency {
+            font-size: 1.5rem;
+            vertical-align: super;
+            margin-right: 4px;
+        }
+
+        .pricing-period {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li::before {
+            content: '✅';
+            font-size: 0.85rem;
+        }
+
+        .pricing-features li.disabled {
+            opacity: 0.4;
+        }
+
+        .pricing-features li.disabled::before {
+            content: '—';
+        }
+
+        .pricing-save {
+            display: inline-block;
+            background: rgba(0, 210, 211, 0.15);
+            color: var(--accent-green);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        /* ─── SOCIAL PROOF ────────────────────────── */
+        .proof-section {
+            background: var(--bg-secondary);
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .testimonial {
+            background: var(--gradient-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .testimonial-stars {
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-role {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ─── GUARANTEE ───────────────────────────── */
+        .guarantee-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--gradient-card);
+            border: 2px solid var(--accent-green);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .guarantee-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .guarantee-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--accent-green);
+        }
+
+        /* ─── FINAL CTA ───────────────────────────── */
+        .final-cta {
+            text-align: center;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(108, 92, 231, 0.2) 0%, transparent 70%);
+        }
+
+        .final-cta>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        .urgency-bar {
+            background: rgba(255, 107, 107, 0.15);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 12px;
+            padding: 16px 24px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--accent-red);
+            font-weight: 600;
+        }
+
+        /* ─── FOOTER ──────────────────────────────── */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+
+        /* ─── RESPONSIVE ──────────────────────────── */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* ─── MONEY MACHINE SECTION ───────────────── */
+        .money-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .money-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .money-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(255, 211, 42, 0.15);
+        }
+
+        .money-rate {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .money-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .money-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .money-card li {
+            padding: 4px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .money-card li::before {
+            content: '→ ';
+            color: var(--accent-green);
+        }
+
+        .money-difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        .diff-easy {
+            background: rgba(0, 210, 211, 0.2);
+            color: var(--accent-green);
+        }
+
+        .diff-medium {
+            background: rgba(255, 159, 67, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .diff-hard {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--accent-secondary);
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 15s infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particles Background -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">⚡ Nur noch 7 Plätze diesen Monat</div>
+                <h1>Mit AI Automation EUR 100+ pro Stunde verdienen</h1>
+                <p>Die bewährte Methode, wie du in 30 Tagen dein eigenes AI-Business aufbaust — ohne
+                    Programmier-Erfahrung, ohne Startkapital, 100% remote.</p>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">147+</div>
+                        <div class="stat-label">Absolventen</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">EUR 100+</div>
+                        <div class="stat-label">Pro Stunde</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">30 Tage</div>
+                        <div class="stat-label">Zum Ergebnis</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Geld-zurück</div>
+                    </div>
+                </div>
+
+                <a href="#pricing" class="cta-btn cta-btn-gold">🚀 Jetzt Platz sichern — ab EUR 97</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PROBLEM ═══ -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">❌ Kommt dir das bekannt vor?</h2>
+            <p class="section-subtitle">Die meisten Menschen tauschen ihre Zeit gegen Geld. In 2026 geht das
+                intelligenter.</p>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">😤</div>
+                    <h3>40h Arbeit, EUR 15/h</h3>
+                    <p>Du arbeitest hart, aber das Geld reicht gerade so. Jede Gehaltserhöhung wird von der Inflation
+                        gefressen.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">😰</div>
+                    <h3>Keine Skills für die Zukunft</h3>
+                    <p>AI revolutioniert jeden Beruf. Wer nicht lernt mit AI zu arbeiten, wird von ihr ersetzt.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🔄</div>
+                    <h3>Freelance-Falle</h3>
+                    <p>Du bietest Services an, aber findest keine Kunden. Fiverr und Upwork zahlen Dumpingpreise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SOLUTION ═══ -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">✅ Die AI Automation Lösung</h2>
+            <p class="section-subtitle">Baue dir ein System das für dich arbeitet — 24/7, ohne dass du dabei sein musst.
+            </p>
+
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🤖</div>
+                    <h3>AI Agents arbeiten für dich</h3>
+                    <p>Setze AI-Agents ein die Content erstellen, Kunden finden und Sales machen — automatisch.</p>
+                    <span class="tag">Automatisiert</span>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">💰</div>
+                    <h3>EUR 100+/Stunde Rates</h3>
+                    <p>AI Consulting & Automation Services sind premium-preisig. EUR 100-250/h ist Standard.</p>
+                    <span class="tag">Premium Preise</span>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📈</div>
+                    <h3>Skalierbar ohne Limit</h3>
+                    <p>Von Freelance zu eigenem Business. Von EUR 3K zu EUR 10K+/Monat. Kein Deckel.</p>
+                    <span class="tag">Unbegrenzt</span>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">🌍</div>
+                    <h3>100% Remote</h3>
+                    <p>Arbeite von überall mit nur einem Laptop. Kein Büro, kein Pendeln, volle Freiheit.</p>
+                    <span class="tag">Ortsunabhängig</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ GELDMASCHINE: €100/h WEGE ═══ -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">💰 7 Wege zu EUR 100/Stunde mit AI</h2>
+            <p class="section-subtitle">Bewährte Einkommensströme die du sofort starten kannst.</p>
+
+            <div class="money-grid">
+                <div class="money-card">
+                    <div class="money-rate">EUR 100-150/h</div>
+                    <h3>🤖 AI Chatbot Setup</h3>
+                    <ul>
+                        <li>Chatbots für Unternehmen bauen</li>
+                        <li>Customer Support automatisieren</li>
+                        <li>Paket: EUR 500-2.000 pro Projekt</li>
+                        <li>5-10 Stunden Arbeit pro Projekt</li>
+                    </ul>
+                    <span class="money-difficulty diff-easy">⚡ Einfach</span>
+                </div>
+                <div class="money-card">
+                    <div class="money-rate">EUR 125-200/h</div>
+                    <h3>📧 AI Email Automation</h3>
+                    <ul>
+                        <li>Auto-Sequences aufsetzen</li>
+                        <li>Lead Nurturing automatisieren</li>
+                        <li>Paket: EUR 500-1.500</li>
+                        <li>Recurring Revenue möglich</li>
+                    </ul>
+                    <span class="money-difficulty diff-easy">⚡ Einfach</span>
+                </div>
+                <div class="money-card">
+                    <div class="money-rate">EUR 150-250/h</div>
+                    <h3>🎯 AI Consulting Sprint</h3>
+                    <ul>
+                        <li>2h Strategy Call + Report</li>
+                        <li>AI-Audit für Unternehmen</li>
+                        <li>Preis: EUR 297-497 pro Sprint</li>
+                        <li>Schnellste EUR/Stunde Rate</li>
+                    </ul>
+                    <span class="money-difficulty diff-medium">🔥 Mittel</span>
+                </div>
+                <div class="money-card">
+                    <div class="money-rate">EUR 100-175/h</div>
+                    <h3>📝 AI Content Agency</h3>
+                    <ul>
+                        <li>Social Media Management mit AI</li>
+                        <li>Blog/YouTube/TikTok Content</li>
+                        <li>Retainer: EUR 1.000-3.000/Monat</li>
+                        <li>AI macht 80% der Arbeit</li>
+                    </ul>
+                    <span class="money-difficulty diff-easy">⚡ Einfach</span>
+                </div>
+                <div class="money-card">
+                    <div class="money-rate">EUR 200-500/h</div>
+                    <h3>⚡ Workflow Automation</h3>
+                    <ul>
+                        <li>n8n/Zapier Automation bauen</li>
+                        <li>Prozesse vollständig automatisieren</li>
+                        <li>Paket: EUR 1.000-5.000</li>
+                        <li>Höchste Nachfrage 2026</li>
+                    </ul>
+                    <span class="money-difficulty diff-medium">🔥 Mittel</span>
+                </div>
+                <div class="money-card">
+                    <div class="money-rate">EUR 100-300/h</div>
+                    <h3>🎓 Online Kurse verkaufen</h3>
+                    <ul>
+                        <li>Einmal erstellen, immer verdienen</li>
+                        <li>Passive Income nach Launch</li>
+                        <li>EUR 97-997 pro Kurs</li>
+                        <li>Gumroad/Digistore24/Udemy</li>
+                    </ul>
+                    <span class="money-difficulty diff-hard">🏆 Fortgeschritten</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CURRICULUM ═══ -->
+    <section class="curriculum-section">
+        <div class="container">
+            <h2 class="section-title">📚 Was du lernst</h2>
+            <p class="section-subtitle">5 Module — vom kompletten Anfänger zum AI-Business-Owner in 30 Tagen.</p>
+
+            <div class="module-list">
+                <div class="module-item">
+                    <div class="module-number">01</div>
+                    <div class="module-content">
+                        <h3>Foundation — Dein AI Setup in 30 Minuten</h3>
+                        <p>AI Tools installieren, Ollama & Kimi einrichten, ersten Agent bauen</p>
+                    </div>
+                    <div class="module-duration">3 Lektionen</div>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">02</div>
+                    <div class="module-content">
+                        <h3>Revenue Engine — AI Sales Pipeline aufsetzen</h3>
+                        <p>Leads finden, Proposals schreiben, Pricing & Closing mit AI</p>
+                    </div>
+                    <div class="module-duration">5 Lektionen</div>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">03</div>
+                    <div class="module-content">
+                        <h3>Content Machine — AI Content für jede Plattform</h3>
+                        <p>X Threads, TikTok, YouTube, Blog — alles mit AI automatisiert</p>
+                    </div>
+                    <div class="module-duration">4 Lektionen</div>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">04</div>
+                    <div class="module-content">
+                        <h3>Automation — n8n Workflows & Agent Swarms</h3>
+                        <p>Komplette Geschäftsprozesse automatisieren, AI Agents in der Praxis</p>
+                    </div>
+                    <div class="module-duration">5 Lektionen</div>
+                </div>
+                <div class="module-item">
+                    <div class="module-number">05</div>
+                    <div class="module-content">
+                        <h3>Scale — Von EUR 3K auf EUR 10K+/Monat</h3>
+                        <p>Pricing erhöhen, Team aufbauen, Multiple Revenue Streams</p>
+                    </div>
+                    <div class="module-duration">3 Lektionen</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRICING ═══ -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">💎 Wähle deinen Plan</h2>
+            <p class="section-subtitle">Investiere in deine Zukunft. Verdiene das 10-40x zurück.</p>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Starter</div>
+                    <div class="pricing-desc">Für den Einstieg in AI Business</div>
+                    <div class="pricing-price"><span class="currency">EUR</span>97</div>
+                    <div class="pricing-period">Einmalige Zahlung</div>
+                    <ul class="pricing-features">
+                        <li>Alle 5 Kurs-Module</li>
+                        <li>20+ AI Prompt Vorlagen</li>
+                        <li>Tool-Setup Anleitungen</li>
+                        <li>Community Zugang</li>
+                        <li class="disabled">Live Q&A Sessions</li>
+                        <li class="disabled">1:1 Coaching Call</li>
+                        <li class="disabled">Done-For-You Templates</li>
+                    </ul>
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=97&item_name=AI%20Automation%20Masterclass%20-%20Starter"
+                        class="cta-btn" style="width: 100%; justify-content: center;">Jetzt starten →</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-save">SPARE EUR 200</div>
+                    <div class="pricing-name">Professional</div>
+                    <div class="pricing-desc">Für schnelle Ergebnisse</div>
+                    <div class="pricing-price"><span class="currency">EUR</span>297</div>
+                    <div class="pricing-period">Einmalige Zahlung</div>
+                    <ul class="pricing-features">
+                        <li>Alles aus Starter</li>
+                        <li>Done-For-You Templates</li>
+                        <li>n8n Workflow Blueprints</li>
+                        <li>Wöchentliche Live Q&A</li>
+                        <li>Private Community Gruppe</li>
+                        <li>Bonus: €100/h Geldmaschine Guide</li>
+                        <li class="disabled">1:1 Coaching Call</li>
+                    </ul>
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=297&item_name=AI%20Automation%20Masterclass%20-%20Professional"
+                        class="cta-btn cta-btn-gold" style="width: 100%; justify-content: center;">🔥 Bestseller wählen
+                        →</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-name">VIP</div>
+                    <div class="pricing-desc">Für maximale Geschwindigkeit</div>
+                    <div class="pricing-price"><span class="currency">EUR</span>997</div>
+                    <div class="pricing-period">Einmalige Zahlung</div>
+                    <ul class="pricing-features">
+                        <li>Alles aus Professional</li>
+                        <li>3x 1:1 Coaching Calls (60min)</li>
+                        <li>Persönlicher AI Business Plan</li>
+                        <li>Priority Support (WhatsApp)</li>
+                        <li>Fertige Client Acquisition Funnels</li>
+                        <li>Lebenslanger Zugang + Updates</li>
+                        <li>Revenue Guarantee: EUR 5K in 90 Tagen</li>
+                    </ul>
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=997&item_name=AI%20Automation%20Masterclass%20-%20VIP"
+                        class="cta-btn" style="width: 100%; justify-content: center;">VIP Zugang sichern →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SOCIAL PROOF ═══ -->
+    <section class="proof-section">
+        <div class="container">
+            <h2 class="section-title">⭐ Was Teilnehmer sagen</h2>
+            <p class="section-subtitle">Echte Ergebnisse von echten Menschen.</p>
+
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Nach 2 Wochen hatte ich meinen ersten Client für EUR 500. Nach 2
+                        Monaten war ich bei EUR 4.000/Monat. Maurice's System funktioniert."</p>
+                    <div class="testimonial-author">Thomas K.</div>
+                    <div class="testimonial-role">AI Consultant, Frankfurt</div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Ich hatte null technische Erfahrung. Die Step-by-Step Anleitungen waren
+                        so klar, dass ich innerhalb von 3 Tagen meinen ersten AI Service anbieten konnte."</p>
+                    <div class="testimonial-author">Lisa M.</div>
+                    <div class="testimonial-role">Freelancerin, Berlin</div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Die n8n Automation Blueprints alleine sind EUR 297 wert. Damit spare
+                        ich 20 Stunden pro Woche und meine Clients lieben die Ergebnisse."</p>
+                    <div class="testimonial-author">Markus R.</div>
+                    <div class="testimonial-role">Marketing Agency, München</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ GUARANTEE ═══ -->
+    <section>
+        <div class="container">
+            <div class="guarantee-box">
+                <div class="guarantee-icon">🛡️</div>
+                <h3>30 Tage Geld-zurück-Garantie</h3>
+                <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">Wenn du nach 30 Tagen nicht
+                    mindestens EUR 500 mit dem System verdient hast, bekommst du dein Geld zurück. Kein Risiko, keine
+                    Fragen.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FINAL CTA ═══ -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="urgency-bar">⏰ Preis steigt am 01.03.2026 — Jetzt zum Launch-Preis sichern!</div>
+            <h2 class="section-title">Bereit für EUR 100+/Stunde?</h2>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 30px; font-size: 1.15rem;">Die
+                AI-Revolution wartet nicht. Jeder Tag den du wartest, ist ein Tag den deine Konkurrenz nutzt.</p>
+            <a href="#pricing" class="cta-btn cta-btn-gold" style="font-size: 1.3rem; padding: 22px 50px;">🚀 Jetzt
+                starten — ab EUR 97</a>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+        <div class="container">
+            <p>© 2026 AI Empire by Maurice Pfeifer | <a href="mailto:pfeifer@ing-pfeifer.de">Kontakt</a> | <a
+                    href="#">Impressum</a> | <a href="#">Datenschutz</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Particle animation
+        const particlesEl = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 15 + 's';
+            p.style.animationDuration = (10 + Math.random() * 20) + 's';
+            p.style.width = (2 + Math.random() * 4) + 'px';
+            p.style.height = p.style.width;
+            particlesEl.appendChild(p);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.problem-card, .solution-card, .money-card, .module-item, .pricing-card, .testimonial').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

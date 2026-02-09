@@ -80,6 +80,79 @@ services:
     networks:
       - empire-net
     command: python3 agents/research_agent.py
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # 🔍 QA AGENT (Cross-Model Validation)
+  qa-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-agent-qa
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 agents/qa_agent.py
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # 📊 MONITOR AGENT (System Wächter)
+  monitor-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-agent-monitor
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - REDIS_HOST=redis
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_USER_ID=${TELEGRAM_USER_ID}
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 agents/monitor_agent.py
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # 💳 STRIPE WEBHOOK SERVER
+  stripe-webhook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: empire-stripe
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_USER_ID=${TELEGRAM_USER_ID}
+    depends_on:
+      - redis
+    networks:
+      - empire-net
+    command: python3 stripe_webhook_server.py
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   # 🕸️ AUTOMATION (Workflows)
   n8n:

@@ -30,7 +30,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [EMPIRE_BRAIN] %(mes
 logger = logging.getLogger("EmpireBrain")
 
 # Kimi API Key for "Thinking" about the data
-KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "sk-e57Q5aDfcpXpHkYfgeWCU3xjuqf2ZPoYxhuRH0kEZXGBeoMF")
+KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "")
 
 @dataclass
 class TrendSignal:

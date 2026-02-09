@@ -16,23 +16,21 @@ Architecture:
 
 import asyncio
 import aiohttp
-import json
 import os
 import logging
-from typing import Dict, List, Optional, Any
-from dataclasses import dataclass, field
-from datetime import datetime
-from enum import Enum
-import random
 import time
+from typing import Dict, List, Optional, Any, Union
+from dataclasses import dataclass, field
+from enum import Enum
 
 # ─── OFFLINE MODE: Use local Ollama instead of Kimi cloud ───
 OFFLINE_MODE = os.getenv("OFFLINE_MODE", "true").lower() == "true"
 
 try:
-    from ollama_engine import OllamaEngine
+    from ollama_engine import OllamaEngine, LLMResponse
 except ImportError:
     OllamaEngine = None
+    LLMResponse = None
 
 try:
     from agent_manager import AgentManager
@@ -42,7 +40,7 @@ except ImportError:
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
-KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "sk-e57Q5aDfcpXpHkYfgeWCU3xjuqf2ZPoYxhuRH0kEZXGBeoMF")
+KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "")
 KIMI_BASE_URL = "https://api.moonshot.ai/v1"
 
 
@@ -51,7 +49,7 @@ class AgentType(Enum):
     CONTENT = "content"
     LEAD = "lead"
     SUPPORT = "support"
-    SUPPORT = "support"
+
     OPTIMIZATION = "optimization"
     ARBITRAGE = "arbitrage"
 
@@ -97,21 +95,24 @@ class PARL8Brain:
     """
     
     def __init__(self):
-        self.cells = {cell: {"active": True, "decisions": 0} for cell in BrainCell}
-    
+        self.cells: Dict[str, Dict[str, Any]] = {
+            cell.value: {"active": True, "decisions": 0} for cell in BrainCell
+        }
+
     async def parallel_decision(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """8 Brain-Zellen entscheiden parallel"""
-        decisions = {}
-        
+        decisions: Dict[str, Any] = {}
+
         # CEO: Strategic direction
         decisions["strategic"] = await self._ceo_decide(context)
-        
+
         # RISK: Assess risks
-        decisions["risk_level"] = await self._risk_assess(context)
-        
+        risk_level: int = await self._risk_assess(context)
+        decisions["risk_level"] = risk_level
+
         # FEAR: Filter anxiety
-        decisions["proceed"] = decisions["risk_level"] < 70
-        
+        decisions["proceed"] = risk_level < 70
+
         # DRIVE: Motivation
         decisions["urgency"] = min(100, context.get("base_urgency", 50) + 20)
         
@@ -161,6 +162,9 @@ class KimiSwarmEngine:
     
     async def execute_task(self, task: AgentTask) -> AgentTask:
         """Execute single task with rate limiting"""
+        if not self.session:
+            await self.init()
+        assert self.session is not None
         async with self.semaphore:
             try:
                 async with self.session.post(
@@ -172,7 +176,7 @@ class KimiSwarmEngine:
                     json={
                         "model": "moonshot-v1-8k",
                         "messages": [{"role": "user", "content": task.prompt}],
-                        "temperature": 0.7,
+                        "temperature": 1.0,
                         "max_tokens": 500
                     }
                 ) as resp:
@@ -198,7 +202,48 @@ class KimiSwarmEngine:
         """Execute batch of tasks in parallel"""
         self.stats.total_tasks += len(tasks)
         results = await asyncio.gather(*[self.execute_task(t) for t in tasks])
-        return results
+        return list(results)
+
+
+class LocalSwarmEngine:
+    """Ollama backend for Empire Orchestrator"""
+    def __init__(self, ollama_engine, max_concurrent=2):
+        self.ollama = ollama_engine
+        self.stats = EmpireStats()
+        self.semaphore = asyncio.Semaphore(max_concurrent)
+
+    async def init(self):
+        await self.ollama.health()
+
+    async def close(self):
+        pass
+
+    async def execute_task(self, task: AgentTask) -> AgentTask:
+        async with self.semaphore:
+            try:
+                resp = await self.ollama.chat([
+                    {"role": "user", "content": task.prompt}
+                ])
+                if isinstance(resp, LLMResponse):
+                    task.result = resp.content
+                    task.tokens_used = resp.total_tokens or 0
+                    task.status = "completed"
+                    self.stats.completed_tasks += 1
+                    self.stats.total_tokens += task.tokens_used
+                else:
+                    task.status = "failed"
+                    self.stats.failed_tasks += 1
+            except Exception as e:
+                logger.error(f"❌ LocalSwarm Task Failed: {e}")
+                task.status = "failed"
+                task.result = str(e)
+                self.stats.failed_tasks += 1
+        return task
+
+    async def execute_batch(self, tasks: List[AgentTask]) -> List[AgentTask]:
+        self.stats.total_tasks += len(tasks)
+        results = await asyncio.gather(*[self.execute_task(t) for t in tasks])
+        return list(results)
 
 
 class EmpireOrchestrator:
@@ -215,8 +260,9 @@ class EmpireOrchestrator:
     
     def __init__(self):
         self.brain = PARL8Brain()
-        self.swarm = KimiSwarmEngine(max_concurrent=50)
-        self.ollama = None  # Local engine (free, offline)
+        # Default to Kimi but will switch if offline
+        self.swarm: Union[KimiSwarmEngine, LocalSwarmEngine] = KimiSwarmEngine(max_concurrent=50)
+        self.ollama: Optional[Any] = None  # OllamaEngine if available
         self.agent_manager = AgentManager() if AgentManager else None
         self.agent_distribution = {
             AgentType.SALES: 0.30,
@@ -231,8 +277,11 @@ class EmpireOrchestrator:
     async def init(self):
         if OFFLINE_MODE and OllamaEngine:
             logger.info("🧠 OFFLINE MODE: Using local Ollama (FREE)")
-            self.ollama = OllamaEngine(max_concurrent=4)
-            await self.ollama.init()
+            self.ollama = OllamaEngine(model="deepseek-r1:8b")
+            await self.ollama.health()
+            # Switch swarm engine
+            self.swarm = LocalSwarmEngine(self.ollama, max_concurrent=2)
+            await self.swarm.init()
         else:
             logger.info("☁️ CLOUD MODE: Using Kimi API")
             await self.swarm.init()
@@ -245,34 +294,44 @@ class EmpireOrchestrator:
         """Handle incoming voice commands (from iPhone)"""
         text = message.get("transcribed_text", "")
         logger.info(f"🎤 RECEIVED VOICE COMMAND: '{text}'")
-        
+
         # Simple keyword based routing for now (LLM routing later)
         if "tiktok" in text.lower():
             task = AgentTask(
                 task_id=f"tiktok-{int(time.time())}",
-                agent_type=AgentType.CONTENT, # Or TikTok Logic
+                agent_type=AgentType.CONTENT,
                 prompt=f"Create TikTok based on: {text}"
             )
-            self.dispatch_task(task, "content") # Dispatch to content agent
-            
-            # Also trigger TikTok specific agent if needed
+            self.dispatch_task(task, "content")
+
             tiktok_task = AgentTask(
                 task_id=f"tiktok-specific-{int(time.time())}",
                 agent_type=AgentType.ARBITRAGE,
                 prompt=text
             )
-            # We need to serialize tasks for Redis
-            self.bus.publish("tasks/tiktok", {"prompt": text, "task_id": tiktok_task.task_id})
-            
+            self.dispatch_task(tiktok_task, "tiktok")
+
         elif "sales" in text.lower() or "mail" in text.lower():
-            self.bus.publish("tasks/sales", {"prompt": text, "task_id": f"sales-{int(time.time())}"})
-            
+            self.dispatch_task(AgentTask(
+                task_id=f"sales-{int(time.time())}",
+                agent_type=AgentType.SALES,
+                prompt=text
+            ), "sales")
+
         elif "research" in text.lower() or "trend" in text.lower():
-            self.bus.publish("tasks/research", {"prompt": text, "task_id": f"research-{int(time.time())}"})
-            
+            self.dispatch_task(AgentTask(
+                task_id=f"research-{int(time.time())}",
+                agent_type=AgentType.LEAD,
+                prompt=text
+            ), "research")
+
         else:
             logger.info("🤔 Unknown command type, defaulting to General Content")
-            self.bus.publish("tasks/content", {"prompt": text, "task_id": f"gen-content-{int(time.time())}"})
+            self.dispatch_task(AgentTask(
+                task_id=f"gen-content-{int(time.time())}",
+                agent_type=AgentType.CONTENT,
+                prompt=text
+            ), "content")
 
     def handle_task_completion(self, message: Dict[str, Any]):
         """Handle completed tasks from agents"""
@@ -406,13 +465,31 @@ async def main():
     
     # Small test run
 
-    # Initialize Redis Bus
-    from redis_bus import RedisBus
-    bus = RedisBus()
-    if bus.connect():
-        empire.bus = bus
-    else:
-        logger.warning("⚠️ Running without Redis (Simulation Mode)")
+    # Initialize Redis Bus (with LocalMemoryBus fallback)
+    try:
+        from redis_bus import RedisBus, LocalMemoryBus
+        bus = RedisBus()
+        if bus.connect():
+            empire.bus = bus
+            logger.info("✅ Redis connected")
+        else:
+            logger.warning("⚠️ Redis unavailable — using LocalMemoryBus")
+            local_bus = LocalMemoryBus()
+            local_bus.connect()
+            empire.bus = local_bus
+    except ImportError:
+        logger.warning("⚠️ redis_bus not available, running without message bus")
+
+    # Initialize Stripe Manager (optional)
+    try:
+        from stripe_manager import StripeManager
+        stripe_mgr = StripeManager()
+        if empire.bus:
+            stripe_mgr.bus = empire.bus
+        logger.info(f"💳 Stripe: {'LIVE' if stripe_mgr.live else 'SIMULATION'} mode")
+        logger.info(f"💰 Revenue so far: €{stripe_mgr.stats.total_eur():.2f}")
+    except ImportError:
+        logger.info("ℹ️ Stripe not configured (optional)")
 
     # Run Empire
     await empire.run_empire(waves=3, tasks_per_wave=50)

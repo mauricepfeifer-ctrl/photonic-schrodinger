@@ -26,8 +26,8 @@ echo ""
 
 # Check for Kimi API Key
 if [ -z "$MOONSHOT_API_KEY" ]; then
-    echo "⚠️  MOONSHOT_API_KEY not set, loading from .zshrc..."
-    export MOONSHOT_API_KEY="sk-e57Q5aDfcpXpHkYfgeWCU3xjuqf2ZPoYxhuRH0kEZXGBeoMF"
+    echo "⚠️  MOONSHOT_API_KEY not set. Export it or add to .env"
+    echo "   Running in OFFLINE mode (Ollama only)"
 fi
 
 echo "✅ Kimi API Key: ${MOONSHOT_API_KEY:0:10}..."

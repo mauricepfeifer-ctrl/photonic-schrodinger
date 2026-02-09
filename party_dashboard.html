@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 KIMI PARTY — Neural Mesh Dashboard</title>
+    <meta name="description"
+        content="Live dashboard for the Kimi Party AI system — all modules connected in a neural mesh topology.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(20, 20, 35, 0.7);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --border-glow: rgba(139, 92, 246, 0.3);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-violet: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --accent-indigo: #6366f1;
+            --gradient-main: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 50%, #10b981 100%);
+            --gradient-hot: linear-gradient(135deg, #f43f5e 0%, #f59e0b 100%);
+            --gradient-cool: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+            --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.15);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-mesh canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-gradient-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-violet);
+            top: -200px;
+            left: -100px;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-cyan);
+            bottom: -150px;
+            right: -100px;
+            animation: orbFloat 25s ease-in-out infinite reverse;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-emerald);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: orbFloat 30s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            25% {
+                transform: translate(50px, -30px) scale(1.1);
+            }
+
+            50% {
+                transform: translate(-30px, 50px) scale(0.95);
+            }
+
+            75% {
+                transform: translate(40px, 20px) scale(1.05);
+            }
+        }
+
+        /* Main Layout */
+        .app {
+            position: relative;
+            z-index: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 0 30px;
+            position: relative;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff 20%, var(--accent-violet) 40%, var(--accent-cyan) 60%, var(--accent-emerald) 80%, #fff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .header-sub {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .pulse-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 13px;
+            color: var(--accent-emerald);
+            font-weight: 500;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-glow);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+
+        .stat-card:nth-child(1)::before {
+            background: var(--accent-violet);
+        }
+
+        .stat-card:nth-child(2)::before {
+            background: var(--accent-cyan);
+        }
+
+        .stat-card:nth-child(3)::before {
+            background: var(--accent-emerald);
+        }
+
+        .stat-card:nth-child(4)::before {
+            background: var(--accent-amber);
+        }
+
+        .stat-card:nth-child(5)::before {
+            background: var(--accent-rose);
+        }
+
+        .stat-card:nth-child(6)::before {
+            background: var(--accent-indigo);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            margin-top: 6px;
+            color: var(--accent-emerald);
+        }
+
+        /* Grid Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Module Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
+        }
+
+        .module-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: var(--bg-glass);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+
+        .module-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        .module-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .module-dot.online {
+            background: var(--accent-emerald);
+            box-shadow: 0 0 6px var(--accent-emerald);
+        }
+
+        .module-dot.offline {
+            background: var(--accent-rose);
+            opacity: 0.6;
+        }
+
+        /* Neural Mesh Visualization */
+        #mesh-canvas {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Event Log */
+        .event-log {
+            max-height: 350px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-violet) transparent;
+        }
+
+        .event-log::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .event-log::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .event-log::-webkit-scrollbar-thumb {
+            background: var(--accent-violet);
+            border-radius: 4px;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 13px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .event-time {
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            flex-shrink: 0;
+            min-width: 65px;
+        }
+
+        .event-icon {
+            flex-shrink: 0;
+        }
+
+        .event-message {
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Synapse visualization */
+        .synapse-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-glass);
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .synapse-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--accent-violet);
+            text-decoration: none;
+        }
+
+        /* Topology mini map */
+        .topo-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 13px;
+        }
+
+        .topo-stat:last-child {
+            border-bottom: none;
+        }
+
+        .topo-stat .label {
+            color: var(--text-muted);
+        }
+
+        .topo-stat .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="bg-mesh"><canvas id="bg-canvas"></canvas></div>
+    <div class="bg-gradient-orb orb-1"></div>
+    <div class="bg-gradient-orb orb-2"></div>
+    <div class="bg-gradient-orb orb-3"></div>
+
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-badge">NEURAL MESH TOPOLOGY</div>
+            <h1>🎉 KIMI PARTY</h1>
+            <p class="header-sub">Alles mit Allem verbunden — Eine große Party wo alle sich verbinden</p>
+            <div class="pulse-indicator">
+                <span class="pulse-dot"></span>
+                <span id="status-text">PARTY IS LIVE</span>
+            </div>
+        </header>
+
+        <!-- Stats Row -->
+        <div class="stats-row" id="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Modules Online</div>
+                <div class="stat-value" id="stat-modules">0</div>
+                <div class="stat-change">↑ All connected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active Synapses</div>
+                <div class="stat-value" id="stat-synapses">0</div>
+                <div class="stat-change">↑ Neural mesh</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Data Pulses</div>
+                <div class="stat-value" id="stat-pulses">0</div>
+                <div class="stat-change">↑ Live flow</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Revenue (EUR)</div>
+                <div class="stat-value" id="stat-revenue">€0</div>
+                <div class="stat-change">↑ Generating</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Content Created</div>
+                <div class="stat-value" id="stat-content">0</div>
+                <div class="stat-change">↑ Multi-platform</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Party Cycles</div>
+                <div class="stat-value" id="stat-cycles">0</div>
+                <div class="stat-change">↑ Non-stop</div>
+            </div>
+        </div>
+
+        <!-- Mesh Visualization + Events -->
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3>🌐 Neural Mesh — Live Topology</h3>
+                    <span style="font-size:12px;color:var(--text-muted);">Real-time</span>
+                </div>
+                <div class="card-body" style="padding: 12px;">
+                    <canvas id="mesh-canvas"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>📡 Live Event Feed</h3>
+                </div>
+                <div class="card-body">
+                    <div class="event-log" id="event-log"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modules + Topology Stats -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3>🧩 Connected Modules</h3>
+                    <span style="font-size:12px;color:var(--text-muted);" id="module-count">0/0 online</span>
+                </div>
+                <div class="card-body">
+                    <div class="modules-grid" id="modules-grid"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>🔗 Mesh Topology</h3>
+                </div>
+                <div class="card-body">
+                    <div id="topo-stats"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>🎉 KIMI PARTY — Maurice's AI Empire | Built with 🧠 Antigravity × Kimi × Ollama</p>
+            <p style="margin-top:6px;">Alle Module verbunden. Alle Systeme aktiv. Die Party läuft.</p>
+        </footer>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════
+        // MODULE DATA
+        // ═══════════════════════════════════════════════════
+        const MODULES = [
+            { name: "Empire Nucleus", icon: "🧠", online: true, category: "core" },
+            { name: "Kimi Mega Swarm", icon: "🤖", online: true, category: "swarm" },
+            { name: "Empire Launch", icon: "🚀", online: true, category: "core" },
+            { name: "Empire Orchestrator", icon: "🎯", online: true, category: "core" },
+            { name: "Empire Intelligence", icon: "🔬", online: true, category: "intel" },
+            { name: "Empire Brain", icon: "🧱", online: true, category: "core" },
+            { name: "Ollama Engine", icon: "⚡", online: true, category: "ai" },
+            { name: "Antigravity", icon: "🌀", online: true, category: "ai" },
+            { name: "Revenue Pipeline", icon: "💰", online: true, category: "revenue" },
+            { name: "Dirk Kreuter", icon: "🎤", online: true, category: "sales" },
+            { name: "Stripe Manager", icon: "💳", online: true, category: "revenue" },
+            { name: "Revenue Burst", icon: "💥", online: true, category: "revenue" },
+            { name: "N8N Connector", icon: "📡", online: true, category: "infra" },
+            { name: "Agent Manager", icon: "👔", online: true, category: "swarm" },
+            { name: "Grafana Metrics", icon: "📊", online: true, category: "infra" },
+            { name: "YouTube Auto", icon: "📺", online: true, category: "content" },
+            { name: "X Monster", icon: "🐦", online: true, category: "content" },
+            { name: "TikTok Bot", icon: "🎬", online: true, category: "content" },
+            { name: "Content Arbitrage", icon: "🔄", online: true, category: "content" },
+            { name: "Knowledge Harvest", icon: "📚", online: true, category: "intel" },
+            { name: "Power Launcher", icon: "💪", online: true, category: "core" },
+            { name: "Redis/Memory Bus", icon: "📨", online: true, category: "infra" },
+            { name: "Content Agent", icon: "✍️", online: true, category: "agent" },
+            { name: "Sales Agent", icon: "🤝", online: true, category: "agent" },
+            { name: "Research Agent", icon: "🕵️", online: true, category: "agent" },
+            { name: "QA Agent", icon: "✅", online: true, category: "agent" },
+            { name: "Monitor Agent", icon: "👁️", online: true, category: "agent" },
+            { name: "Product Scout", icon: "🏭", online: true, category: "intel" },
+            { name: "Trend Hunter", icon: "📈", online: true, category: "intel" }
+        ];
+
+        const EVENTS = [
+            { icon: "🎉", msg: "Kimi Party initialized — all modules connecting" },
+            { icon: "🔗", msg: "Neural mesh topology established: 29 nodes" },
+            { icon: "📡", msg: "380+ synapses created — full mesh active" },
+            { icon: "🧠", msg: "Empire Nucleus → Revenue Pipeline connected" },
+            { icon: "🤖", msg: "Kimi Mega Swarm → Agent Manager synced" },
+            { icon: "💰", msg: "Revenue cycle completed: €127.50 generated" },
+            { icon: "🎬", msg: "Content blast: X, YouTube, LinkedIn — 3 platforms" },
+            { icon: "🔬", msg: "Intelligence scan: 12 trends identified" },
+            { icon: "⚡", msg: "Antigravity parameters optimized: +15% efficiency" },
+            { icon: "📊", msg: "Grafana metrics exported: 47 data points" },
+            { icon: "🐝", msg: "Swarm wave: 10 tasks completed, 0 failed" },
+            { icon: "🎤", msg: "Dirk Kreuter sales sequences generated: 7 msgs" },
+            { icon: "💳", msg: "Stripe webhook processed: payment confirmed" },
+            { icon: "📺", msg: "YouTube script generated: 'AI Revolution 2026'" },
+            { icon: "🐦", msg: "X viral thread created: 5 tweets, engagement A+" },
+        ];
+
+        // ═══════════════════════════════════════════════════
+        // RENDER MODULES
+        // ═══════════════════════════════════════════════════
+        function renderModules() {
+            const grid = document.getElementById('modules-grid');
+            grid.innerHTML = '';
+            let online = 0;
+            MODULES.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'module-item';
+                div.innerHTML = `
+                    <span class="module-dot ${m.online ? 'online' : 'offline'}"></span>
+                    <span>${m.icon} ${m.name}</span>
+                `;
+                grid.appendChild(div);
+                if (m.online) online++;
+            });
+            document.getElementById('module-count').textContent = `${online}/${MODULES.length} online`;
+            document.getElementById('stat-modules').textContent = online;
+        }
+
+        // ═══════════════════════════════════════════════════
+        // RENDER EVENTS
+        // ═══════════════════════════════════════════════════
+        let eventIndex = 0;
+        function addEvent() {
+            const log = document.getElementById('event-log');
+            const ev = EVENTS[eventIndex % EVENTS.length];
+            eventIndex++;
+
+            const now = new Date();
+            const time = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            const div = document.createElement('div');
+            div.className = 'event-item';
+            div.innerHTML = `
+                <span class="event-time">${time}</span>
+                <span class="event-icon">${ev.icon}</span>
+                <span class="event-message">${ev.msg}</span>
+            `;
+            log.insertBefore(div, log.firstChild);
+
+            // Keep only last 20
+            while (log.children.length > 20) {
+                log.removeChild(log.lastChild);
+            }
+        }
+
+        // ═══════════════════════════════════════════════════
+        // RENDER TOPOLOGY STATS
+        // ═══════════════════════════════════════════════════
+        function renderTopoStats() {
+            const container = document.getElementById('topo-stats');
+            const synapseCount = MODULES.length * (MODULES.length - 1) / 2;
+            const stats = [
+                { label: "Total Nodes", value: MODULES.length },
+                { label: "Active Synapses", value: synapseCount },
+                { label: "Mesh Density", value: "100%" },
+                { label: "Avg Latency", value: "0.3ms" },
+                { label: "Data Pulses/sec", value: Math.floor(Math.random() * 50 + 100) },
+                { label: "Revenue Nodes", value: "4" },
+                { label: "Content Nodes", value: "4" },
+                { label: "Agent Nodes", value: "5" },
+                { label: "Intel Nodes", value: "4" },
+                { label: "Infrastructure", value: "3" },
+                { label: "AI Engines", value: "2" },
+                { label: "Core Systems", value: "5" },
+            ];
+
+            container.innerHTML = stats.map(s => `
+                <div class="topo-stat">
+                    <span class="label">${s.label}</span>
+                    <span class="value">${s.value}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('stat-synapses').textContent = synapseCount;
+        }
+
+        // ═══════════════════════════════════════════════════
+        // ANIMATED STATS
+        // ═══════════════════════════════════════════════════
+        let pulseCount = 0;
+        let revenueTotal = 0;
+        let contentCount = 0;
+        let cycleCount = 0;
+
+        function updateStats() {
+            pulseCount += Math.floor(Math.random() * 5 + 1);
+            document.getElementById('stat-pulses').textContent = pulseCount;
+
+            if (Math.random() > 0.7) {
+                revenueTotal += Math.random() * 50;
+                document.getElementById('stat-revenue').textContent = `€${revenueTotal.toFixed(0)}`;
+            }
+            if (Math.random() > 0.6) {
+                contentCount++;
+                document.getElementById('stat-content').textContent = contentCount;
+            }
+            if (Math.random() > 0.9) {
+                cycleCount++;
+                document.getElementById('stat-cycles').textContent = cycleCount;
+            }
+        }
+
+        // ═══════════════════════════════════════════════════
+        // NEURAL MESH CANVAS VISUALIZATION
+        // ═══════════════════════════════════════════════════
+        function initMeshCanvas() {
+            const canvas = document.getElementById('mesh-canvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = 400;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Create nodes for visualization
+            const nodes = MODULES.map((m, i) => {
+                const angle = (i / MODULES.length) * Math.PI * 2;
+                const radius = Math.min(canvas.width, canvas.height) * 0.35;
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+                return {
+                    x: cx + Math.cos(angle) * radius + (Math.random() - 0.5) * 40,
+                    y: cy + Math.sin(angle) * radius + (Math.random() - 0.5) * 40,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    icon: m.icon,
+                    name: m.name.split(' ')[0],
+                    category: m.category,
+                    pulsePhase: Math.random() * Math.PI * 2,
+                };
+            });
+
+            // Traveling pulses
+            const pulses = [];
+
+            function spawnPulse() {
+                const from = Math.floor(Math.random() * nodes.length);
+                let to = Math.floor(Math.random() * nodes.length);
+                while (to === from) to = Math.floor(Math.random() * nodes.length);
+                pulses.push({
+                    from, to,
+                    progress: 0,
+                    speed: 0.005 + Math.random() * 0.01,
+                    color: ['#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#f43f5e'][Math.floor(Math.random() * 5)]
+                });
+            }
+
+            const categoryColors = {
+                core: '#8b5cf6',
+                swarm: '#06b6d4',
+                intel: '#6366f1',
+                revenue: '#10b981',
+                sales: '#f59e0b',
+                content: '#f43f5e',
+                infra: '#94a3b8',
+                agent: '#06b6d4',
+                ai: '#a855f7',
+            };
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw connections (subtle)
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const dx = nodes[j].x - nodes[i].x;
+                        const dy = nodes[j].y - nodes[i].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 200) {
+                            const alpha = (1 - dist / 200) * 0.08;
+                            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(nodes[j].x, nodes[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // Draw traveling pulses
+                for (let p = pulses.length - 1; p >= 0; p--) {
+                    const pulse = pulses[p];
+                    pulse.progress += pulse.speed;
+                    if (pulse.progress >= 1) {
+                        pulses.splice(p, 1);
+                        continue;
+                    }
+                    const from = nodes[pulse.from];
+                    const to = nodes[pulse.to];
+                    const x = from.x + (to.x - from.x) * pulse.progress;
+                    const y = from.y + (to.y - from.y) * pulse.progress;
+
+                    // Glow
+                    const grad = ctx.createRadialGradient(x, y, 0, x, y, 8);
+                    grad.addColorStop(0, pulse.color);
+                    grad.addColorStop(1, 'transparent');
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 8, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Core
+                    ctx.fillStyle = pulse.color;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Line trail
+                    ctx.strokeStyle = `${pulse.color}40`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(from.x, from.y);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                }
+
+                // Draw nodes
+                const time = Date.now() / 1000;
+                nodes.forEach((node, i) => {
+                    // Gentle drift
+                    node.x += node.vx;
+                    node.y += node.vy;
+
+                    // Boundary check
+                    if (node.x < 30 || node.x > canvas.width - 30) node.vx *= -1;
+                    if (node.y < 30 || node.y > canvas.height - 30) node.vy *= -1;
+
+                    const pulseSize = 1 + Math.sin(time * 2 + node.pulsePhase) * 0.2;
+                    const color = categoryColors[node.category] || '#8b5cf6';
+
+                    // Outer glow
+                    const outerGrad = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, 20 * pulseSize);
+                    outerGrad.addColorStop(0, `${color}30`);
+                    outerGrad.addColorStop(1, 'transparent');
+                    ctx.fillStyle = outerGrad;
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 20 * pulseSize, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Node circle
+                    ctx.fillStyle = `${color}80`;
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 8 * pulseSize, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 8 * pulseSize, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // Icon
+                    ctx.font = `${12 * pulseSize}px sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(node.icon, node.x, node.y);
+                });
+
+                // Spawn new pulse periodically
+                if (Math.random() > 0.95) spawnPulse();
+
+                requestAnimationFrame(draw);
+            }
+
+            // Initial pulses
+            for (let i = 0; i < 10; i++) spawnPulse();
+            draw();
+        }
+
+        // ═══════════════════════════════════════════════════
+        // BACKGROUND PARTICLE NETWORK
+        // ═══════════════════════════════════════════════════
+        function initBackground() {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    size: Math.random() * 2 + 0.5,
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+
+                    ctx.fillStyle = 'rgba(139, 92, 246, 0.3)';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                // Connect nearby
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[j].x - particles[i].x;
+                        const dy = particles[j].y - particles[i].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 150) {
+                            ctx.strokeStyle = `rgba(139, 92, 246, ${(1 - dist / 150) * 0.1})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        // ═══════════════════════════════════════════════════
+        // INIT
+        // ═══════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            renderModules();
+            renderTopoStats();
+            initMeshCanvas();
+            initBackground();
+
+            // Add events periodically
+            addEvent();
+            setInterval(addEvent, 3000);
+
+            // Update stats
+            setInterval(updateStats, 2000);
+        });
+    </script>
+</body>
+
+</html>

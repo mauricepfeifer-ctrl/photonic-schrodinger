@@ -61,7 +61,7 @@ class LocalMemoryBus:
         time.sleep(0.1)
 
 class RedisBus:
-    def __init__(self, host="redis", port=6379, db=0):
+    def __init__(self, host="localhost", port=6379, db=0):
         self.host = os.getenv("REDIS_HOST", host)
         self.port = int(os.getenv("REDIS_PORT", port))
         self.db = int(os.getenv("REDIS_DB", db))

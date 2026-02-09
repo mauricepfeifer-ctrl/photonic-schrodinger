@@ -1,0 +1,215 @@
+{
+  "timestamp": "2026-02-09T23:25:29.464552",
+  "total_missions": 15,
+  "successful": 15,
+  "failed": 0,
+  "duration_seconds": 1.6768519878387451,
+  "total_revenue_estimate": 29934.973715029675,
+  "ai_cost": 0.0,
+  "units": {
+    "sniper": {
+      "missions": 3,
+      "revenue": 3382.539099222019,
+      "agents": [
+        {
+          "callsign": "Hawkeye",
+          "missions_completed": 2,
+          "revenue": 2860.444891886418,
+          "kill_streak": 2
+        },
+        {
+          "callsign": "Deadshot",
+          "missions_completed": 1,
+          "revenue": 522.0942073356006,
+          "kill_streak": 1
+        },
+        {
+          "callsign": "Scope",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        },
+        {
+          "callsign": "Phantom",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        },
+        {
+          "callsign": "Bullseye",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        }
+      ]
+    },
+    "demo": {
+      "missions": 2,
+      "revenue": 4393.381645333158,
+      "agents": [
+        {
+          "callsign": "Hammer",
+          "missions_completed": 2,
+          "revenue": 4393.381645333158,
+          "kill_streak": 2
+        },
+        {
+          "callsign": "Crusher",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        },
+        {
+          "callsign": "Breaker",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        }
+      ]
+    },
+    "shield": {
+      "missions": 1,
+      "revenue": 3531.0224372886883,
+      "agents": [
+        {
+          "callsign": "Guardian",
+          "missions_completed": 1,
+          "revenue": 3531.0224372886883,
+          "kill_streak": 1
+        },
+        {
+          "callsign": "Sentinel",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        },
+        {
+          "callsign": "Aegis",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        }
+      ]
+    },
+    "recon": {
+      "missions": 2,
+      "revenue": 1986.23375045778,
+      "agents": [
+        {
+          "callsign": "Shadow",
+          "missions_completed": 2,
+          "revenue": 1986.23375045778,
+          "kill_streak": 2
+        },
+        {
+          "callsign": "Ghost",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        },
+        {
+          "callsign": "Spectre",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        }
+      ]
+    },
+    "striker": {
+      "missions": 2,
+      "revenue": 787.115947815329,
+      "agents": [
+        {
+          "callsign": "Lightning",
+          "missions_completed": 1,
+          "revenue": 563.8511352491871,
+          "kill_streak": 1
+        },
+        {
+          "callsign": "Flash",
+          "missions_completed": 1,
+          "revenue": 223.26481256614193,
+          "kill_streak": 1
+        },
+        {
+          "callsign": "Storm",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        },
+        {
+          "callsign": "Blaze",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        }
+      ]
+    },
+    "command": {
+      "missions": 1,
+      "revenue": 0.0,
+      "agents": [
+        {
+          "callsign": "Overlord",
+          "missions_completed": 1,
+          "revenue": 0.0,
+          "kill_streak": 1
+        },
+        {
+          "callsign": "Admiral",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        }
+      ]
+    },
+    "forge": {
+      "missions": 2,
+      "revenue": 10724.25306944247,
+      "agents": [
+        {
+          "callsign": "Blacksmith",
+          "missions_completed": 2,
+          "revenue": 10724.25306944247,
+          "kill_streak": 2
+        },
+        {
+          "callsign": "Architect",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        },
+        {
+          "callsign": "Mason",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        }
+      ]
+    },
+    "signal": {
+      "missions": 2,
+      "revenue": 5130.427765470227,
+      "agents": [
+        {
+          "callsign": "Dispatch",
+          "missions_completed": 2,
+          "revenue": 5130.427765470227,
+          "kill_streak": 2
+        },
+        {
+          "callsign": "Radio",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        },
+        {
+          "callsign": "Comms",
+          "missions_completed": 0,
+          "revenue": 0.0,
+          "kill_streak": 0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+    "venvPath": ".",
+    "venv": "venv",
+    "extraPaths": [
+        ".",
+        "agents",
+        "modules",
+        "blueprints"
+    ],
+    "exclude": [
+        "venv",
+        ".git",
+        "mega_swarm_output",
+        "__pycache__"
+    ],
+    "reportMissingImports": "warning",
+    "reportMissingModuleSource": "none",
+    "reportOptionalMemberAccess": "warning",
+    "reportGeneralTypeIssues": "warning",
+    "pythonVersion": "3.12",
+    "typeCheckingMode": "basic"
+}

@@ -1,0 +1,19 @@
+--- GIG DETAILS ---
+Title: Scrape emails from LinkedIn and enrich data
+Budget: $150
+Link: [Insert Link]
+-------------------
+
+Okay, here's a proposal draft focusing on TechFlow Inc.'s specific needs:
+
+**Hook:**
+Finding and verifying qualified leads on LinkedIn manually is time-consuming and prone to errors. Manually extracting emails is inefficient and often against LinkedIn's terms. Needing a reliable, automated way to scrape leads and export their emails (and potentially other data) efficiently?
+
+**Solution:**
+I can develop a targeted Python script using ethical scraping methods and LinkedIn's API (where applicable) to find and extract emails/leads. The script will efficiently gather data, handle potential blocks/errors, and export the results cleanly into a CSV file for easy integration into your workflow.
+
+**Proof/Authority:**
+My experience with Python automation and data handling ensures a robust and reliable solution tailored to your needs.
+
+**CTA:**
+Let's discuss your specific requirements (e.g., industries, seniority levels, target company size?) to finalize the script and get you valuable, actionable data quickly and within your $150 budget.
