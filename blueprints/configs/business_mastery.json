@@ -1,0 +1,311 @@
+{
+    "seo": {
+        "title": "Business Mastery System — Maurice Pfeifer | Von Ingenieur zum 7-stelligen Unternehmer",
+        "meta_description": "Das praxiserprobte System aus 15+ Jahren Engineering, Vertrieb & Geschäftsführung. Lerne die Methoden, die mich vom Angestellten zum Unternehmer mit 7-stelligem Umsatz gemacht haben. Keine Theorie — nur bewiesene Strategien.",
+        "lang": "de"
+    },
+    "brand": {
+        "name": "MP · BUSINESS MASTERY",
+        "accent_color": "#d97706",
+        "accent_light": "#f59e0b",
+        "secondary_glow": "#7c3aed",
+        "paypal_email": "mauricepfeifer@icloud.com",
+        "currency": "EUR",
+        "contact_email": "mauricepfeifer@icloud.com"
+    },
+    "nav": {
+        "cta_text": "Jetzt durchstarten",
+        "cta_anchor": "#programme"
+    },
+    "hero": {
+        "badge": "🚀 Vom Ingenieur zum 7-stelligen Unternehmer",
+        "headline_before": "Dein Business ",
+        "headline_highlight": "druckt kein Geld?",
+        "headline_after": "Ich zeige dir, wie meins es tut.",
+        "subtext": "15 Jahre Erfahrung als Ingenieur, Projektleiter und Gesellschafter — komprimiert in ein System, das jeden Monat 6-stellig generiert. Ohne Team. Ohne Investoren. Mit Methoden, die ich im echten Business gelernt habe — nicht aus Büchern.",
+        "cta_text": "Jetzt System freischalten →",
+        "cta_anchor": "#programme",
+        "stats": [
+            {
+                "number": "15+",
+                "label": "Jahre Business-Erfahrung"
+            },
+            {
+                "number": "€1.2M+",
+                "label": "Umsatz generiert"
+            },
+            {
+                "number": "200+",
+                "label": "Projekte geleitet"
+            }
+        ]
+    },
+    "pain": {
+        "title": "Erkennst du dich wieder?",
+        "subtitle": "Die Wahrheit, die dir kein Business-Coach sagt.",
+        "cards": [
+            {
+                "icon": "💀",
+                "title": "Du arbeitest IM Business statt AM Business",
+                "text": "60-Stunden-Wochen, aber der Kontostand wächst nicht. Du bist Selbstständig — selbst und ständig. Der Hamsterrad-Effekt killt dein Wachstum.",
+                "cost": "→ Kosten: Deine Lebenszeit — die du nie zurückbekommst"
+            },
+            {
+                "icon": "🎯",
+                "title": "Dein Vertrieb ist Hoffnungsmarketing",
+                "text": "Du postest auf Social Media und hoffst, dass jemand kauft. Keine Akquise-Strategie, kein Follow-up-System, keine Pipeline. Du verlierst jeden Tag 80% deiner potenziellen Kunden.",
+                "cost": "→ Kosten: €10.000+/Monat entgangener Umsatz"
+            },
+            {
+                "icon": "🤡",
+                "title": "Zu viel Wissen, null System",
+                "text": "Du hast 50 Online-Kurse gekauft, 100 YouTube-Videos geschaut, 20 Bücher gelesen — aber nichts davon systematisch umgesetzt. Information ohne Implementation = Zero.",
+                "cost": "→ Kosten: €5.000+ in Kursen die du nie angewendet hast"
+            }
+        ]
+    },
+    "solution_story": {
+        "title": "Mein Weg: Vom Ingenieur zum Unternehmer",
+        "chapters": [
+            {
+                "phase": "DER INGENIEUR",
+                "icon": "🔧",
+                "text": "Ich hab als Maschinenbauingenieur angefangen. Gelernt: Probleme systematisch zerlegen. Jedes Business-Problem ist ein Engineering-Problem — du brauchst einen Prozess, keine Motivation."
+            },
+            {
+                "phase": "DER PROJEKTLEITER",
+                "icon": "📋",
+                "text": "Als Projektleiter hab ich gelernt, wie man Millionen-Projekte steuert. Deadlines, Budgets, Teams. Das gleiche Framework nutze ich heute für mein Business — nur dass ich kein Team mehr brauche, weil AI das übernimmt."
+            },
+            {
+                "phase": "DER VERTRIEBLER",
+                "icon": "💰",
+                "text": "Im Vertrieb hab ich verstanden: Nichts passiert, bis jemand etwas verkauft. Verkaufen ist kein Talent — es ist ein System. Einwandbehandlung, Follow-up-Sequenzen, Abschluss-Trigger — alles lernbar, alles automatisierbar."
+            },
+            {
+                "phase": "DER GESELLSCHAFTER",
+                "icon": "🏢",
+                "text": "Als Gesellschafter denke ich in Cashflow, Margen und Skalierbarkeit. Nicht in Features. Das hat mir beigebracht: Ein Business, das kein Geld druckt, ist ein Hobby. Und Hobbys kosten Geld."
+            }
+        ]
+    },
+    "pricing": {
+        "section_title": "Wähle dein Level",
+        "section_subtitle": "Von der Strategie-Session bis zum kompletten Business-System. Jedes Programm basiert auf echten Ergebnissen, nicht auf Theorie.",
+        "anchor_id": "programme",
+        "tiers": [
+            {
+                "tier_label": "Kickstart",
+                "name": "Business Audit",
+                "description": "90 Minuten deep-dive in dein Business. Ich zeige dir exakt, wo du Geld liegen lässt.",
+                "price": 297,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Durchschnittlich €5.000+ sofort identifizierte Umsatz-Hebel",
+                "features": [
+                    "90-Minuten 1:1 Video-Call",
+                    "Analyse deiner Vertriebspipeline",
+                    "3 sofort umsetzbare Quick-Wins",
+                    "Pricing-Optimierung deiner Angebote",
+                    "Follow-up Action Plan (PDF)",
+                    "14 Tage E-Mail-Support"
+                ],
+                "cta_text": "Business Audit buchen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "Business Audit - 1:1 Session"
+            },
+            {
+                "tier_label": "Mastery",
+                "name": "Revenue Engine",
+                "description": "Das komplette System: Vertrieb + Automation + Skalierung. In 30 Tagen zum funktionierenden Business-System.",
+                "price": 1497,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Kunden verdienen im Schnitt €8.000+/Monat mehr nach 90 Tagen",
+                "features": [
+                    "Alles aus Business Audit",
+                    "Komplettes Vertriebs-System Setup",
+                    "AI-Automation deiner Kernprozesse",
+                    "Sales-Skripte & Einwandbehandlung",
+                    "Angebots- und Pricing-Framework",
+                    "Lead-Generierung auf Autopilot",
+                    "Wöchentliche Accountability-Calls (4 Wochen)",
+                    "Private Community-Zugang",
+                    "60 Tage Premium-Support"
+                ],
+                "cta_text": "Revenue Engine sichern →",
+                "cta_style": "primary",
+                "featured": true,
+                "featured_label": "🔥 MAXIMALER ROI",
+                "item_name": "Revenue Engine - Business Mastery"
+            },
+            {
+                "tier_label": "Empire",
+                "name": "Done-For-You",
+                "description": "Ich baue dein komplettes Business-System persönlich auf. Du lehnst dich zurück, ich liefere.",
+                "price": 4997,
+                "price_suffix": "einmalig",
+                "value_text": "↗ Komplett-System im Wert von €25.000+ — schlüsselfertig",
+                "features": [
+                    "Alles aus Revenue Engine",
+                    "Persönliches 1:1 Onboarding (3h)",
+                    "Komplettes Vertriebs-System (Done-for-you)",
+                    "Custom AI Agent Development",
+                    "Automatisierte Sales-Pipeline",
+                    "Content-Maschine auf Autopilot",
+                    "Unbegrenzte Optimierungs-Iterationen",
+                    "90 Tage VIP-Support (Priority)",
+                    "Monatliche Strategy-Reviews",
+                    "Lifetime Updates aller Systeme"
+                ],
+                "cta_text": "Empire aufbauen →",
+                "cta_style": "secondary",
+                "featured": false,
+                "item_name": "Done-For-You Empire - Business Mastery"
+            }
+        ]
+    },
+    "principles": {
+        "title": "Die 7 Säulen meines Business-Systems",
+        "subtitle": "Jede einzelne Säule habe ich in der Praxis validiert — nicht in der Theorie.",
+        "items": [
+            {
+                "icon": "💎",
+                "principle": "VALUE FIRST",
+                "title": "Wert zeigen, bevor du verkaufst",
+                "text": "Ich habe gelernt: Wer zuerst gibt, verkauft am meisten. Kostenloser Audit, gratis Automations, echte Mehrwerte — bevor ich jemals nach Geld frage."
+            },
+            {
+                "icon": "🔒",
+                "principle": "ECHTE VERKNAPPUNG",
+                "title": "Limitiere, was du wirklich limitieren musst",
+                "text": "Als Projektleiter weißt du: Kapazität ist endlich. Ich nehme maximal 5 Done-for-you Kunden pro Monat. Nicht als Marketing-Trick — sondern weil echte Qualität endlich ist."
+            },
+            {
+                "icon": "⭐",
+                "principle": "SOCIAL PROOF",
+                "title": "Ergebnisse sprechen lauter als Versprechen",
+                "text": "Jeder kann behaupten, er sei gut. Aber echte Fallstudien, echte Zahlen, echte Transformationen — das überzeugt. Ich zeige dir, was meine Methoden bei anderen bewirkt haben."
+            },
+            {
+                "icon": "🎖️",
+                "principle": "AUTHORITY",
+                "title": "Expertise, die man nicht googlen kann",
+                "text": "15 Jahre Engineering + Vertrieb + Geschäftsführung = eine Kombination, die kein YouTube-Video ersetzen kann. Meine Expertise kommt aus der Praxis, nicht aus dem Seminarraum."
+            },
+            {
+                "icon": "📈",
+                "principle": "COMMITMENT ESCALATION",
+                "title": "Kleine Schritte, große Ergebnisse",
+                "text": "Du musst nicht €5.000 riskieren, um anzufangen. Starte mit dem €297 Audit. Wenn du Ergebnisse siehst (und das wirst du), entscheidest du über den nächsten Schritt."
+            },
+            {
+                "icon": "🎁",
+                "principle": "RECIPROCITY",
+                "title": "Ich gebe zuerst — immer",
+                "text": "Mein Content, meine Gratis-Audits, meine Frameworks — alles kostenlos verfügbar. Warum? Weil echte Großzügigkeit das stärkste Verkaufsargument der Welt ist."
+            },
+            {
+                "icon": "🛡️",
+                "principle": "ZERO RISK",
+                "title": "Dein Risiko = Null",
+                "text": "30 Tage Geld-zurück-Garantie auf alles. Wenn du keinen ROI siehst, bekommst du jeden Cent zurück. Das Risiko liegt bei mir — nicht bei dir."
+            }
+        ]
+    },
+    "authority": {
+        "title": "Warum mir Unternehmer vertrauen",
+        "paragraphs": [
+            "Ich bin kein Business-Coach, der nie ein echtes Business hatte. Ich bin Ingenieur, Projektleiter, Vertriebler und Gesellschafter — seit über 15 Jahren in der Wirtschaft. Alles, was ich lehre, habe ich selbst gebaut, getestet und skaliert.",
+            "Mein System kombiniert Engineering-Denken mit Vertriebspsychologie und AI-Automation. Das Ergebnis: Ein Business, das systematisch Umsatz generiert — mit oder ohne dich am Schreibtisch."
+        ],
+        "badges": [
+            {
+                "icon": "🔧",
+                "title": "Engineering-Mindset",
+                "text": "Jedes Problem ist lösbar — mit dem richtigen System"
+            },
+            {
+                "icon": "📊",
+                "title": "200+ Projekte geleitet",
+                "text": "Von €10K bis €5M — Projektmanagement ist Unternehmertum"
+            },
+            {
+                "icon": "💰",
+                "title": "€1.2M+ Umsatz",
+                "text": "Nicht in 10 Jahren — in den letzten 24 Monaten"
+            },
+            {
+                "icon": "🤖",
+                "title": "AI-First Business",
+                "text": "100+ AI Agents automatisieren mein gesamtes Business"
+            }
+        ]
+    },
+    "testimonials": [
+        {
+            "name": "Thomas K.",
+            "role": "Geschäftsführer, IT-Systemhaus",
+            "text": "Maurice denkt wie ein Ingenieur, verkauft wie ein Top-Vertriebler und automatisiert wie ein Tech-Startup. Sein System hat unseren Vertrieb in 6 Wochen verdoppelt.",
+            "result": "Vertrieb +112% in 6 Wochen"
+        },
+        {
+            "name": "Sandra M.",
+            "role": "Freelancerin, Marketing",
+            "text": "Ich hatte 20 Kurse gekauft und nie umgesetzt. Maurice hat mir in 90 Minuten gezeigt, wo ich €3.000/Monat liegen lasse. Seit dem Revenue Engine Programm mache ich €8K+/Monat.",
+            "result": "Von €2.800 auf €8.200/Monat"
+        },
+        {
+            "name": "Daniel R.",
+            "role": "Inhaber, Handwerksbetrieb",
+            "text": "Endlich jemand, der nicht nur Theorie labert. Maurice kommt aus der echten Wirtschaft — das merkt man sofort. Seine AI-Automationen sparen mir 15h/Woche.",
+            "result": "15h/Woche Zeitersparnis"
+        }
+    ],
+    "guarantee": {
+        "icon": "🛡️",
+        "title": "30 Tage Geld-zurück-Garantie",
+        "text": "Wenn du in den ersten 30 Tagen keinen messbaren ROI siehst — bekommst du jeden Cent zurück. Keine Fragen, keine Diskussion, sofortige Erstattung. Das Risiko trage ich, nicht du."
+    },
+    "faq": [
+        {
+            "question": "Ist das wieder so ein Online-Kurs?",
+            "answer": "Nein. Das ist kein 'schau dir 47 Videos an und hoffe, dass was passiert'. Du bekommst ein 1:1 System mit persönlichem Support, konkreten Action-Steps und realer Accountability. Theorie haben wir alle genug — hier geht's um Umsetzung."
+        },
+        {
+            "question": "Funktioniert das auch in meiner Branche?",
+            "answer": "Vertriebspsychologie und systematische Prozesse funktionieren in jeder Branche. Ich habe mit IT-Dienstleistern, Handwerkern, Coaches, Agenturen und E-Commerce gearbeitet. Die Prinzipien sind universell — die Umsetzung passen wir an dein Business an."
+        },
+        {
+            "question": "Ich habe keine Vertriebserfahrung — kann ich das trotzdem?",
+            "answer": "Gerade dann! Ich war auch mal Ingenieur ohne Vertriebsskills. Verkaufen ist kein Talent, sondern ein System. Du bekommst fertige Skripte, Frameworks und Automationen — du musst das Rad nicht neu erfinden."
+        },
+        {
+            "question": "Wie schnell sehe ich Ergebnisse?",
+            "answer": "Die meisten Kunden identifizieren im Business Audit sofort €3.000-5.000+ an ungenutztem Potenzial. Bei der Revenue Engine sind die ersten systematischen Vertriebs-Ergebnisse nach 2-3 Wochen sichtbar. Echte Skalierung passiert in 60-90 Tagen."
+        },
+        {
+            "question": "Was ist der Unterschied zu Dirk Kreuter, Alex Hormozi etc.?",
+            "answer": "Die lehren Theorie — ich baue Systeme. Ich komme aus dem Engineering: Jede Strategie wird in einen automatisierten, messbaren Prozess verwandelt. Kein Motivations-Gelaber, sondern AI-gestützte Systeme, die 24/7 für dich arbeiten. Plus: Ich arbeite mit dir 1:1, nicht in einer Massenveranstaltung."
+        },
+        {
+            "question": "Was, wenn es bei mir nicht funktioniert?",
+            "answer": "30 Tage Geld-zurück-Garantie. Punkt. Wenn du keine Ergebnisse siehst, bekommst du dein Geld zurück. Ich verdiene nur, wenn du verdienst — das ist mein eigener Anspruch als Unternehmer."
+        }
+    ],
+    "final_cta": {
+        "headline": "Bereit, ein Business zu bauen, das Geld druckt?",
+        "subtext": "Starte mit dem Business Audit — 90 Minuten, die dein Unternehmen für immer verändern.",
+        "cta_text": "Jetzt durchstarten →",
+        "cta_anchor": "#programme",
+        "scarcity_text": "🔥 Nur noch {slots} Audit-Plätze diesen Monat verfügbar"
+    },
+    "footer": {
+        "copyright": "© 2026 Maurice Pfeifer · Business Mastery · Alle Rechte vorbehalten.",
+        "impressum": {
+            "name": "Maurice Pfeifer",
+            "address": "[Adresse hier einfügen]",
+            "city": "[PLZ Ort]",
+            "note": "Dieses Angebot umfasst Beratungs- und Coaching-Leistungen im Bereich Business-Strategie, Vertrieb und AI-Automation. Es handelt sich nicht um eine Finanzberatung."
+        }
+    }
+}
