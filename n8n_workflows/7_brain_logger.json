@@ -1,0 +1,94 @@
+{
+  "name": "🧠 Brain Decision Logger",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "empire-swarm/brain-decision",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-brain",
+      "name": "🧠 Brain Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Analyze Brain Decision\nconst item = $input.first().json;\n\nconst cells = item.cells || {};\nconst decision = {\n  timestamp: new Date().toISOString(),\n  directive: item.directive || 'HOLD',\n  confidence: item.confidence || 0,\n  \n  // 8 Brain Cells\n  revenue_score: cells.revenue || 0,\n  agent_score: cells.agents || 0,\n  risk_score: cells.risk || 0,\n  timing_score: cells.timing || 0,\n  resource_score: cells.resources || 0,\n  content_score: cells.content || 0,\n  pipeline_score: cells.pipeline || 0,\n  competitive_score: cells.competitive || 0,\n  \n  // Weighted average\n  weighted_avg: item.weighted_score || 0,\n  \n  // Action\n  action: item.action || 'none',\n  details: JSON.stringify(item.details || {})\n};\n\nreturn [{json: decision}];"
+      },
+      "id": "code-brain-analyze",
+      "name": "📊 Analyze Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-directive",
+              "leftValue": "={{ $json.directive }}",
+              "rightValue": "SCALE_UP",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-scale",
+      "name": "📈 Scale Up?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "🧠 Brain Webhook": {
+      "main": [
+        [
+          {
+            "node": "📊 Analyze Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Analyze Decision": {
+      "main": [
+        [
+          {
+            "node": "📈 Scale Up?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

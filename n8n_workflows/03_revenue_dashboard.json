@@ -1,0 +1,124 @@
+{
+    "name": "💰 Revenue Dashboard",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "triggerAtHour": 8
+                        },
+                        {
+                            "triggerAtHour": 20
+                        }
+                    ]
+                }
+            },
+            "id": "revenue-schedule",
+            "name": "⏰ Daily Revenue Check",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.2,
+            "position": [
+                200,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "// Revenue Tracker — Aggregates all revenue sources\nconst now = new Date();\nconst today = now.toISOString().split('T')[0];\n\n// Simulated data structure — replace with real API calls\nconst revenue = {\n  date: today,\n  timestamp: now.toISOString(),\n  sources: {\n    gumroad: { name: 'Gumroad Products', amount: 0, currency: 'EUR' },\n    stripe: { name: 'Stripe Payments', amount: 0, currency: 'EUR' },\n    paypal: { name: 'PayPal (Direct)', amount: 0, currency: 'EUR' },\n    fiverr: { name: 'Fiverr Gigs', amount: 0, currency: 'EUR' },\n    consulting: { name: 'Direct Consulting', amount: 0, currency: 'EUR' }\n  },\n  total: 0,\n  target_daily: 333, // €10K/month target\n  target_monthly: 10000,\n  days_in_month: new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate(),\n  day_of_month: now.getDate()\n};\n\nrevenue.total = Object.values(revenue.sources).reduce((sum, s) => sum + s.amount, 0);\nrevenue.run_rate = (revenue.total / revenue.day_of_month) * revenue.days_in_month;\nrevenue.on_track = revenue.run_rate >= revenue.target_monthly;\nrevenue.gap = revenue.target_monthly - revenue.run_rate;\n\nreturn [{ json: revenue }];"
+            },
+            "id": "revenue-calc",
+            "name": "💰 Revenue Calculator",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.openai.com/v1/chat/completions",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "openAiApi",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein Business-Analyst. Erstelle einen kurzen, actionable Revenue Report auf Deutsch. Format: Status-Emoji + Key Metrics + Top 3 Actions für heute. Sei direkt, keine Floskeln. Max 200 Wörter.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Revenue Data: {{ JSON.stringify($json) }}\"\n    }\n  ],\n  \"temperature\": 0.5,\n  \"max_tokens\": 500\n}"
+            },
+            "id": "ai-report",
+            "name": "📊 AI Revenue Report",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                700,
+                300
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "openai-creds",
+                    "name": "OpenAI"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "const report = $input.first().json.choices[0].message.content;\nconst revenue = $('💰 Revenue Calculator').first().json;\n\nreturn [{\n  json: {\n    report: report,\n    total_today: revenue.total,\n    run_rate: revenue.run_rate,\n    target: revenue.target_monthly,\n    on_track: revenue.on_track,\n    gap: revenue.gap,\n    generated_at: new Date().toISOString()\n  }\n}];"
+            },
+            "id": "format-report",
+            "name": "📋 Format Report",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                950,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "⏰ Daily Revenue Check": {
+            "main": [
+                [
+                    {
+                        "node": "💰 Revenue Calculator",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "💰 Revenue Calculator": {
+            "main": [
+                [
+                    {
+                        "node": "📊 AI Revenue Report",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "📊 AI Revenue Report": {
+            "main": [
+                [
+                    {
+                        "node": "📋 Format Report",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "tags": [
+        {
+            "name": "Revenue"
+        },
+        {
+            "name": "AI Empire"
+        }
+    ]
+}

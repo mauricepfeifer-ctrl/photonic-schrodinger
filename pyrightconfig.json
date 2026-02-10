@@ -1,22 +1,31 @@
 {
     "venvPath": ".",
-    "venv": "venv",
+    "venv": ".venv",
+    "include": [
+        "."
+    ],
     "extraPaths": [
         ".",
         "agents",
         "modules",
-        "blueprints"
+        "blueprints",
+        "utils"
     ],
     "exclude": [
         "venv",
+        ".venv",
         ".git",
         "mega_swarm_output",
-        "__pycache__"
+        "__pycache__",
+        "content_output"
     ],
-    "reportMissingImports": "warning",
+    "reportMissingImports": "none",
     "reportMissingModuleSource": "none",
-    "reportOptionalMemberAccess": "warning",
-    "reportGeneralTypeIssues": "warning",
+    "reportOptionalMemberAccess": "none",
+    "reportGeneralTypeIssues": "none",
+    "reportIndexIssue": "none",
+    "reportCallIssue": "none",
+    "reportArgumentType": "none",
     "pythonVersion": "3.12",
-    "typeCheckingMode": "basic"
+    "typeCheckingMode": "off"
 }

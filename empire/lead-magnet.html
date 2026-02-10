@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gratis: Die 3 besten AI Agent Vorlagen | Maurice Pfeifer</title>
+    <title>3 Gratis KI-Tools zum Sofort-Starten | Maurice Pfeifer</title>
     <meta name="description"
-        content="Hole dir meine 3 profitabelsten AI Agent Configs kostenlos. Content Sniper, Sales Bot und Research Agent.">
+        content="Hole dir 3 kostenlose KI-Ressourcen: Interaktive Checkliste, 10 Profi-Prompts, AI Tool Vergleich. Kein Email nötig.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
@@ -14,11 +14,15 @@
             --bg: #030306;
             --card: rgba(12, 12, 22, 0.9);
             --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(99, 102, 241, 0.4);
             --accent: #6366f1;
             --green: #10b981;
             --text: #f1f5f9;
             --text2: #cbd5e1;
+            --muted: #64748b;
+            --dim: #334155;
             --neon: linear-gradient(135deg, #6366f1, #a855f7);
+            --money: linear-gradient(135deg, #10b981, #34d399);
         }
 
         * {
@@ -33,139 +37,332 @@
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         .bg-mesh {
             position: fixed;
             inset: 0;
             z-index: -1;
-            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%);
+            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.12), transparent 50%);
         }
 
         .container {
-            max-width: 600px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 40px 24px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px;
+        /* HERO */
+        .hero {
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
+            padding: 60px 0 40px;
         }
 
-        .badge {
+        .hero .badge {
             display: inline-block;
             background: rgba(16, 185, 129, 0.1);
             color: var(--green);
             border: 1px solid rgba(16, 185, 129, 0.2);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-size: 0.82rem;
             font-weight: 700;
             margin-bottom: 24px;
+            animation: glow 3s ease-in-out infinite;
         }
 
-        h1 {
-            font-size: 2.2rem;
-            line-height: 1.2;
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            line-height: 1.1;
             margin-bottom: 16px;
             font-weight: 900;
+            letter-spacing: -2px;
         }
 
-        h1 span {
-            background: var(--neon);
+        .hero h1 span {
+            background: var(--money);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        p {
+        .hero p {
             color: var(--text2);
-            margin-bottom: 32px;
-            font-size: 1.1rem;
+            margin-bottom: 0;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
         }
 
-        .mockup {
-            background: rgba(255, 255, 255, 0.03);
+        .hero p strong {
+            color: #fff;
+        }
+
+        /* CARDS */
+        .free-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .free-card {
+            background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 32px;
-            text-align: left;
-        }
-
-        .mockup-item {
+            border-radius: 20px;
+            padding: 32px;
             display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-            align-items: center;
-            font-size: 0.9rem;
+            gap: 24px;
+            align-items: flex-start;
+            transition: all .4s cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .check {
-            color: var(--green);
+        .free-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .free-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.1);
+        }
+
+        .free-card:hover::before {
+            opacity: 1;
+        }
+
+        .free-card:nth-child(1)::before {
+            background: var(--money);
+        }
+
+        .free-card:nth-child(2)::before {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        .free-card:nth-child(3)::before {
+            background: linear-gradient(135deg, #06b6d4, #818cf8);
+        }
+
+        .free-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
             flex-shrink: 0;
         }
 
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background: var(--neon);
-            color: white;
-            text-decoration: none;
+        .free-info {
+            flex: 1;
+        }
+
+        .free-info .tag {
+            display: inline-flex;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: .68rem;
             font-weight: 700;
-            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 10px;
+        }
+
+        .free-info h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .free-info p {
+            font-size: .88rem;
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .free-features {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .free-features li {
+            font-size: .82rem;
+            color: var(--text2);
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .free-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
             border-radius: 12px;
-            transition: transform 0.2s;
+            font-size: .88rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all .3s;
             border: none;
             cursor: pointer;
         }
 
-        .btn:hover {
+        .btn-green {
+            background: var(--money);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-green:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.5);
         }
 
-        .note {
-            margin-top: 16px;
-            font-size: 0.8rem;
-            color: #64748b;
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: #000;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
         }
 
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.5);
+        }
+
+        .btn-cyan {
+            background: linear-gradient(135deg, #06b6d4, #818cf8);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-cyan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.5);
+        }
+
+        /* UPSELL */
         .upsell {
-            margin-top: 40px;
-            padding-top: 40px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            padding: 36px;
+            text-align: center;
+            margin: 32px 0;
+        }
+
+        .upsell .upsell-badge {
+            display: inline-flex;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            color: #f97316;
+            font-size: .75rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .upsell h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .upsell p {
+            font-size: .92rem;
+            color: var(--text2);
+            max-width: 500px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+
+        .upsell .btn-primary {
+            background: var(--neon);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .upsell .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5);
+        }
+
+        /* FOOTER */
+        footer {
             border-top: 1px solid var(--border);
-            display: none;
-            /* Hidden by default, shown after click */
+            padding: 32px 0;
+            text-align: center;
         }
 
-        .upsell.visible {
-            display: block;
-            animation: fadeIn 0.5s;
+        footer p {
+            font-size: .75rem;
+            color: var(--dim);
+            margin-bottom: 4px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 1.8rem;
+                letter-spacing: -1px;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            .free-card {
+                flex-direction: column;
             }
+        }
+
+        /* ANIMATION */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all .5s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -175,55 +372,107 @@
     <div class="bg-mesh"></div>
 
     <div class="container">
-        <div class="card" id="mainCard">
-            <div class="badge">🎁 KOSTENLOSER DOWNLOAD</div>
-            <h1>Die 3 profitabelsten <br><span>AI Agent Configs</span></h1>
-            <p>Kopiere meine 3 besten Agenten, die mir täglich 4 Stunden Arbeit sparen. 100% kostenlos.</p>
 
-            <div class="mockup">
-                <div class="mockup-item">
-                    <div class="check">✓</div>
-                    <div><strong>Content Sniper:</strong> Erstellt virale TikTok Scripts</div>
-                </div>
-                <div class="mockup-item">
-                    <div class="check">✓</div>
-                    <div><strong>Sales Bot:</strong> Qualifiziert Leads automatisch</div>
-                </div>
-                <div class="mockup-item">
-                    <div class="check">✓</div>
-                    <div><strong>Research Agent:</strong> Findet perfekte Kunden</div>
-                </div>
-            </div>
-
-            <a href="mailto:mauricepfeifer@icloud.com?subject=Send%20me%20the%20Agents" class="btn"
-                onclick="showUpsell()">
-                🚀 JETZT KOSTENLOS HOLEN
-            </a>
-            <div class="note">Klicke, um mir eine leere Email zu senden. Ich antworte sofort mit dem PDF.</div>
-
-            <!-- UPSELL SECTION (Shows after click) -->
-            <div class="upsell" id="upsellSection">
-                <div class="badge"
-                    style="background:rgba(249,115,22,0.1);color:#f97316;border-color:rgba(249,115,22,0.2)">⚡ ONE-TIME
-                    OFFER</div>
-                <h3 style="font-size:1.4rem;margin-bottom:12px;font-weight:800">Willst du das komplette System?</h3>
-                <p style="font-size:0.95rem;margin-bottom:20px">Das hier sind 3 Agenten. Im <strong>Starter Kit</strong>
-                    bekommst du 10 Agenten + 30-Minuten Setup Guide.</p>
-                <a href="index.html#produkte" class="btn"
-                    style="background:transparent;border:1px solid var(--border);font-size:0.95rem">
-                    Zum Starter Kit (€47) ansehen →
-                </a>
-            </div>
+        <!-- HERO -->
+        <div class="hero">
+            <div class="badge">🎁 3 GRATIS TOOLS — Kein Email nötig</div>
+            <h1>Starte mit KI —<br><span>für €0</span></h1>
+            <p>3 <strong>kostenlose KI-Ressourcen</strong> aus meinem 100-Agent-System. Interaktiv, sofort nutzbar, kein
+                Account nötig. Einfach klicken und loslegen.</p>
         </div>
+
+        <!-- FREE PRODUCTS -->
+        <div class="free-grid">
+
+            <!-- 1: CHECKLISTE -->
+            <div class="free-card fade-in">
+                <div class="free-icon" style="background:rgba(16,185,129,0.1)">✅</div>
+                <div class="free-info">
+                    <div class="tag"
+                        style="background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2)">
+                        INTERAKTIV</div>
+                    <h3>KI-Starter Checkliste</h3>
+                    <p>In 7 Tagen zu deinem ersten AI Agent. Interaktive Checkliste mit 21 Steps — dein Fortschritt wird
+                        automatisch gespeichert.</p>
+                    <ul class="free-features">
+                        <li>7 Tage, 21 Steps — alles Schritt für Schritt</li>
+                        <li>Von Tool-Setup bis zum laufenden Agent</li>
+                        <li>Pro-Tipps aus meinem 100-Agent-System</li>
+                        <li>Fortschritt wird im Browser gespeichert</li>
+                    </ul>
+                    <a href="free/ki-checkliste.html" class="btn btn-green">✅ Checkliste starten →</a>
+                </div>
+            </div>
+
+            <!-- 2: PROMPTS -->
+            <div class="free-card fade-in">
+                <div class="free-icon" style="background:rgba(245,158,11,0.1)">📝</div>
+                <div class="free-info">
+                    <div class="tag"
+                        style="background:rgba(245,158,11,0.1);color:#f59e0b;border:1px solid rgba(245,158,11,0.2)">COPY
+                        & PASTE</div>
+                    <h3>10 Profi-Prompts</h3>
+                    <p>10 getestete Business-Prompts aus meinem echten System. Content, Sales, Email, Research — mit
+                        1-Klick kopieren.</p>
+                    <ul class="free-features">
+                        <li>10 sofort nutzbare Prompts für jede Kategorie</li>
+                        <li>1-Klick Copy-to-Clipboard</li>
+                        <li>Filter nach Anwendungsfall</li>
+                        <li>Funktioniert mit ChatGPT, Claude und Kimi</li>
+                    </ul>
+                    <a href="free/prompt-sammlung.html" class="btn btn-gold">📝 Prompts ansehen →</a>
+                </div>
+            </div>
+
+            <!-- 3: TOOL VERGLEICH -->
+            <div class="free-card fade-in">
+                <div class="free-icon" style="background:rgba(6,182,212,0.1)">🔬</div>
+                <div class="free-info">
+                    <div class="tag"
+                        style="background:rgba(6,182,212,0.1);color:#06b6d4;border:1px solid rgba(6,182,212,0.2)">QUIZ
+                    </div>
+                    <h3>KI-Tools Vergleich 2026</h3>
+                    <p>Finde heraus welches KI-Tool zu deinem Business passt. Interaktiver Quiz + Feature-Vergleich —
+                        ehrlich und ohne Affiliate-Links.</p>
+                    <ul class="free-features">
+                        <li>ChatGPT vs Claude vs Kimi vs Gemini vs Ollama</li>
+                        <li>30-Sekunden Quiz für deine Empfehlung</li>
+                        <li>Feature-Vergleichstabelle</li>
+                        <li>Detaillierte Tool-Profile mit Pricing</li>
+                    </ul>
+                    <a href="free/ki-tools-vergleich.html" class="btn btn-cyan">🔬 Vergleich starten →</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- UPSELL -->
+        <div class="upsell fade-in">
+            <div class="upsell-badge">⚡ NÄCHSTER SCHRITT</div>
+            <h3>Bereit für das volle System?</h3>
+            <p>Diese 3 Tools geben dir den Start. Meine <strong>bezahlten Produkte</strong> geben dir das komplette
+                System — von 10 Agent Configs bis zum 1:1 Setup Call.</p>
+            <a href="index.html#produkte" class="btn btn-primary">🚀 Alle Produkte ansehen →</a>
+        </div>
+
     </div>
 
+    <footer>
+        <p><a href="index.html">← Zurück zur Hauptseite</a></p>
+        <p>© 2026 Maurice Pfeifer · Alle Rechte vorbehalten</p>
+    </footer>
+
     <script>
-        function showUpsell() {
-            setTimeout(() => {
-                document.getElementById('upsellSection').classList.add('visible');
-            }, 1000);
-        }
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), i * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
+
 </body>
 
 </html>

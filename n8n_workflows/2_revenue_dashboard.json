@@ -1,0 +1,116 @@
+{
+  "name": "💰 Revenue Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "schedule-rev",
+      "name": "⏰ Every Hour",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Read revenue state\nconst now = new Date();\nconst stats = {\n  timestamp: now.toISOString(),\n  hour: now.getHours(),\n  day: now.toISOString().split('T')[0],\n  \n  // These will be enriched by downstream nodes\n  total_revenue_eur: 0,\n  transactions_today: 0,\n  top_product: 'unknown',\n  \n  // Empire status\n  empire_status: 'ACTIVE',\n  agents_running: 0,\n  content_generated: 0,\n};\n\nreturn [{json: stats}];"
+      },
+      "id": "code-rev-stats",
+      "name": "📊 Compile Stats",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-revenue-check",
+              "leftValue": "={{ $json.total_revenue_eur }}",
+              "rightValue": "100",
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-milestone",
+      "name": "💎 Milestone?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format revenue report\nconst stats = $input.first().json;\nconst report = {\n  text: `💰 EMPIRE REVENUE REPORT\\n` +\n        `━━━━━━━━━━━━━━━━━━━━━━━━\\n` +\n        `📅 ${stats.day}\\n` +\n        `💶 Total: €${stats.total_revenue_eur}\\n` +\n        `📦 Transactions: ${stats.transactions_today}\\n` +\n        `🏆 Top Product: ${stats.top_product}\\n` +\n        `🤖 Agents: ${stats.agents_running}\\n` +\n        `📝 Content: ${stats.content_generated}\\n` +\n        `━━━━━━━━━━━━━━━━━━━━━━━━\\n` +\n        `Status: ${stats.empire_status}`,\n  channel: '#revenue'\n};\n\nreturn [{json: report}];"
+      },
+      "id": "code-format-report",
+      "name": "📝 Format Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        520
+      ]
+    }
+  ],
+  "connections": {
+    "⏰ Every Hour": {
+      "main": [
+        [
+          {
+            "node": "📊 Compile Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Compile Stats": {
+      "main": [
+        [
+          {
+            "node": "💎 Milestone?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📝 Format Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

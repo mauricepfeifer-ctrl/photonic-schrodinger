@@ -22,7 +22,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger(__name__)
 
 # Configuration
-KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "sk-e57Q5aDfcpXpHkYfgeWCU3xjuqf2ZPoYxhuRH0kEZXGBeoMF")
+KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "")
 KIMI_BASE_URL = "https://api.moonshot.ai/v1"
 ANTIGRAVITY_PATH = Path.home() / "Library" / "Application Support" / "Antigravity"
 

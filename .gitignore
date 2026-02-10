@@ -1,4 +1,60 @@
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+env/
 venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Secrets
+*.key
+*.pem
+secrets.yaml
+credentials.json
+client_secrets.json
+
+# Logs
 *.log
+logs/
+backup.log
+mega_swarm.log
+
+# Project specific
+revenue_log.json
+rx_resume.json
+kimi_party_state.json
+agent_rankings.json
+knowledge_context.json
+
+# Output Directories
+revenue_drafts/
+sales_output/
+ghost_squadron_output/
+mega_swarm_output/
+content_output/
+arbitrage_content/
+x_content/
+youtube_content/
+swarm_output/
+mindset_content/
+n8n_workflows/
+mission-control/registry/
+
+# Binaries
+swarm_engine
+photonic-schrodinger
+
+# OS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+._*

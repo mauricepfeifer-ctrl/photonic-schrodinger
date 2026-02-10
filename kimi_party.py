@@ -590,7 +590,7 @@ class ContentPartyEngine:
         if HAS_KREUTER:
             try:
                 dk = DirkKreuterEngine()
-                seq = dk.generate_complete_sequence("bma_starter", random.randint(0, 10))
+                seq = dk.generate_complete_sequence("automation_bp", random.randint(0, 10))
                 results["sales_content"] = [dk.to_json(msg) for msg in seq]
                 self.party.party_stats["sales_messages_sent"] += len(seq)
                 await self.party.mesh.fire_pulse("dirk_kreuter", {
@@ -608,7 +608,7 @@ class ContentPartyEngine:
         topics = [
             "KI Agenten die dein Business automatisieren",
             "Warum 90% aller AI Startups scheitern",
-            "Brandmeldeanlagen: Das unterschätzte Milliardengeschäft",
+            "AI Automation: Das unterschätzte Milliardengeschäft",
             "Die AI Revolution: Von 0 auf 10k€/Monat in 30 Tagen",
             "Open Source AI vs ChatGPT — wer gewinnt 2026?",
             "5 AI Tools die niemand kennt aber jeder braucht",
@@ -669,7 +669,7 @@ class RevenuePartyEngine:
         if HAS_KREUTER:
             try:
                 dk = DirkKreuterEngine()
-                for product_key in ["bma_starter", "ai_sprint"]:
+                for product_key in ["prompt_cheatsheet", "consulting_call"]:
                     try:
                         msgs = dk.generate_complete_sequence(product_key)
                         self.party.party_stats["sales_messages_sent"] += len(msgs)
@@ -783,7 +783,7 @@ class SwarmPartyEngine:
                     prompts = [
                         "Write a 3-line sales email for AI consulting services",
                         "Generate 5 viral tweet ideas about AI automation",
-                        "Create a BMA consulting pitch in German",
+                        "Create an AI consulting pitch in German",
                         "Write a YouTube video title about passive income with AI",
                         "Generate a LinkedIn post about AI agents",
                     ]

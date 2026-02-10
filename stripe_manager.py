@@ -47,50 +47,45 @@ class Product:
 
 
 PRODUCTS: Dict[str, Product] = {
-    "bma_starter": Product(
-        product_id="bma_starter",
-        name="BMA Consulting – Starter",
-        description="Normprüfung für Brandmeldeanlagen nach DIN 14675",
-        price_cents=19700,
-        landing_url="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/consulting/",
-        category="consulting",
+    "prompt_cheatsheet": Product(
+        product_id="prompt_cheatsheet",
+        name="Prompt Cheatsheet Pro",
+        description="50 Profi-Prompts für Business-Automatisierung — Copy & Paste Ready",
+        price_cents=2700,
+        landing_url="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/",
+        category="digital",
     ),
-    "ai_consulting": Product(
-        product_id="ai_consulting",
-        name="AI Consulting – Sprint",
-        description="KI-Automatisierung für Geschäftsprozesse – 2h Deep Dive",
-        price_cents=29700,
-        landing_url="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/ai-consulting/",
-        category="consulting",
-    ),
-    "file_cleaner": Product(
-        product_id="file_cleaner",
-        name="File Cleaner Pro",
-        description="KI-gestützte Dateiorganisation – 10.000+ Dateien in 30 Minuten",
+    "agent_starter": Product(
+        product_id="agent_starter",
+        name="AI Agent Starter Kit",
+        description="10 fertige Agent-Konfigurationen — dein erster Agent in 30 Minuten",
         price_cents=4700,
-        landing_url="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/file-cleaner/",
-        category="software",
-    ),
-    "prompt_starter": Product(
-        product_id="prompt_starter",
-        name="Prompt Masterclass – Video-Kurs",
-        description="3h Masterclass: Zero-Shot, Few-Shot, Chain-of-Thought + 50 Templates",
-        price_cents=6700,
+        landing_url="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/",
         category="digital",
     ),
-    "prompt_pro": Product(
-        product_id="prompt_pro",
-        name="Prompt Masterclass – Workshop",
-        description="Videokurs + 2h Live-Workshop mit persönlichem Feedback",
-        price_cents=19700,
+    "automation_bp": Product(
+        product_id="automation_bp",
+        name="AI Automation Blueprint",
+        description="Komplettes System von 0 auf 100+ Agents — 50+ Seiten Guide",
+        price_cents=7900,
+        landing_url="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/",
         category="digital",
     ),
-    "prompt_vip": Product(
-        product_id="prompt_vip",
-        name="Prompt Masterclass – VIP Coaching",
-        description="3x 1:1 Coaching + Custom Prompt-Library + 90 Tage Support",
-        price_cents=49700,
+    "side_hustle": Product(
+        product_id="side_hustle",
+        name="AI Side Hustle Playbook",
+        description="5 bewährte Wege, mit KI Geld zu verdienen — inkl. Pricing Guide",
+        price_cents=9700,
+        landing_url="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/",
         category="digital",
+    ),
+    "consulting_call": Product(
+        product_id="consulting_call",
+        name="1:1 AI Setup Call",
+        description="60 Min persönliches Consulting mit Live Agent Setup",
+        price_cents=29700,
+        landing_url="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/",
+        category="consulting",
     ),
 }
 
@@ -423,7 +418,14 @@ class StripeManager:
                 self.stats.last_payment = data.get("last_payment")
 
                 for p in data.get("payments", []):
-                    self.payments.append(PaymentRecord(**p))
+                    # Migration: Handle legacy 'amount' field
+                    if "amount" in p and "amount_cents" not in p:
+                        p["amount_cents"] = p.pop("amount")
+                    
+                    try:
+                        self.payments.append(PaymentRecord(**p))
+                    except TypeError as e:
+                        logger.warning(f"⚠️ Skipping malformed payment record: {e} | Data: {p}")
 
                 logger.info(f"📂 Loaded revenue: €{self.stats.total_eur():.2f} from {len(self.payments)} payments")
         except Exception as e:
@@ -463,7 +465,7 @@ def main() -> None:
 
     # Simulate checkout
     print("\n🔗 Generating checkout URLs:")
-    for pid in ["bma_starter", "prompt_pro", "file_cleaner"]:
+    for pid in ["prompt_cheatsheet", "automation_bp", "consulting_call"]:
         url = sm.create_checkout_url(pid, customer_email="test@example.com")
         print(f"  {pid}: {url}")
 

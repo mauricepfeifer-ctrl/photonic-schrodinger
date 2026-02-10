@@ -4,45 +4,53 @@
       "agent_id": "sales",
       "agent_type": "sales",
       "revenue_eur": 0.0,
-      "tasks_completed": 0,
+      "tasks_completed": 11,
       "tasks_failed": 0,
-      "avg_response_ms": 0.0,
+      "avg_response_ms": 129612.63636363637,
       "rank": 1,
       "status": "boosted",
-      "priority_multiplier": 3.0
+      "priority_multiplier": 3.0,
+      "created_at": "",
+      "last_active": "2026-02-10T00:35:46.151428"
     },
     {
       "agent_id": "content",
       "agent_type": "content",
       "revenue_eur": 0.0,
-      "tasks_completed": 0,
-      "tasks_failed": 0,
-      "avg_response_ms": 0.0,
+      "tasks_completed": 3,
+      "tasks_failed": 3,
+      "avg_response_ms": 16774.666666666668,
       "rank": 2,
       "status": "boosted",
-      "priority_multiplier": 2.5
+      "priority_multiplier": 2.5,
+      "created_at": "",
+      "last_active": "2026-02-10T00:32:02.340961"
     },
     {
       "agent_id": "tiktok",
       "agent_type": "tiktok",
       "revenue_eur": 0.0,
-      "tasks_completed": 0,
-      "tasks_failed": 0,
-      "avg_response_ms": 0.0,
+      "tasks_completed": 3,
+      "tasks_failed": 6,
+      "avg_response_ms": 3585.6666666666665,
       "rank": 3,
       "status": "boosted",
-      "priority_multiplier": 2.0
+      "priority_multiplier": 2.0,
+      "created_at": "",
+      "last_active": "2026-02-10T00:31:45.121965"
     },
     {
       "agent_id": "research",
       "agent_type": "research",
       "revenue_eur": 0.0,
-      "tasks_completed": 0,
-      "tasks_failed": 0,
-      "avg_response_ms": 0.0,
+      "tasks_completed": 11,
+      "tasks_failed": 13,
+      "avg_response_ms": 134151.0909090909,
       "rank": 4,
       "status": "active",
-      "priority_multiplier": 1.0
+      "priority_multiplier": 1.0,
+      "created_at": "",
+      "last_active": "2026-02-10T00:35:08.224640"
     },
     {
       "agent_id": "code",
@@ -53,18 +61,22 @@
       "avg_response_ms": 0.0,
       "rank": 5,
       "status": "active",
-      "priority_multiplier": 1.0
+      "priority_multiplier": 1.0,
+      "created_at": "",
+      "last_active": ""
     },
     {
       "agent_id": "strategy",
       "agent_type": "strategy",
       "revenue_eur": 0.0,
-      "tasks_completed": 0,
-      "tasks_failed": 0,
-      "avg_response_ms": 0.0,
+      "tasks_completed": 2,
+      "tasks_failed": 4,
+      "avg_response_ms": 64374.0,
       "rank": 6,
       "status": "active",
-      "priority_multiplier": 1.0
+      "priority_multiplier": 1.0,
+      "created_at": "",
+      "last_active": "2026-02-10T00:36:15.070734"
     },
     {
       "agent_id": "outreach",
@@ -74,8 +86,10 @@
       "tasks_failed": 0,
       "avg_response_ms": 0.0,
       "rank": 7,
-      "status": "demoted",
-      "priority_multiplier": 0.5
+      "status": "active",
+      "priority_multiplier": 1.0,
+      "created_at": "",
+      "last_active": ""
     },
     {
       "agent_id": "closer",
@@ -86,9 +100,11 @@
       "avg_response_ms": 0.0,
       "rank": 8,
       "status": "demoted",
-      "priority_multiplier": 0.5
+      "priority_multiplier": 0.5,
+      "created_at": "",
+      "last_active": ""
     }
   ],
-  "last_updated": "2026-02-09T23:58:39.110887",
+  "last_updated": "2026-02-10T00:42:59.759603",
   "total_revenue_eur": 0.0
 }

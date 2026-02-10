@@ -1,0 +1,138 @@
+{
+  "name": "🐦 X Monster Auto-Post",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "empire-swarm/x-content",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-x",
+      "name": "🐦 X Content Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// X Monster Content Processor\nconst item = $input.first().json;\n\nconst tweets = item.tweets || (item.result ? item.result.split('\\n\\n') : ['No content']);\n\nconst processed = {\n  mode: item.mode || 'viral',\n  topic: item.topic || 'AI',\n  tweet_count: tweets.length,\n  tweets: tweets.map((t, i) => ({\n    index: i + 1,\n    text: t.trim(),\n    chars: t.trim().length,\n    is_valid: t.trim().length <= 280\n  })),\n  first_tweet: tweets[0] || '',\n  is_thread: tweets.length > 1,\n  engagement_estimate: tweets.length > 3 ? 'HIGH' : 'MEDIUM',\n  \n  // Schedule\n  post_at: new Date(Date.now() + Math.random() * 3600000).toISOString(),\n  generated_at: new Date().toISOString()\n};\n\nreturn [{json: processed}];"
+      },
+      "id": "code-x-process",
+      "name": "🔄 Process Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-thread",
+              "leftValue": "={{ $json.is_thread }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-thread",
+      "name": "🧵 Thread?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format as thread\nconst item = $input.first().json;\nconst formatted = {\n  post_type: 'thread',\n  thread_tweets: item.tweets,\n  schedule: item.post_at,\n  status: 'ready_to_post'\n};\nreturn [{json: formatted}];"
+      },
+      "id": "code-thread",
+      "name": "🧵 Thread Builder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format as single tweet\nconst item = $input.first().json;\nconst formatted = {\n  post_type: 'single',\n  tweet: item.first_tweet,\n  schedule: item.post_at,\n  status: 'ready_to_post'\n};\nreturn [{json: formatted}];"
+      },
+      "id": "code-single",
+      "name": "📝 Single Tweet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "🐦 X Content Webhook": {
+      "main": [
+        [
+          {
+            "node": "🔄 Process Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔄 Process Content": {
+      "main": [
+        [
+          {
+            "node": "🧵 Thread?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧵 Thread?": {
+      "main": [
+        [
+          {
+            "node": "🧵 Thread Builder",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📝 Single Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

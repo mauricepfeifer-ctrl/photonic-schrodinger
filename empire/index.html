@@ -34,1220 +34,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box
-        }
-
-        :root {
-            --bg: #030306;
-            --card: rgba(12, 12, 22, 0.85);
-            --card-solid: #0c0c16;
-            --border: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(99, 102, 241, 0.4);
-            --accent: #6366f1;
-            --accent2: #818cf8;
-            --accent3: #a5b4fc;
-            --green: #10b981;
-            --emerald: #059669;
-            --red: #ef4444;
-            --yellow: #f59e0b;
-            --orange: #f97316;
-            --blue: #3b82f6;
-            --cyan: #06b6d4;
-            --pink: #ec4899;
-            --rose: #f43f5e;
-            --text: #f1f5f9;
-            --text2: #cbd5e1;
-            --muted: #64748b;
-            --dim: #334155;
-            --neon: linear-gradient(135deg, #6366f1, #818cf8, #a78bfa);
-            --money: linear-gradient(135deg, #10b981, #34d399);
-            --fire: linear-gradient(135deg, #f97316, #ef4444);
-            --gold: linear-gradient(135deg, #f59e0b, #fbbf24);
-        }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased
-        }
-
-        .bg-mesh {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none
-        }
-
-        .bg-mesh::before {
-            content: '';
-            position: absolute;
-            width: 900px;
-            height: 900px;
-            top: -300px;
-            left: -200px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 60%);
-            animation: float1 25s ease-in-out infinite
-        }
-
-        .bg-mesh::after {
-            content: '';
-            position: absolute;
-            width: 700px;
-            height: 700px;
-            bottom: -200px;
-            right: -150px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.07), transparent 60%);
-            animation: float2 30s ease-in-out infinite
-        }
-
-        @keyframes float1 {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1)
-            }
-
-            50% {
-                transform: translate(120px, 80px) scale(1.1)
-            }
-        }
-
-        @keyframes float2 {
-
-            0%,
-            100% {
-                transform: translate(0, 0)
-            }
-
-            50% {
-                transform: translate(-100px, -70px)
-            }
-        }
-
-        .grid-bg {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
-            background-size: 80px 80px
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1
-        }
-
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: var(--neon);
-            z-index: 200;
-            transition: width .1s
-        }
-
-        /* NAV */
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(24px);
-            background: rgba(3, 3, 6, 0.88);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 0
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 800;
-            font-size: .95rem;
-            letter-spacing: -.5px
-        }
-
-        .nav-brand .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--green);
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
-            animation: pulse 2s infinite
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5)
-            }
-
-            50% {
-                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0)
-            }
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 6px;
-            align-items: center
-        }
-
-        .nav-links a {
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: .8rem;
-            font-weight: 600;
-            color: var(--muted);
-            text-decoration: none;
-            transition: all .3s
-        }
-
-        .nav-links a:hover {
-            color: var(--text);
-            background: rgba(99, 102, 241, 0.1)
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-size: .85rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all .3s;
-            cursor: pointer;
-            border: none;
-            position: relative
-        }
-
-        .btn-primary {
-            background: var(--neon);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3)
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5)
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border)
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent);
-            background: rgba(99, 102, 241, 0.05)
-        }
-
-        .btn-green {
-            background: var(--money);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3)
-        }
-
-        .btn-green:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.5)
-        }
-
-        .btn-fire {
-            background: var(--fire);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3)
-        }
-
-        .btn-fire:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(249, 115, 22, 0.5)
-        }
-
-        .btn-sm {
-            padding: 10px 18px;
-            font-size: .82rem;
-            border-radius: 8px
-        }
-
-        .btn-lg {
-            padding: 16px 32px;
-            font-size: 1rem;
-            border-radius: 12px
-        }
-
-        /* HERO */
-        .hero {
-            text-align: center;
-            padding: 100px 24px 60px;
-            position: relative
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
-            border-radius: 24px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: var(--green);
-            font-size: .78rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            letter-spacing: .5px
-        }
-
-        .hero h1 {
-            font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-            font-weight: 900;
-            letter-spacing: -2.5px;
-            line-height: 1.08;
-            margin-bottom: 20px
-        }
-
-        .hero h1 .gradient {
-            background: var(--neon);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: shimmer 4s ease infinite
-        }
-
-        .hero h1 .green {
-            background: var(--money);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent
-        }
-
-        @keyframes shimmer {
-
-            0%,
-            100% {
-                background-position: 0% 50%
-            }
-
-            50% {
-                background-position: 100% 50%
-            }
-        }
-
-        .hero .sub {
-            font-size: 1.15rem;
-            color: var(--text2);
-            max-width: 680px;
-            margin: 0 auto 32px;
-            line-height: 1.7
-        }
-
-        .hero .sub strong {
-            color: #fff
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 24px
-        }
-
-        .hero-proof {
-            font-size: .78rem;
-            color: var(--muted);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            justify-content: center
-        }
-
-        .hero-proof .stars {
-            color: var(--yellow)
-        }
-
-        /* RESULTS BAR */
-        .results {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin: 40px auto;
-            max-width: 900px
-        }
-
-        .result-card {
-            background: var(--card);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px 16px;
-            text-align: center;
-            transition: all .3s
-        }
-
-        .result-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px)
-        }
-
-        .result-card .num {
-            font-size: 2.2rem;
-            font-weight: 900;
-            letter-spacing: -1px
-        }
-
-        .result-card .lbl {
-            font-size: .72rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px
-        }
-
-        /* SECTIONS */
-        section {
-            padding: 80px 0
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px
-        }
-
-        .section-header h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-            font-weight: 900;
-            letter-spacing: -1.5px;
-            margin-bottom: 10px
-        }
-
-        .section-header p {
-            color: var(--muted);
-            font-size: 1.05rem;
-            max-width: 640px;
-            margin: 0 auto
-        }
-
-        .section-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: .7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 16px
-        }
-
-        /* WHAT YOU GET */
-        .benefit-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px
-        }
-
-        .benefit-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-            transition: all .4s cubic-bezier(.4, 0, .2, 1)
-        }
-
-        .benefit-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            opacity: 0;
-            transition: opacity .3s
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--border-hover);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.1)
-        }
-
-        .benefit-card:hover::before {
-            opacity: 1
-        }
-
-        .benefit-card .icon {
-            font-size: 2.4rem;
-            margin-bottom: 16px
-        }
-
-        .benefit-card h3 {
-            font-size: 1.15rem;
-            font-weight: 800;
-            margin-bottom: 8px
-        }
-
-        .benefit-card .time-saved {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 8px;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--green);
-            font-size: .72rem;
-            font-weight: 700;
-            margin-bottom: 12px
-        }
-
-        .benefit-card p {
-            font-size: .88rem;
-            color: var(--text2);
-            line-height: 1.65
-        }
-
-        .benefit-card .includes {
-            list-style: none;
-            margin-top: 16px
-        }
-
-        .benefit-card .includes li {
-            font-size: .82rem;
-            color: var(--text2);
-            padding: 5px 0;
-            padding-left: 22px;
-            position: relative
-        }
-
-        .benefit-card .includes li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--green);
-            font-weight: 700;
-            font-size: .85rem
-        }
-
-        /* PRODUCTS */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 24px
-        }
-
-        .product-card {
-            background: var(--card);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all .4s cubic-bezier(.4, 0, .2, 1);
-            position: relative;
-            overflow: hidden
-        }
-
-        .product-card.featured {
-            border-color: rgba(99, 102, 241, 0.3);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(168, 85, 247, 0.03))
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--neon);
-            opacity: 0;
-            transition: opacity .3s
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--border-hover);
-            box-shadow: 0 24px 60px rgba(99, 102, 241, 0.12)
-        }
-
-        .product-card:hover::before {
-            opacity: 1
-        }
-
-        .product-card .tag {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: .68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .5px
-        }
-
-        .tag-bestseller {
-            background: rgba(239, 68, 68, 0.12);
-            color: var(--red);
-            border: 1px solid rgba(239, 68, 68, 0.25)
-        }
-
-        .tag-popular {
-            background: rgba(99, 102, 241, 0.12);
-            color: var(--accent2);
-            border: 1px solid rgba(99, 102, 241, 0.25)
-        }
-
-        .tag-new {
-            background: rgba(16, 185, 129, 0.12);
-            color: var(--green);
-            border: 1px solid rgba(16, 185, 129, 0.25)
-        }
-
-        .tag-premium {
-            background: rgba(249, 115, 22, 0.12);
-            color: var(--orange);
-            border: 1px solid rgba(249, 115, 22, 0.25)
-        }
-
-        .product-card .emoji {
-            font-size: 2.4rem;
-            margin-bottom: 14px
-        }
-
-        .product-card h3 {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 6px;
-            padding-right: 90px
-        }
-
-        .product-card .subtitle {
-            font-size: .82rem;
-            color: var(--accent3);
-            font-weight: 600;
-            margin-bottom: 12px
-        }
-
-        .product-card .desc {
-            font-size: .88rem;
-            color: var(--muted);
-            margin-bottom: 16px;
-            line-height: 1.6
-        }
-
-        .product-card .value-box {
-            background: rgba(16, 185, 129, 0.06);
-            border: 1px solid rgba(16, 185, 129, 0.12);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px
-        }
-
-        .product-card .value-box h4 {
-            font-size: .78rem;
-            color: var(--green);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px
-        }
-
-        .product-card .value-box ul {
-            list-style: none
-        }
-
-        .product-card .value-box li {
-            font-size: .82rem;
-            color: var(--text2);
-            padding: 3px 0;
-            padding-left: 18px;
-            position: relative
-        }
-
-        .product-card .value-box li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--green)
-        }
-
-        .product-card .price-row {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 16px
-        }
-
-        .product-card .price {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--green)
-        }
-
-        .product-card .price-old {
-            font-size: 1rem;
-            color: var(--dim);
-            text-decoration: line-through
-        }
-
-        .product-card .price-note {
-            font-size: .72rem;
-            color: var(--muted)
-        }
-
-        .product-card .btns {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap
-        }
-
-        /* TESTIMONIALS */
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px
-        }
-
-        .testimonial {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
-            transition: all .3s
-        }
-
-        .testimonial:hover {
-            border-color: var(--border-hover)
-        }
-
-        .testimonial .quote {
-            font-size: .92rem;
-            color: var(--text2);
-            line-height: 1.65;
-            margin-bottom: 16px;
-            font-style: italic
-        }
-
-        .testimonial .author {
-            display: flex;
-            align-items: center;
-            gap: 10px
-        }
-
-        .testimonial .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--neon);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .9rem;
-            font-weight: 700
-        }
-
-        .testimonial .name {
-            font-size: .82rem;
-            font-weight: 700
-        }
-
-        .testimonial .role {
-            font-size: .72rem;
-            color: var(--muted)
-        }
-
-        /* CTA SECTION */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.06));
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 24px;
-            padding: 64px 40px;
-            text-align: center;
-            margin: 40px 0
-        }
-
-        .cta-section h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-            font-weight: 900;
-            margin-bottom: 12px;
-            letter-spacing: -1px
-        }
-
-        .cta-section p {
-            color: var(--muted);
-            max-width: 600px;
-            margin: 0 auto 28px;
-            font-size: 1.05rem
-        }
-
-        /* FAQ */
-        .faq-list {
-            max-width: 700px;
-            margin: 0 auto
-        }
-
-        .faq-item {
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            margin-bottom: 8px;
-            overflow: hidden;
-            transition: all .3s
-        }
-
-        .faq-item:hover {
-            border-color: var(--border-hover)
-        }
-
-        .faq-q {
-            padding: 20px 24px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: .95rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center
-        }
-
-        .faq-q::after {
-            content: '+';
-            font-size: 1.2rem;
-            color: var(--muted);
-            transition: transform .3s
-        }
-
-        .faq-item.open .faq-q::after {
-            transform: rotate(45deg);
-            color: var(--accent2)
-        }
-
-        .faq-a {
-            padding: 0 24px 20px;
-            font-size: .88rem;
-            color: var(--muted);
-            line-height: 1.7;
-            display: none
-        }
-
-        .faq-item.open .faq-a {
-            display: block
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 40px 24px;
-            text-align: center
-        }
-
-        footer .links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 16px;
-            flex-wrap: wrap
-        }
-
-        footer .links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: .8rem;
-            transition: color .3s
-        }
-
-        footer .links a:hover {
-            color: var(--accent2)
-        }
-
-        footer .copy {
-            color: var(--dim);
-            font-size: .72rem
-        }
-
-        @media(max-width:768px) {
-            .hero h1 {
-                font-size: 2rem;
-                letter-spacing: -1px
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr
-            }
-
-            .nav-links {
-                display: none
-            }
-
-            .results {
-                grid-template-columns: repeat(2, 1fr)
-            }
-
-            .hero {
-                padding: 60px 16px 40px
-            }
-
-            .product-card h3 {
-                padding-right: 0
-            }
-
-            .benefit-grid {
-                grid-template-columns: 1fr
-            }
-
-            .testimonial-grid {
-                grid-template-columns: 1fr
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all .6s cubic-bezier(.4, 0, .2, 1)
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0)
-        }
-
-        /* === STICKY CTA BAR === */
-        .sticky-cta {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 90;
-            background: rgba(5, 5, 8, 0.92);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border);
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            transform: translateY(100%);
-            transition: transform .4s cubic-bezier(.4, 0, .2, 1)
-        }
-
-        .sticky-cta.visible {
-            transform: translateY(0)
-        }
-
-        .sticky-cta .sc-text {
-            font-size: .85rem;
-            font-weight: 600;
-            color: var(--text2)
-        }
-
-        .sticky-cta .sc-text strong {
-            color: var(--green)
-        }
-
-        @media(max-width:640px) {
-            .sticky-cta .sc-text {
-                display: none
-            }
-        }
-
-        /* === EXIT POPUP === */
-        .popup-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 300;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px
-        }
-
-        .popup-overlay.show {
-            display: flex
-        }
-
-        .popup {
-            background: var(--card-solid);
-            border: 1px solid rgba(124, 58, 237, 0.4);
-            border-radius: 20px;
-            max-width: 480px;
-            width: 100%;
-            padding: 40px;
-            position: relative;
-            text-align: center;
-            animation: popIn .4s ease
-        }
-
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: scale(.9)
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1)
-            }
-        }
-
-        .popup .close {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-size: 1.4rem;
-            cursor: pointer;
-            padding: 4px 8px
-        }
-
-        .popup .close:hover {
-            color: var(--text)
-        }
-
-        .popup h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 8px
-        }
-
-        .popup .popup-sub {
-            color: var(--muted);
-            font-size: .88rem;
-            margin-bottom: 20px;
-            line-height: 1.5
-        }
-
-        .popup .popup-gift {
-            font-size: 2.5rem;
-            margin-bottom: 12px
-        }
-
-        .popup input[type=email] {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.04);
-            color: #fff;
-            font-size: .9rem;
-            font-family: inherit;
-            outline: none;
-            margin-bottom: 12px;
-            transition: border .3s
-        }
-
-        .popup input[type=email]:focus {
-            border-color: var(--accent)
-        }
-
-        .popup .popup-cta {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            background: var(--neon);
-            color: #fff;
-            font-size: .92rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all .3s
-        }
-
-        .popup .popup-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4)
-        }
-
-        .popup .popup-note {
-            font-size: .72rem;
-            color: var(--dim);
-            margin-top: 12px
-        }
-
-        /* === FOMO VIEWER === */
-        .fomo-badge {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            z-index: 80;
-            background: var(--card-solid);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: .78rem;
-            color: var(--text2);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all .4s;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3)
-        }
-
-        .fomo-badge.show {
-            opacity: 1;
-            transform: translateY(0)
-        }
-
-        .fomo-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--green);
-            animation: pulse 2s infinite
-        }
-
-        /* === NOTIFICATION TOAST === */
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            z-index: 80;
-            background: var(--card-solid);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 14px;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: .82rem;
-            color: var(--text2);
-            opacity: 0;
-            transform: translateX(120%);
-            transition: all .5s cubic-bezier(.4, 0, .2, 1);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-            max-width: 340px
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateX(0)
-        }
-
-        .toast .t-icon {
-            font-size: 1.4rem
-        }
-
-        .toast .t-name {
-            font-weight: 700;
-            color: var(--green)
-        }
-
-        .toast .t-time {
-            font-size: .68rem;
-            color: var(--dim)
-        }
-
-        /* === COUNTDOWN === */
-        .countdown {
-            display: inline-flex;
-            gap: 8px;
-            margin-top: 16px
-        }
-
-        .cd-unit {
-            display: flex;
-            flex-direction: column;
-            align-items: center
-        }
-
-        .cd-val {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--accent2);
-            background: rgba(124, 58, 237, 0.1);
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            border-radius: 10px;
-            padding: 6px 12px;
-            min-width: 48px;
-            text-align: center
-        }
-
-        .cd-lbl {
-            font-size: .6rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px
-        }
-
-        .cd-sep {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--dim);
-            align-self: flex-start;
-            padding-top: 8px
-        }
-
-        /* === GUARANTEE === */
-        .guarantee {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(5, 150, 105, 0.03));
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 16px;
-            padding: 24px;
-            margin: 24px auto;
-            max-width: 700px
-        }
-
-        .guarantee .shield {
-            font-size: 3rem;
-            flex-shrink: 0
-        }
-
-        .guarantee h4 {
-            font-weight: 700;
-            color: var(--green);
-            margin-bottom: 4px;
-            font-size: 1rem
-        }
-
-        .guarantee p {
-            font-size: .84rem;
-            color: var(--text2);
-            line-height: 1.5
-        }
-
-        @media(max-width:640px) {
-            .guarantee {
-                flex-direction: column;
-                text-align: center
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -1261,7 +48,7 @@
         <div class="nav-inner">
             <div class="nav-brand"><span class="dot"></span> Maurice Pfeifer</div>
             <div class="nav-links">
-                <a href="lead-magnet.html" style="color:var(--green)">🎁 Gratis Tools</a>
+                <a href="lead-magnet.html" class="nav-free">🎁 Gratis Tools</a>
                 <a href="#vorteile">Was du bekommst</a>
                 <a href="#produkte">Produkte</a>
                 <a href="#faq">FAQ</a>
@@ -1280,7 +67,7 @@
                 wie.</strong></p>
         <div class="hero-cta">
             <a href="#produkte" class="btn btn-lg btn-primary">🚀 Jetzt Produkt wählen</a>
-            <a href="lead-magnet.html" class="btn btn-lg btn-outline">🎁 Gratis Agent Configs</a>
+            <a href="lead-magnet.html" class="btn btn-lg btn-outline">🎁 3 Gratis KI-Tools</a>
         </div>
         <div class="hero-proof">
             <span class="stars">★★★★★</span> Bewährtes System · Sofort umsetzbar · Schritt-für-Schritt Anleitungen
@@ -1301,34 +88,26 @@
                 <div class="cd-lbl">Sek</div>
             </div>
         </div>
-        <p style="font-size:.76rem;color:var(--dim);margin-top:6px">⚡ Launch-Preise — steigen nach Ablauf des Timers</p>
+        <p class="hero-timer-note">⚡ Launch-Preise — steigen nach Ablauf des Timers</p>
     </header>
 
     <!-- RESULTS -->
     <div class="container">
         <div class="results">
             <div class="result-card fade-in">
-                <div class="num"
-                    style="background:var(--money);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
-                    20h+</div>
+                <div class="num num-money">20h+</div>
                 <div class="lbl">Zeitersparnis / Woche</div>
             </div>
             <div class="result-card fade-in">
-                <div class="num"
-                    style="background:var(--neon);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
-                    100+</div>
+                <div class="num num-neon">100+</div>
                 <div class="lbl">AI Agents gebaut</div>
             </div>
             <div class="result-card fade-in">
-                <div class="num"
-                    style="background:var(--gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
-                    €5K+</div>
+                <div class="num num-gold">€5K+</div>
                 <div class="lbl">Monatlicher Wert</div>
             </div>
             <div class="result-card fade-in">
-                <div class="num"
-                    style="background:var(--fire);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
-                    30 Min</div>
+                <div class="num num-fire">30 Min</div>
                 <div class="lbl">Setup-Zeit</div>
             </div>
         </div>
@@ -1338,17 +117,15 @@
     <section id="vorteile">
         <div class="container">
             <div class="section-header">
-                <div class="section-tag"
-                    style="background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2)">💎
-                    DER MEHRWERT</div>
+                <div class="section-tag section-tag-green">💎 DER MEHRWERT</div>
                 <h2>Was du konkret bekommst</h2>
                 <p>Keine Theorie. Keine leeren Versprechen. Fertige Systeme mit Schritt-für-Schritt Anleitungen die DU
                     sofort umsetzen kannst.</p>
             </div>
 
             <div class="benefit-grid">
-                <div class="benefit-card fade-in" style="--accent-color:var(--green)">
-                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--money)"></div>
+                <div class="benefit-card fade-in">
+                    <div class="top-accent" style="background:var(--money)"></div>
                     <div class="icon">⏱️</div>
                     <h3>20+ Stunden pro Woche sparen</h3>
                     <div class="time-saved">⚡ Sofort umsetzbar</div>
@@ -1358,15 +135,15 @@
                         <li>Email-Automation: Von 2h/Tag auf 15 Min</li>
                         <li>Content erstellen: Von 20h/Woche auf 4h</li>
                         <li>Lead-Qualifizierung: Komplett automatisiert</li>
-                        <li>Reports & Analysen: 1-Klick statt Stunden</li>
+                        <li>Reports &amp; Analysen: 1-Klick statt Stunden</li>
                     </ul>
                 </div>
 
                 <div class="benefit-card fade-in">
-                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--neon)"></div>
+                    <div class="top-accent" style="background:var(--neon)"></div>
                     <div class="icon">🤖</div>
                     <h3>Fertige AI Agent Configs</h3>
-                    <div class="time-saved">📋 Copy & Paste Ready</div>
+                    <div class="time-saved">📋 Copy &amp; Paste Ready</div>
                     <p>10 getestete Agent-Konfigurationen aus meinem echten 100-Agent-System. Du kopierst, passt an,
                         deployst — fertig.</p>
                     <ul class="includes">
@@ -1378,7 +155,7 @@
                 </div>
 
                 <div class="benefit-card fade-in">
-                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--fire)"></div>
+                    <div class="top-accent" style="background:var(--fire)"></div>
                     <div class="icon">💰</div>
                     <h3>Neue Revenue-Streams aufbauen</h3>
                     <div class="time-saved">📈 Von €0 auf €5K/Monat</div>
@@ -1393,7 +170,7 @@
                 </div>
 
                 <div class="benefit-card fade-in">
-                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold)"></div>
+                    <div class="top-accent" style="background:var(--gold)"></div>
                     <div class="icon">📚</div>
                     <h3>Komplette Schritt-für-Schritt Anleitung</h3>
                     <div class="time-saved">🎓 Auch für Anfänger</div>
@@ -1411,57 +188,36 @@
     </section>
 
     <!-- OPEN SOURCE BANNER -->
-    <section style="padding:40px 0">
+    <section>
         <div class="container">
-            <div
-                style="background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(6,182,212,0.04));border:1px solid rgba(16,185,129,0.15);border-radius:20px;padding:40px;text-align:center">
-                <div style="font-size:2rem;margin-bottom:12px">🔓</div>
-                <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:10px">100% Open Source & Kostenlose Tools</h3>
-                <p style="color:var(--muted);max-width:600px;margin:0 auto 20px;font-size:.92rem;line-height:1.6">Alle
-                    meine Systeme basieren auf <strong style="color:var(--green)">kostenlosen Open-Source
-                        Tools</strong>. Keine teuren Abos, keine versteckten Kosten. Du kannst sofort loslegen — für €0.
-                </p>
-                <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-                    <div
-                        style="padding:10px 18px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-size:.82rem;font-weight:600">
-                        🦙 <strong>Ollama</strong> — Lokal & Gratis</div>
-                    <div
-                        style="padding:10px 18px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-size:.82rem;font-weight:600">
-                        🔄 <strong>n8n</strong> — Free Tier</div>
-                    <div
-                        style="padding:10px 18px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-size:.82rem;font-weight:600">
-                        🤖 <strong>Claude</strong> — Free Tier</div>
-                    <div
-                        style="padding:10px 18px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-size:.82rem;font-weight:600">
-                        🐙 <strong>GitHub</strong> — Kostenlos</div>
-                    <div
-                        style="padding:10px 18px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-size:.82rem;font-weight:600">
-                        🌙 <strong>Kimi</strong> — Free Tier</div>
+            <div class="open-source-banner">
+                <div class="banner-icon">🔓</div>
+                <h3>100% Open Source &amp; Kostenlose Tools</h3>
+                <p>Alle meine Systeme basieren auf <strong>kostenlosen Open-Source Tools</strong>. Keine teuren Abos,
+                    keine versteckten Kosten. Du kannst sofort loslegen — für €0.</p>
+                <div class="tool-badges">
+                    <div class="tool-badge">🦙 <strong>Ollama</strong> — Lokal &amp; Gratis</div>
+                    <div class="tool-badge">🔄 <strong>n8n</strong> — Free Tier</div>
+                    <div class="tool-badge">🤖 <strong>Claude</strong> — Free Tier</div>
+                    <div class="tool-badge">🐙 <strong>GitHub</strong> — Kostenlos</div>
+                    <div class="tool-badge">🌙 <strong>Kimi</strong> — Free Tier</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PRODUKTE -->
-    <section id="produkte" style="background:linear-gradient(180deg,transparent,rgba(99,102,241,0.02),transparent)">
+    <section id="produkte" class="products-section">
         <div class="container">
             <div class="section-header">
-                <div class="section-tag"
-                    style="background:rgba(249,115,22,0.1);color:var(--orange);border:1px solid rgba(249,115,22,0.2)">🛒
-                    SHOP</div>
+                <div class="section-tag section-tag-orange">🛒 SHOP</div>
                 <h2>5 Stufen — Wähle dein Level</h2>
                 <p>Von €27 bis €297. Jedes Produkt enthält alles was du brauchst — Anleitungen, Templates, Configs.
                     Starte klein oder geh direkt all-in.</p>
-                <div style="display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap">
-                    <div
-                        style="padding:6px 14px;border-radius:8px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15);color:var(--green);font-size:.75rem;font-weight:700">
-                        💚 GÜNSTIG — ab €27</div>
-                    <div
-                        style="padding:6px 14px;border-radius:8px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);color:var(--accent2);font-size:.75rem;font-weight:700">
-                        💜 MITTEL — €47-€97</div>
-                    <div
-                        style="padding:6px 14px;border-radius:8px;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.15);color:var(--orange);font-size:.75rem;font-weight:700">
-                        🧡 PREMIUM — €297</div>
+                <div class="price-levels">
+                    <div class="price-level price-level-green">💚 GÜNSTIG — ab €27</div>
+                    <div class="price-level price-level-accent">💜 MITTEL — €47-€97</div>
+                    <div class="price-level price-level-orange">🧡 PREMIUM — €297</div>
                 </div>
             </div>
 
@@ -1473,8 +229,8 @@
                     <div class="emoji">📝</div>
                     <h3>Prompt Cheatsheet Pro</h3>
                     <div class="subtitle">50 Profi-Prompts die sofort Ergebnisse liefern</div>
-                    <div class="desc">Die exakt gleichen Prompts aus meinem 100-Agent-System. Copy & Paste in ChatGPT,
-                        Claude oder Kimi — sofort bessere Ergebnisse.</div>
+                    <div class="desc">Die exakt gleichen Prompts aus meinem 100-Agent-System. Copy &amp; Paste in
+                        ChatGPT, Claude oder Kimi — sofort bessere Ergebnisse.</div>
                     <div class="value-box">
                         <h4>Das bekommst du</h4>
                         <ul>
@@ -1492,9 +248,9 @@
                     </div>
                     <div class="btns">
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=27&item_name=Prompt%20Cheatsheet%20Pro"
-                            class="btn btn-sm btn-green" target="_blank">📝 Jetzt holen — €27</a>
+                            class="btn btn-sm btn-green" target="_blank" rel="noopener">📝 Jetzt holen — €27</a>
                         <a href="https://buy.stripe.com/test_aFa7sL866gUA5JA5DTbMQ00" class="btn btn-sm btn-outline"
-                            target="_blank">Stripe</a>
+                            target="_blank" rel="noopener">Stripe</a>
                     </div>
                 </div>
 
@@ -1522,9 +278,9 @@
                     </div>
                     <div class="btns">
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=47&item_name=AI%20Agent%20Starter%20Kit"
-                            class="btn btn-sm btn-green" target="_blank">💳 Jetzt kaufen — €47</a>
+                            class="btn btn-sm btn-green" target="_blank" rel="noopener">💳 Jetzt kaufen — €47</a>
                         <a href="https://buy.stripe.com/test_28EeVd4TU7k0dc2eapbMQ03" class="btn btn-sm btn-outline"
-                            target="_blank">Stripe</a>
+                            target="_blank" rel="noopener">Stripe</a>
                     </div>
                 </div>
 
@@ -1542,7 +298,7 @@
                             <li>Kompletter Systemguide (50+ Seiten)</li>
                             <li>7 Agent-Squads erklärt mit Configs</li>
                             <li>30-Tage Schritt-für-Schritt Roadmap</li>
-                            <li>Revenue-Optimierung & Pricing-Strategie</li>
+                            <li>Revenue-Optimierung &amp; Pricing-Strategie</li>
                             <li>Automation-Workflows (n8n/Make.com)</li>
                             <li>Private Telegram Support-Gruppe</li>
                         </ul>
@@ -1554,9 +310,9 @@
                     </div>
                     <div class="btns">
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=79&item_name=AI%20Automation%20Blueprint"
-                            class="btn btn-sm btn-primary" target="_blank">🚀 Blueprint holen — €79</a>
+                            class="btn btn-sm btn-primary" target="_blank" rel="noopener">🚀 Blueprint holen — €79</a>
                         <a href="https://buy.stripe.com/test_5kQ3cvdqq5bS3Bs0jzbMQ04" class="btn btn-sm btn-outline"
-                            target="_blank">Stripe</a>
+                            target="_blank" rel="noopener">Stripe</a>
                     </div>
                 </div>
 
@@ -1585,14 +341,14 @@
                     </div>
                     <div class="btns">
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=97&item_name=AI%20Side%20Hustle%20Playbook"
-                            class="btn btn-sm btn-fire" target="_blank">💰 Playbook sichern — €97</a>
+                            class="btn btn-sm btn-fire" target="_blank" rel="noopener">💰 Playbook sichern — €97</a>
                         <a href="https://buy.stripe.com/test_5kQ3cvdqq5bS3Bs0jzbMQ04" class="btn btn-sm btn-outline"
-                            target="_blank">Stripe</a>
+                            target="_blank" rel="noopener">Stripe</a>
                     </div>
                 </div>
 
                 <!-- CONSULTING -->
-                <div class="product-card fade-in" style="border-color:rgba(249,115,22,0.3)">
+                <div class="product-card premium-border fade-in">
                     <div class="tag tag-premium">👑 PREMIUM</div>
                     <div class="emoji">🧠</div>
                     <h3>1:1 AI Setup Call</h3>
@@ -1616,7 +372,7 @@
                     </div>
                     <div class="btns">
                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mauricepfeifer%40icloud.com&currency_code=EUR&amount=297&item_name=1-zu-1%20AI%20Setup%20Call"
-                            class="btn btn-sm btn-fire" target="_blank">📞 Call buchen — €297</a>
+                            class="btn btn-sm btn-fire" target="_blank" rel="noopener">📞 Call buchen — €297</a>
                         <a href="mailto:mauricepfeifer@icloud.com?subject=1:1%20AI%20Setup%20Call%20Anfrage"
                             class="btn btn-sm btn-outline">📧 Erstmal fragen</a>
                     </div>
@@ -1630,9 +386,7 @@
     <section>
         <div class="container">
             <div class="section-header">
-                <div class="section-tag"
-                    style="background:rgba(99,102,241,0.1);color:var(--accent2);border:1px solid rgba(99,102,241,0.2)">
-                    💬 ERGEBNISSE</div>
+                <div class="section-tag section-tag-accent">💬 ERGEBNISSE</div>
                 <h2>Das sagen andere</h2>
             </div>
             <div class="testimonial-grid">
@@ -1643,7 +397,7 @@
                         <div class="avatar">S</div>
                         <div>
                             <div class="name">Stefan K.</div>
-                            <div class="role">Freelancer & Content Creator</div>
+                            <div class="role">Freelancer &amp; Content Creator</div>
                         </div>
                     </div>
                 </div>
@@ -1674,42 +428,27 @@
     </section>
 
     <!-- ÜBER MICH -->
-    <section style="background:linear-gradient(180deg,transparent,rgba(16,185,129,0.02),transparent)">
+    <section class="about-section">
         <div class="container">
-            <div style="max-width:700px;margin:0 auto;text-align:center">
-                <div class="section-tag"
-                    style="background:rgba(249,115,22,0.1);color:var(--orange);border:1px solid rgba(249,115,22,0.2)">👤
-                    ÜBER MICH</div>
-                <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;letter-spacing:-1px;margin-bottom:16px">
-                    Hi, ich bin Maurice.</h2>
-                <p style="font-size:1rem;color:var(--text2);line-height:1.8;margin-bottom:20px">
-                    Ich habe ein System aus <strong style="color:#fff">100+ AI Agents</strong> gebaut, die mein
+            <div class="about-inner">
+                <div class="section-tag section-tag-orange">👤 ÜBER MICH</div>
+                <h2>Hi, ich bin Maurice.</h2>
+                <p>
+                    Ich habe ein System aus <strong>100+ AI Agents</strong> gebaut, die mein
                     komplettes Business automatisieren — von Content-Erstellung über Lead-Qualifizierung bis hin zu
-                    Email-Marketing. Das Ergebnis: <strong style="color:var(--green)">20+ Stunden pro Woche
+                    Email-Marketing. Das Ergebnis: <strong class="highlight-green">20+ Stunden pro Woche
                         gespart</strong> und komplett neue Revenue-Streams aufgebaut.
                 </p>
-                <p style="font-size:1rem;color:var(--text2);line-height:1.8;margin-bottom:24px">
-                    Ich nutze <strong style="color:#fff">Claude, Kimi, n8n, Ollama</strong> und ein halbes Dutzend
+                <p>
+                    Ich nutze <strong>Claude, Kimi, n8n, Ollama</strong> und ein halbes Dutzend
                     andere Tools — und ich zeige dir genau, wie ich das gemacht habe. Keine Theorie, keine
-                    Hype-Versprechen. <strong style="color:var(--green)">Echte Systeme die laufen.</strong>
+                    Hype-Versprechen. <strong class="highlight-green">Echte Systeme die laufen.</strong>
                 </p>
-                <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-                    <div
-                        style="padding:12px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:.82rem">
-                        <strong>🤖 100+</strong> AI Agents
-                    </div>
-                    <div
-                        style="padding:12px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:.82rem">
-                        <strong>⏱️ 20h</strong> /Woche gespart
-                    </div>
-                    <div
-                        style="padding:12px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:.82rem">
-                        <strong>📊 5</strong> Revenue-Streams
-                    </div>
-                    <div
-                        style="padding:12px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:.82rem">
-                        <strong>🔧 7</strong> GitHub Repos
-                    </div>
+                <div class="about-stats">
+                    <div class="about-stat"><strong>🤖 100+</strong> AI Agents</div>
+                    <div class="about-stat"><strong>⏱️ 20h</strong> /Woche gespart</div>
+                    <div class="about-stat"><strong>📊 5</strong> Revenue-Streams</div>
+                    <div class="about-stat"><strong>🔧 7</strong> GitHub Repos</div>
                 </div>
             </div>
         </div>
@@ -1719,16 +458,14 @@
     <section id="faq">
         <div class="container">
             <div class="section-header">
-                <div class="section-tag"
-                    style="background:rgba(99,102,241,0.1);color:var(--accent2);border:1px solid rgba(99,102,241,0.2)">❓
-                    FAQ</div>
+                <div class="section-tag section-tag-accent">❓ FAQ</div>
                 <h2>Häufige Fragen</h2>
             </div>
             <div class="faq-list">
                 <div class="faq-item" onclick="this.classList.toggle('open')">
                     <div class="faq-q">Brauche ich Programmier-Erfahrung?</div>
                     <div class="faq-a">Nein. Jedes Produkt hat eine Schritt-für-Schritt Anleitung. Du kopierst die
-                        Configs, passt sie an dein Business an, und deployst. Wenn du Copy & Paste kannst, kannst du
+                        Configs, passt sie an dein Business an, und deployst. Wenn du Copy &amp; Paste kannst, kannst du
                         das.</div>
                 </div>
                 <div class="faq-item" onclick="this.classList.toggle('open')">
@@ -1767,16 +504,25 @@
     <section>
         <div class="container">
             <div class="cta-section">
+                <div class="guarantee">
+                    <div class="shield">🛡️</div>
+                    <div>
+                        <h4>14 Tage Geld-zurück-Garantie — Kein Risiko.</h4>
+                        <p>Wenn du nicht zufrieden bist, schreib mir eine Email und du bekommst dein Geld zurück. Keine
+                            Fragen, kein Kleingedrucktes. Ich bin so überzeugt von meinen Produkten, dass ich das Risiko
+                            trage — nicht du.</p>
+                    </div>
+                </div>
                 <h2>Bereit, 20+ Stunden pro Woche zurück zu gewinnen?</h2>
                 <p>Starte jetzt. Dein erster AI Agent läuft in 30 Minuten. Kein Risiko — 14 Tage Geld-zurück-Garantie.
                 </p>
-                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+                <div class="cta-buttons">
                     <a href="#produkte" class="btn btn-lg btn-primary">🚀 Produkt wählen</a>
                     <a href="mailto:mauricepfeifer@icloud.com?subject=Frage%20zu%20deinen%20AI%20Produkten"
                         class="btn btn-lg btn-outline">📧 Erstmal eine Frage stellen</a>
                 </div>
-                <p style="margin-top:20px;font-size:.78rem;color:var(--dim)">Sichere Zahlung via PayPal & Stripe ·
-                    Sofortige Lieferung · 14 Tage Geld-zurück</p>
+                <p class="cta-note">Sichere Zahlung via PayPal &amp; Stripe · Sofortige Lieferung · 14 Tage
+                    Geld-zurück</p>
             </div>
         </div>
     </section>
@@ -1785,11 +531,12 @@
         <div class="container">
             <div class="links">
                 <a href="mailto:mauricepfeifer@icloud.com">mauricepfeifer@icloud.com</a>
-                <a href="https://github.com/mauricepfeifer-ctrl" target="_blank">GitHub</a>
-                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/" target="_blank">Alle Produkte</a>
+                <a href="https://github.com/mauricepfeifer-ctrl" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/" target="_blank"
+                    rel="noopener">Alle Produkte</a>
             </div>
-            <div class="copy">© 2026 Maurice Pfeifer · Alle Rechte vorbehalten · Sichere Zahlung via PayPal & Stripe
-            </div>
+            <div class="copy">© 2026 Maurice Pfeifer · Alle Rechte vorbehalten · Sichere Zahlung via PayPal &amp;
+                Stripe</div>
         </div>
     </footer>
 
@@ -1830,31 +577,42 @@
         </div>
     </div>
 
-    <!-- GUARANTEE (injected above final CTA) -->
     <script>
-        // Insert guarantee above the final CTA
-        const finalCta = document.querySelector('.cta-section');
-        if (finalCta) {
-            const g = document.createElement('div');
-            g.className = 'guarantee';
-            g.innerHTML = '<div class="shield">🛡️</div><div><h4>14 Tage Geld-zurück-Garantie — Kein Risiko.</h4><p>Wenn du nicht zufrieden bist, schreib mir eine Email und du bekommst dein Geld zurück. Keine Fragen, kein Kleingedrucktes. Ich bin so überzeugt von meinen Produkten, dass ich das Risiko trage — nicht du.</p></div>';
-            finalCta.insertBefore(g, finalCta.querySelector('.btns, div[style*="display:flex"]'));
-        }
-    </script>
+        // ===== INTERSECTION OBSERVER FOR FADE-IN =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    <script>
-        // Active Nav on Scroll
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ===== SCROLL PROGRESS BAR =====
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // ===== ACTIVE NAV ON SCROLL =====
         const sections = document.querySelectorAll('section[id]');
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY + 120;
             sections.forEach(s => {
                 const top = s.offsetTop, h = s.offsetHeight, id = s.getAttribute('id');
                 const link = document.querySelector(`.nav-links a[href="#${id}"]`);
-                if (link) { if (scrollY >= top && scrollY < top + h) link.classList.add('active'); else link.classList.remove('active'); }
+                if (link) {
+                    if (scrollY >= top && scrollY < top + h) link.classList.add('active');
+                    else link.classList.remove('active');
+                }
             });
         });
 
-        // === COUNTDOWN TIMER (24h from first visit) ===
+        // ===== COUNTDOWN TIMER (24h from first visit) =====
         (function () {
             let end = localStorage.getItem('empire_countdown');
             if (!end) { end = Date.now() + 24 * 60 * 60 * 1000; localStorage.setItem('empire_countdown', end); }
@@ -1870,14 +628,14 @@
             tick();
         })();
 
-        // === STICKY CTA BAR (show after 400px scroll) ===
+        // ===== STICKY CTA BAR (show after 400px scroll) =====
         window.addEventListener('scroll', () => {
             const bar = document.getElementById('stickyCta');
             if (window.scrollY > 400) bar.classList.add('visible');
             else bar.classList.remove('visible');
         });
 
-        // === FOMO BADGE (random viewer count) ===
+        // ===== FOMO BADGE (random viewer count) =====
         (function () {
             const badge = document.getElementById('fomoBadge');
             const count = document.getElementById('fomoCount');
@@ -1888,10 +646,10 @@
             }, 8000);
         })();
 
-        // === NOTIFICATION TOASTS (social proof) ===
+        // ===== NOTIFICATION TOASTS (social proof) =====
         (function () {
             const names = ['Stefan K.', 'Lisa M.', 'Thomas R.', 'Alexander W.', 'Julia F.', 'Markus B.', 'Sandra H.', 'Patrick D.', 'Anna L.', 'Michael G.'];
-            const products = ['AI Agent Starter Kit', 'AI Automation Blueprint', 'BMA Profi-Checklisten', 'AI Side Hustle Playbook', '1:1 AI Setup Call', 'BMA Troubleshooting-Kompass'];
+            const products = ['Prompt Cheatsheet Pro', 'AI Agent Starter Kit', 'AI Automation Blueprint', 'AI Side Hustle Playbook', '1:1 AI Setup Call'];
             const times = ['vor 2 Minuten', 'vor 5 Minuten', 'vor 12 Minuten', 'vor 23 Minuten', 'vor 1 Stunde', 'vor 3 Stunden'];
             const toast = document.getElementById('toast');
             function showToast() {
@@ -1905,15 +663,13 @@
             setInterval(showToast, 25000 + Math.random() * 15000);
         })();
 
-        // === EXIT INTENT POPUP ===
+        // ===== EXIT INTENT POPUP =====
         let popupShown = false;
         function closePopup() { document.getElementById('exitPopup').classList.remove('show'); }
         function submitEmail() {
             const email = document.getElementById('popupEmail').value;
             if (email && email.includes('@')) {
-                // TODO: Connect to Brevo/Mailchimp API
                 document.querySelector('.popup').innerHTML = '<div style="padding:40px;text-align:center"><div style="font-size:3rem;margin-bottom:16px">🎉</div><h3>Check deine Inbox!</h3><p style="color:var(--muted);margin-top:8px">Der Guide ist unterwegs. Schau auch in den Spam-Ordner.</p><button class="popup-cta" onclick="closePopup()" style="margin-top:20px;max-width:200px;margin-left:auto;margin-right:auto">Schließen</button></div>';
-                // Track conversion
                 console.log('Lead captured:', email);
             }
         }
@@ -1924,7 +680,6 @@
                 sessionStorage.setItem('popup_closed', '1');
             }
         });
-        // Also show on mobile after 45 seconds
         setTimeout(() => {
             if (!popupShown && !sessionStorage.getItem('popup_closed')) {
                 popupShown = true;

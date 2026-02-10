@@ -1,0 +1,180 @@
+{
+  "name": "📢 Content Blitz Auto-Router",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "empire-swarm/content-created",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-content",
+      "name": "📝 Content Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-tiktok",
+              "leftValue": "={{ $json.type }}",
+              "rightValue": "tiktok_script",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "switch-platform",
+      "name": "📱 Platform Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format for X/Twitter\nconst item = $input.first().json;\n\nconst tweets = item.result ? item.result.split('\\n\\n').filter(t => t.trim()) : ['No content'];\n\nconst formatted = {\n  platform: 'twitter',\n  content: tweets[0] || item.result,\n  thread: tweets,\n  hashtags: ['#AI', '#Automation', '#AIEmpire'],\n  scheduled_for: new Date(Date.now() + 3600000).toISOString(),\n  original_type: item.type,\n  department: item.department\n};\n\nreturn [{json: formatted}];"
+      },
+      "id": "code-format-x",
+      "name": "🐦 Format for X",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format TikTok Script\nconst item = $input.first().json;\n\nconst formatted = {\n  platform: 'tiktok',\n  script: item.result,\n  hook: item.result ? item.result.split('.')[0] : 'Hook missing',\n  duration_estimate: '60s',\n  visual_style: 'talking_head',\n  music_suggestion: 'trending_beat',\n  original_type: item.type,\n  department: item.department\n};\n\nreturn [{json: formatted}];"
+      },
+      "id": "code-format-tiktok",
+      "name": "🎬 Format TikTok",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format YouTube Script\nconst item = $input.first().json;\n\nconst formatted = {\n  platform: 'youtube',\n  title: item.result ? item.result.split('\\n')[0] : 'Video Title',\n  script: item.result,\n  estimated_length: '8-12 min',\n  thumbnail_ideas: ['Bold text overlay', 'Shocked face', 'Before/After'],\n  tags: ['AI', 'automation', 'business', 'tech'],\n  original_type: item.type,\n  department: item.department\n};\n\nreturn [{json: formatted}];"
+      },
+      "id": "code-format-yt",
+      "name": "📹 Format YouTube",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Save all content to master queue\nconst item = $input.first().json;\n\nconst queueEntry = {\n  id: Date.now().toString(36),\n  ...item,\n  status: 'queued',\n  created_at: new Date().toISOString(),\n  priority: item.is_high_value ? 'high' : 'normal'\n};\n\nreturn [{json: queueEntry}];"
+      },
+      "id": "code-queue",
+      "name": "📋 Content Queue",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "📝 Content Webhook": {
+      "main": [
+        [
+          {
+            "node": "📱 Platform Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📱 Platform Router": {
+      "main": [
+        [
+          {
+            "node": "🐦 Format for X",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "🎬 Format TikTok",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📹 Format YouTube",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🐦 Format for X": {
+      "main": [
+        [
+          {
+            "node": "📋 Content Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎬 Format TikTok": {
+      "main": [
+        [
+          {
+            "node": "📋 Content Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📹 Format YouTube": {
+      "main": [
+        [
+          {
+            "node": "📋 Content Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

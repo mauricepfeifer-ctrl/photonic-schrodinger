@@ -1,0 +1,119 @@
+{
+  "name": "💳 Stripe Payment Processor",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stripe/webhook",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-stripe",
+      "name": "💳 Stripe Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process Stripe Event\nconst item = $input.first().json;\nconst event_type = item.type || 'unknown';\n\nconst processed = {\n  event_type: event_type,\n  timestamp: new Date().toISOString(),\n  is_payment: event_type.includes('payment') || event_type.includes('checkout'),\n  is_refund: event_type.includes('refund'),\n  \n  // Extract amount\n  amount_cents: item.data?.object?.amount_total || item.data?.object?.amount || 0,\n  amount_eur: ((item.data?.object?.amount_total || item.data?.object?.amount || 0) / 100).toFixed(2),\n  currency: item.data?.object?.currency || 'eur',\n  \n  // Customer\n  customer_email: item.data?.object?.customer_email || item.data?.object?.customer_details?.email || 'unknown',\n  \n  // Product\n  product_name: 'AI Empire Product',\n  \n  // Status\n  status: item.data?.object?.status || item.data?.object?.payment_status || 'unknown'\n};\n\nreturn [{json: processed}];"
+      },
+      "id": "code-stripe-process",
+      "name": "🔄 Process Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-is-payment",
+              "leftValue": "={{ $json.is_payment }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-payment",
+      "name": "💰 Payment?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Celebrate sale!\nconst item = $input.first().json;\n\nconst celebration = {\n  message: '🎉 KA-CHING! New Sale!',\n  amount: '€' + item.amount_eur,\n  customer: item.customer_email,\n  product: item.product_name,\n  timestamp: new Date().toISOString(),\n  \n  // Notification\n  notification_text: '💰 €' + item.amount_eur + ' von ' + item.customer_email + '! 🚀'\n};\n\nreturn [{json: celebration}];"
+      },
+      "id": "code-celebrate",
+      "name": "🎉 Celebrate!",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "💳 Stripe Webhook": {
+      "main": [
+        [
+          {
+            "node": "🔄 Process Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔄 Process Event": {
+      "main": [
+        [
+          {
+            "node": "💰 Payment?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💰 Payment?": {
+      "main": [
+        [
+          {
+            "node": "🎉 Celebrate!",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -38,7 +38,7 @@ class OllamaEngine:
         timeout_s: float = 600.0,
     ) -> None:
         self.host = (host or os.getenv("OLLAMA_HOST") or "http://127.0.0.1:11434").rstrip("/")
-        self.model = model or os.getenv("OLLAMA_MODEL") or "llama3.1:8b"
+        self.model = model or os.getenv("OLLAMA_MODEL") or "qwen2.5-coder:14b"
         self.temperature = temperature if temperature is not None else float(os.getenv("OLLAMA_TEMPERATURE") or "0.2")
         self.timeout_s = timeout_s
 

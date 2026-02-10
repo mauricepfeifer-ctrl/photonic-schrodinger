@@ -1,24 +1,13 @@
 {
-  "total_revenue_cents": 19700,
-  "total_transactions": 1,
-  "refunds": 0,
-  "by_product": {
-    "prompt_pro": 19700
-  },
-  "by_category": {
-    "digital": 19700
-  },
-  "last_payment": "2026-02-09T22:28:31.162474",
+  "total_revenue_cents": 69100,
+  "total_transactions": 3,
+  "last_payment": "2026-02-10T00:25:40.686833",
   "payments": [
     {
-      "payment_id": "cs_test_demo",
-      "product_id": "prompt_pro",
-      "amount_cents": 19700,
-      "currency": "eur",
-      "customer_email": "demo@customer.com",
-      "status": "completed",
-      "timestamp": "2026-02-09T22:28:31.162474",
-      "stripe_session_id": "cs_test_demo"
+      "amount": 297,
+      "product": "AI Consulting – Sprint",
+      "source": "pipeline",
+      "timestamp": "2026-02-10T00:25:40.686726"
     }
   ]
 }

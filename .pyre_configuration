@@ -8,14 +8,17 @@
     "agents",
     "modules",
     "blueprints",
-    "/Users/maurice/AIEmpire-Core/.venv/lib/python3.14/site-packages"
+    "utils"
   ],
   "exclude": [
     "venv/.*",
+    ".venv/.*",
     ".git/.*",
     "mega_swarm_output/.*",
-    "__pycache__/.*"
+    "__pycache__/.*",
+    "content_output/.*",
+    "node_modules/.*"
   ],
   "strict": false,
-  "python_version": "3.14"
+  "python_version": "3.12"
 }

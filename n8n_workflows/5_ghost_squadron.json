@@ -1,0 +1,119 @@
+{
+  "name": "👻 Ghost Squadron Ops",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "empire-swarm/ghost-mission",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-ghost",
+      "name": "👻 Ghost Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ghost Squadron Mission Tracker\nconst item = $input.first().json;\n\nconst units = {\n  'sniper': '🎯 SNIPER',\n  'demo': '💥 DEMO',\n  'shield': '🛡️ SHIELD',\n  'recon': '🔍 RECON',\n  'striker': '⚡ STRIKER',\n  'command': '🧠 COMMAND',\n  'forge': '🔧 FORGE',\n  'signal': '📡 SIGNAL'\n};\n\nconst mission = {\n  unit_name: units[item.unit] || '❓ UNKNOWN',\n  unit_code: item.unit,\n  mission_type: item.mission_type || item.type,\n  priority: item.priority || 'medium',\n  status: item.status || 'active',\n  result_preview: item.result ? item.result.substring(0, 200) : 'Pending...',\n  revenue_potential: item.revenue_potential || 0,\n  revenue_actual: item.revenue_actual || item.revenue_eur || 0,\n  timestamp: new Date().toISOString()\n};\n\nreturn [{json: mission}];"
+      },
+      "id": "code-ghost-track",
+      "name": "📋 Mission Tracker",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-critical",
+              "leftValue": "={{ $json.priority }}",
+              "rightValue": "critical",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-critical",
+      "name": "🚨 Critical?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Summary report for all missions\nconst item = $input.first().json;\nconst report = {\n  alert: `🚨 CRITICAL MISSION: ${item.unit_name}`,\n  details: item.mission_type,\n  revenue: item.revenue_potential,\n  action: 'IMMEDIATE REVIEW REQUIRED'\n};\nreturn [{json: report}];"
+      },
+      "id": "code-alert",
+      "name": "🔔 Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "👻 Ghost Webhook": {
+      "main": [
+        [
+          {
+            "node": "📋 Mission Tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Mission Tracker": {
+      "main": [
+        [
+          {
+            "node": "🚨 Critical?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🚨 Critical?": {
+      "main": [
+        [
+          {
+            "node": "🔔 Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

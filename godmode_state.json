@@ -1,0 +1,246 @@
+{
+  "timestamp": "2026-02-10T00:54:48.560335",
+  "stats": {
+    "total_commanders": 100,
+    "total_workers": 10000000,
+    "tasks_completed": 5000,
+    "tasks_failed": 0,
+    "total_revenue_eur": 3754.987487108488,
+    "total_cost_usd": 5.184177999999987,
+    "runtime_s": 2.5990970134735107
+  },
+  "by_division": {
+    "sales": {
+      "emoji": "\ud83c\udfaf",
+      "commanders": 10,
+      "workers": 2500000,
+      "tasks_completed": 1500,
+      "revenue_eur": 3708.440234585827
+    },
+    "content": {
+      "emoji": "\ud83d\udcdd",
+      "commanders": 10,
+      "workers": 2000000,
+      "tasks_completed": 1500,
+      "revenue_eur": 0.0
+    },
+    "research": {
+      "emoji": "\ud83d\udd0d",
+      "commanders": 10,
+      "workers": 1000000,
+      "tasks_completed": 1500,
+      "revenue_eur": 0.0
+    },
+    "revenue": {
+      "emoji": "\ud83d\udcb0",
+      "commanders": 10,
+      "workers": 1500000,
+      "tasks_completed": 1500,
+      "revenue_eur": 3807.445406924568
+    },
+    "marketing": {
+      "emoji": "\ud83c\udf0a",
+      "commanders": 10,
+      "workers": 1000000,
+      "tasks_completed": 1500,
+      "revenue_eur": 3770.872649741926
+    },
+    "education": {
+      "emoji": "\ud83c\udf93",
+      "commanders": 10,
+      "workers": 500000,
+      "tasks_completed": 1500,
+      "revenue_eur": 0.0
+    },
+    "security": {
+      "emoji": "\ud83d\udee1\ufe0f",
+      "commanders": 10,
+      "workers": 300000,
+      "tasks_completed": 1500,
+      "revenue_eur": 0.0
+    },
+    "engineering": {
+      "emoji": "\ud83d\udd27",
+      "commanders": 10,
+      "workers": 500000,
+      "tasks_completed": 1500,
+      "revenue_eur": 0.0
+    },
+    "analytics": {
+      "emoji": "\ud83d\udcca",
+      "commanders": 10,
+      "workers": 400000,
+      "tasks_completed": 1500,
+      "revenue_eur": 0.0
+    },
+    "innovation": {
+      "emoji": "\ud83d\ude80",
+      "commanders": 10,
+      "workers": 300000,
+      "tasks_completed": 1500,
+      "revenue_eur": 0.0
+    }
+  },
+  "top_commanders": [
+    {
+      "id": "CMD-REV-02",
+      "division": "revenue",
+      "specialization": "subscription_mgmt",
+      "revenue_eur": 145.94055315802586,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-REV-01",
+      "division": "revenue",
+      "specialization": "payment_recovery",
+      "revenue_eur": 143.152059036975,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-REV-09",
+      "division": "revenue",
+      "specialization": "bundle_offers",
+      "revenue_eur": 139.19611122982684,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-MAR-00",
+      "division": "marketing",
+      "specialization": "funnel_optimization",
+      "revenue_eur": 136.86046607273184,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-MAR-03",
+      "division": "marketing",
+      "specialization": "seo_strategy",
+      "revenue_eur": 136.0090436070663,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-MAR-06",
+      "division": "marketing",
+      "specialization": "event_marketing",
+      "revenue_eur": 135.24432595444486,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-SAL-04",
+      "division": "sales",
+      "specialization": "objection_handling",
+      "revenue_eur": 135.04860603691193,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-SAL-08",
+      "division": "sales",
+      "specialization": "partnership",
+      "revenue_eur": 133.73771483335335,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-MAR-05",
+      "division": "marketing",
+      "specialization": "influencer_outreach",
+      "revenue_eur": 133.34522933298823,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-SAL-03",
+      "division": "sales",
+      "specialization": "closing",
+      "revenue_eur": 132.6368208773767,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-REV-04",
+      "division": "revenue",
+      "specialization": "invoice_automation",
+      "revenue_eur": 132.37208857755877,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-REV-06",
+      "division": "revenue",
+      "specialization": "revenue_forecasting",
+      "revenue_eur": 129.28208124879131,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-SAL-00",
+      "division": "sales",
+      "specialization": "cold_email",
+      "revenue_eur": 127.23432031343393,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-MAR-09",
+      "division": "marketing",
+      "specialization": "growth_hacking",
+      "revenue_eur": 126.1371375683945,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-MAR-02",
+      "division": "marketing",
+      "specialization": "retargeting",
+      "revenue_eur": 124.51503858313907,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-REV-05",
+      "division": "revenue",
+      "specialization": "refund_handling",
+      "revenue_eur": 123.44037602996701,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-REV-07",
+      "division": "revenue",
+      "specialization": "ltv_modeling",
+      "revenue_eur": 121.00367990699826,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-MAR-01",
+      "division": "marketing",
+      "specialization": "ad_copy",
+      "revenue_eur": 120.8804713921361,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-SAL-09",
+      "division": "sales",
+      "specialization": "whale_hunting",
+      "revenue_eur": 120.55721254917258,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    },
+    {
+      "id": "CMD-SAL-06",
+      "division": "sales",
+      "specialization": "referral",
+      "revenue_eur": 120.10483296560557,
+      "tasks_completed": 50,
+      "success_rate": 100.0
+    }
+  ]
+}

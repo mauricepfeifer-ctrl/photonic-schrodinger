@@ -1,0 +1,179 @@
+{
+    "name": "🕵️ Lead Prospector",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "triggerAtHour": 9
+                        },
+                        {
+                            "triggerAtHour": 14
+                        }
+                    ]
+                }
+            },
+            "id": "prospect-schedule",
+            "name": "⏰ Prospecting Schedule",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.2,
+            "position": [
+                200,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.openai.com/v1/chat/completions",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "openAiApi",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein Elite-Sales-Prospector für Maurice Pfeifer's AI Empire. Deine Aufgabe: Identifiziere 5 potenzielle Kunden-Profile für AI Automation Services. Fokus auf: 1) Kleine Unternehmen die Zeit sparen wollen 2) Freelancer die skalieren wollen 3) Agenturen die AI integrieren wollen. Antworte als JSON-Array: [{name, industry, pain_point, proposed_service, estimated_value_eur, outreach_message}]\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Generiere 5 Lead-Profile mit personalisierten Outreach-Messages auf Deutsch. Focus auf DACH-Markt. Jede Message muss einen konkreten Mehrwert pitchen und eine Frage stellen.\"\n    }\n  ],\n  \"temperature\": 0.8,\n  \"max_tokens\": 2500\n}"
+            },
+            "id": "ai-prospector",
+            "name": "🤖 AI Lead Generator",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                450,
+                300
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "openai-creds",
+                    "name": "OpenAI"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "const response = JSON.parse($input.first().json.choices[0].message.content);\n\nconst leads = [];\nfor (const lead of response) {\n  leads.push({\n    json: {\n      ...lead,\n      timestamp: new Date().toISOString(),\n      status: 'new',\n      source: 'ai_prospector',\n      priority: lead.estimated_value_eur > 500 ? 'HIGH' : lead.estimated_value_eur > 100 ? 'MEDIUM' : 'LOW'\n    }\n  });\n}\n\nreturn leads;"
+            },
+            "id": "parse-leads",
+            "name": "📊 Score & Prioritize",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                700,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict"
+                    },
+                    "conditions": [
+                        {
+                            "id": "high-value",
+                            "leftValue": "={{ $json.priority }}",
+                            "rightValue": "HIGH",
+                            "operator": {
+                                "type": "string",
+                                "operation": "equals"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "id": "filter-high",
+            "name": "🔥 High-Value Leads",
+            "type": "n8n-nodes-base.filter",
+            "typeVersion": 2,
+            "position": [
+                950,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.openai.com/v1/chat/completions",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "openAiApi",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein Dirk-Kreuter-Level Sales Closer. Schreibe eine personalisierte Cold Email basierend auf dem Lead-Profil. Die Email muss: 1) Personalisiert sein 2) Pain Point ansprechen 3) Konkreten Mehrwert bieten 4) Scarcity/Urgency enthalten 5) Clear CTA haben. Max 150 Wörter. Antworte als JSON: {subject, body, ps_line}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Lead: {{ $json.name }} in {{ $json.industry }}. Pain: {{ $json.pain_point }}. Proposed Service: {{ $json.proposed_service }}. Value: €{{ $json.estimated_value_eur }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 500\n}"
+            },
+            "id": "closer-email",
+            "name": "📧 Closer Email Draft",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                1200,
+                200
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "openai-creds",
+                    "name": "OpenAI"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "⏰ Prospecting Schedule": {
+            "main": [
+                [
+                    {
+                        "node": "🤖 AI Lead Generator",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "🤖 AI Lead Generator": {
+            "main": [
+                [
+                    {
+                        "node": "📊 Score & Prioritize",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "📊 Score & Prioritize": {
+            "main": [
+                [
+                    {
+                        "node": "🔥 High-Value Leads",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "🔥 High-Value Leads": {
+            "main": [
+                [
+                    {
+                        "node": "📧 Closer Email Draft",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "tags": [
+        {
+            "name": "Sales"
+        },
+        {
+            "name": "AI Empire"
+        }
+    ]
+}

@@ -1,0 +1,68 @@
+# Aider Model Settings - Optimiert für Apple M4 / 16GB RAM
+# Diese Datei konfiguriert die lokalen Ollama-Modelle für Aider
+
+- name: ollama_chat/qwen2.5-coder:7b
+  edit_format: diff
+  use_repo_map: true
+  send_undo_reply: false
+  accepts_images: false
+  weak_model_name: ollama_chat/qwen2.5-coder:7b
+  lazy: false
+  reminder: sys
+  examples_as_sys_msg: true
+  extra_params:
+    num_ctx: 16384
+    temperature: 0.1
+    top_p: 0.9
+
+- name: ollama_chat/deepseek-r1:8b
+  edit_format: diff
+  use_repo_map: true
+  send_undo_reply: false
+  accepts_images: false
+  weak_model_name: ollama_chat/qwen2.5-coder:7b
+  lazy: false
+  reminder: sys
+  examples_as_sys_msg: true
+  extra_params:
+    num_ctx: 16384
+    temperature: 0.2
+
+- name: ollama_chat/llama3.1:8b
+  edit_format: diff
+  use_repo_map: true
+  send_undo_reply: false
+  accepts_images: false
+  weak_model_name: ollama_chat/llama3.1:8b
+  lazy: false
+  reminder: sys
+  examples_as_sys_msg: true
+  extra_params:
+    num_ctx: 8192
+    temperature: 0.1
+
+- name: ollama_chat/codellama:7b
+  edit_format: diff
+  use_repo_map: true
+  send_undo_reply: false
+  accepts_images: false
+  weak_model_name: ollama_chat/codellama:7b
+  lazy: false
+  reminder: sys
+  examples_as_sys_msg: true
+  extra_params:
+    num_ctx: 16384
+    temperature: 0.1
+
+- name: ollama_chat/starcoder2:7b
+  edit_format: diff
+  use_repo_map: false
+  send_undo_reply: false
+  accepts_images: false
+  weak_model_name: ollama_chat/starcoder2:7b
+  lazy: false
+  reminder: sys
+  examples_as_sys_msg: true
+  extra_params:
+    num_ctx: 8192
+    temperature: 0.1

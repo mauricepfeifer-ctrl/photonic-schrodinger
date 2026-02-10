@@ -67,7 +67,7 @@ class AgentRecord:
     @classmethod
     def from_dict(cls, d: Dict[str, Any]) -> AgentRecord:
         """Type-safe construction from JSON dict (handles str→int/float)"""
-        allowed = {f.name for f in fields(cls)}
+        allowed = {f.name for f in fields(cls)}  # type: ignore[arg-type]
         clean: Dict[str, Any] = {k: v for k, v in d.items() if k in allowed}
 
         clean["agent_id"] = str(clean.get("agent_id", "unknown"))

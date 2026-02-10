@@ -10,7 +10,7 @@
 ║     🎯 SALES      — 3000 Agents (Outreach, Proposals, Closing)          ║
 ║     📢 MARKETING  — 2500 Agents (X, TikTok, YouTube, Ads)              ║
 ║     📝 CONTENT    — 2000 Agents (Kurse, Blog, Scripts, Threads)         ║
-║     🎓 COURSES    — 1500 Agents (BMA Academy, AI Consulting Kurse)     ║
+║     🎓 COURSES    — 1500 Agents (AI Academy, AI Consulting Kurse)     ║
 ║     📈 SCALING    — 1000 Agents (Analytics, Optimization, A/B Tests)    ║
 ║                                                                          ║
 ║   Engines Used:                                                          ║
@@ -354,8 +354,8 @@ class TaskFactory:
             "prompts": [
                 "Write Facebook/Instagram ad copy for: AI Consulting Sprint (EUR 297). "
                 "Target: Small business owners. Pain: Manual processes eating profits.",
-                "Write ad copy for: BMA Consulting Starter Pack (EUR 197). "
-                "Target: Brandmeldeanlage engineers. Pain: Certification complexity.",
+                "Write ad copy for: Prompt Cheatsheet Pro (EUR 27). "
+                "Target: Entrepreneurs. Pain: Wasting hours on bad prompts.",
                 "Write ad copy for: AI Email Automation Setup (EUR 97). "
                 "Target: Freelancers. Pain: Spending hours on cold outreach.",
                 "Write retargeting ad copy for warm leads. Urgency: Limited spots this month.",
@@ -377,7 +377,7 @@ class TaskFactory:
             "prompts": [
                 "Write a blog post: 'AI Automation für KMUs: Der ultimative Leitfaden 2026'",
                 "Write a blog post: '5 Wege wie AI dein Business in 30 Tagen transformiert'",
-                "Write a blog post: 'Brandmeldeanlagen: Warum AI die Zukunft der Wartung ist'",
+                "Write a blog post: 'AI Automation: Warum jetzt der beste Zeitpunkt ist'",
                 "Write a blog post: 'Vom Angestellter zum AI-Unternehmer: Mein Weg'",
                 "Write a blog post: 'Die besten Open-Source AI Tools für Startups'",
             ],
@@ -409,7 +409,7 @@ class TaskFactory:
             ),
             "prompts": [
                 "Create a '10-Step AI Business Blueprint' lead magnet outline with key content for each step.",
-                "Create a 'BMA Compliance Checklist 2026' — comprehensive PDF content.",
+                "Create an 'AI Automation Checklist 2026' — comprehensive PDF content.",
                 "Create '50 AI Automation Ideas for Small Businesses' — categorized by industry.",
                 "Create 'The AI Freelancer Toolkit' — tools, prompts, and pricing guide.",
                 "Create 'Revenue Calculator: How Much Can AI Save Your Business?' — interactive framework.",
@@ -434,9 +434,9 @@ class TaskFactory:
                 "Create Module 3: 'Content at Scale — AI-Powered Content for Every Platform'",
                 "Create Module 4: 'Advanced Strategies — Multi-Agent Systems & Swarm Intelligence'",
                 "Create Module 5: 'Scaling to EUR 10K/month — From Side Hustle to Full Business'",
-                "Create BMA Academy Module 1: 'BMA Grundlagen — DIN 14675 verstehen'",
-                "Create BMA Academy Module 2: 'Fachkraft nach DIN 14675 — Ihr Weg zur Zertifizierung'",
-                "Create BMA Academy Module 3: 'Wartung & Instandhaltung von Brandmeldeanlagen'",
+                "Create AI Academy Module 1: 'AI Grundlagen — Prompting verstehen'",
+                "Create AI Academy Module 2: 'Agent Builder — Dein erster AI Agent'",
+                "Create AI Academy Module 3: 'Automation at Scale — Multi-Agent Systems'",
             ],
         },
         {
@@ -449,8 +449,8 @@ class TaskFactory:
             "prompts": [
                 "Schreibe den Sales Page Content für: 'AI Automation Masterclass' (EUR 497). "
                 "Zielgruppe: Selbständige die mit AI skalieren wollen.",
-                "Schreibe Sales Page Content für: 'BMA Academy Complete' (EUR 997). "
-                "Zielgruppe: BMA-Fachkräfte die ihre Expertise aufbauen wollen.",
+                "Schreibe Sales Page Content für: 'AI Agent Masterclass' (EUR 497). "
+                "Zielgruppe: Unternehmer die AI-Agents bauen wollen.",
                 "Schreibe Sales Page Content für: 'AI Consulting Crash Course' (EUR 197). "
                 "Zielgruppe: Berater die AI-Services anbieten wollen.",
                 "Schreibe Webinar Registration Page: 'Wie Sie mit AI in 30 Tagen EUR 5.000 verdienen'. "
@@ -877,6 +877,7 @@ class MegaSwarm:
         self.executor = KimiExecutor()
         self.stats = SwarmStats(total_agents=total_agents)
         self.n8n_connector: Optional[N8nConnector] = None
+        self.stream_to_n8n = True  # ALWAYS STREAM FOR MAX POWER
         self.results: List[SwarmTask] = []
 
         # Init department stats
@@ -945,6 +946,22 @@ class MegaSwarm:
                 if len(self.results) > 100:
                     self.results = self.results[-100:]
 
+            # 🔥 BEAM TO N8N FOR MAXIMAL POWER
+            if self.stream_to_n8n and self.n8n_connector:
+                payload = {
+                    "event": "task_completed",
+                    "task_id": task.task_id,
+                    "department": task.department.value,
+                    "type": task.task_type,
+                    "prompt": task.prompt,
+                    "result": task.result,
+                    "revenue_eur": task.revenue_eur,
+                    "cost_usd": task.cost_usd,
+                    "timestamp": datetime.now().isoformat()
+                }
+                # Fire and forget - don't await/block
+                asyncio.create_task(self._fire_n8n_event(f"task_completed", payload))
+
         elif task.status == "failed":
             self.stats.failed += 1
             self.stats.by_department[task.department.value]["failed"] += 1
@@ -1000,6 +1017,8 @@ class MegaSwarm:
         print(f"  API Key:       {'✅ Set' if KIMI_API_KEY else '⚠️  SIMULATION MODE'}")
         print(f"  Dry Run:       {'YES' if self.dry_run else 'NO'}")
         print(f"  n8n Webhooks:  {'✅ Active' if HAS_N8N else '❌ Disabled'}")
+        if HAS_N8N:
+            print(f"  → Stream URL:  {N8N_WEBHOOK_URL}/task_completed")
         print(f"  Output:        {OUTPUT_DIR}")
         print("─" * 72)
 
@@ -1305,6 +1324,11 @@ Examples:
         default=BATCH_SIZE,
         help=f"Batch size for processing (default: {BATCH_SIZE})",
     )
+    parser.add_argument(
+        "--no-stream",
+        action="store_true",
+        help="Disable streaming results to n8n (enabled by default)",
+    )
 
     args = parser.parse_args()
 
@@ -1319,6 +1343,10 @@ Examples:
         department_filter=dept_filter,
         dry_run=args.dry_run,
     )
+    if args.no_stream:
+        swarm.stream_to_n8n = False
+        
+    # Apply CLI overrides to executor
     # Apply CLI overrides to executor
     swarm.executor.semaphore = asyncio.Semaphore(args.concurrency)
 

@@ -1,0 +1,3 @@
+docker: unknown command: docker compose
+
+Run 'docker --help' for more information

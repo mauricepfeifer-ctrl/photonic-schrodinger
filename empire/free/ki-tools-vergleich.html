@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI-Tools Vergleich 2026 — Welches AI-Tool passt zu dir? | Maurice Pfeifer</title>
+    <meta name="description"
+        content="Interaktiver Vergleich der besten KI-Tools: ChatGPT vs Claude vs Kimi vs Gemini vs Ollama. Finde das perfekte Tool für dein Business.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030306;
+            --card: rgba(12, 12, 22, 0.85);
+            --card-solid: #0c0c16;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(99, 102, 241, 0.4);
+            --accent: #6366f1;
+            --accent2: #818cf8;
+            --green: #10b981;
+            --text: #f1f5f9;
+            --text2: #cbd5e1;
+            --muted: #64748b;
+            --dim: #334155;
+            --neon: linear-gradient(135deg, #6366f1, #818cf8, #a78bfa);
+            --money: linear-gradient(135deg, #10b981, #34d399);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-mesh::before {
+            content: '';
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            top: -200px;
+            right: -150px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.08), transparent 60%);
+            animation: f1 25s ease-in-out infinite;
+        }
+
+        .bg-mesh::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            bottom: -100px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.06), transparent 60%);
+            animation: f2 30s ease-in-out infinite;
+        }
+
+        @keyframes f1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-50px, 30px);
+            }
+        }
+
+        @keyframes f2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(40px, -20px);
+            }
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAV */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(24px);
+            background: rgba(3, 3, 6, 0.88);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: .95rem;
+            letter-spacing: -.5px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .nav-brand .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+            }
+        }
+
+        .nav-badge {
+            padding: 5px 14px;
+            border-radius: 20px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+            font-size: .72rem;
+            font-weight: 700;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 40px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 24px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            color: #06b6d4;
+            font-size: .82rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, #06b6d4, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .sub {
+            font-size: 1.05rem;
+            color: var(--text2);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .hero .sub strong {
+            color: #fff;
+        }
+
+        /* QUIZ */
+        .quiz-section {
+            margin: 40px 0;
+        }
+
+        .quiz-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            text-align: center;
+        }
+
+        .quiz-card h2 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .quiz-card p {
+            font-size: .88rem;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+        }
+
+        .quiz-opt {
+            padding: 18px 22px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            text-align: left;
+            transition: all .3s;
+        }
+
+        .quiz-opt:hover {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.04);
+            transform: translateY(-1px);
+        }
+
+        .quiz-opt.selected {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.06);
+        }
+
+        .quiz-opt h4 {
+            font-size: .88rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .quiz-opt p {
+            font-size: .78rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .quiz-result {
+            display: none;
+            margin-top: 24px;
+            padding: 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(6, 182, 212, 0.04));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .quiz-result.show {
+            display: block;
+            animation: fadeIn .5s;
+        }
+
+        .quiz-result h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .quiz-result p {
+            font-size: .88rem;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* COMPARISON TABLE */
+        .comp-section {
+            margin: 48px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        thead th {
+            padding: 18px 16px;
+            font-size: .78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        thead th:first-child {
+            text-align: left;
+            padding-left: 24px;
+        }
+
+        tbody td {
+            padding: 14px 16px;
+            font-size: .85rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tbody td:first-child {
+            text-align: left;
+            font-weight: 700;
+            padding-left: 24px;
+            color: var(--text);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(99, 102, 241, 0.02);
+        }
+
+        .cell-yes {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .cell-no {
+            color: var(--dim);
+        }
+
+        .cell-partial {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .cell-best {
+            color: var(--green);
+            font-weight: 800;
+            background: rgba(16, 185, 129, 0.06);
+            border-radius: 8px;
+            display: inline-block;
+            padding: 2px 8px;
+        }
+
+        /* TOOL CARDS */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .tool-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all .4s cubic-bezier(.4, 0, .2, 1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(99, 102, 241, 0.08);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+
+        .tool-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .tool-type {
+            font-size: .72rem;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tool-desc {
+            font-size: .85rem;
+            color: var(--text2);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .tool-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tool-stat {
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .tool-stat .val {
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .tool-stat .lbl {
+            font-size: .68rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .tool-use-cases {
+            list-style: none;
+        }
+
+        .tool-use-cases li {
+            font-size: .82rem;
+            color: var(--text2);
+            padding: 4px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .tool-use-cases li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+        }
+
+        .tool-price {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+            font-size: .82rem;
+            color: var(--green);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* UPSELL */
+        .upsell {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04));
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        .upsell h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .upsell p {
+            font-size: .92rem;
+            color: var(--text2);
+            max-width: 540px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: .88rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--neon);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-green {
+            background: var(--money);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.5);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: .75rem;
+            color: var(--dim);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        footer a:hover {
+            color: var(--accent2);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+                letter-spacing: -1px;
+            }
+
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FADE */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all .5s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-mesh"></div>
+    <div class="grid-bg"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" class="nav-brand"><span class="dot"></span> Maurice Pfeifer</a>
+            <div class="nav-badge">🔬 AI TOOL VERGLEICH 2026</div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-badge">🔬 AKTUALISIERT FÜR 2026</div>
+        <h1>Welches KI-Tool<br>passt <span class="gradient">zu dir?</span></h1>
+        <p class="sub">Interaktiver Vergleich der <strong>5 besten KI-Tools</strong>. Mit Empfehlung basierend auf
+            deinem Use Case — <strong>ohne Marketing-Hype.</strong></p>
+    </header>
+
+    <div class="container">
+
+        <!-- QUICK QUIZ -->
+        <div class="quiz-section fade-in">
+            <div class="quiz-card">
+                <h2>🎯 Finde dein perfektes KI-Tool in 30 Sekunden</h2>
+                <p>Wofür willst du KI hauptsächlich nutzen?</p>
+                <div class="quiz-options">
+                    <div class="quiz-opt" onclick="selectQuiz(this, 'content')">
+                        <h4>📝 Content erstellen</h4>
+                        <p>Blog-Posts, Social Media, Newsletter, Werbetexte</p>
+                    </div>
+                    <div class="quiz-opt" onclick="selectQuiz(this, 'code')">
+                        <h4>💻 Programmieren & Tech</h4>
+                        <p>Code schreiben, debuggen, technische Docs erstellen</p>
+                    </div>
+                    <div class="quiz-opt" onclick="selectQuiz(this, 'research')">
+                        <h4>🔍 Recherche & Analyse</h4>
+                        <p>Marktanalyse, Wettbewerbsrecherche, Datenauswertung</p>
+                    </div>
+                    <div class="quiz-opt" onclick="selectQuiz(this, 'strategy')">
+                        <h4>🧠 Business-Strategie</h4>
+                        <p>Ideenvalidierung, Businesspläne, Problemlösung</p>
+                    </div>
+                    <div class="quiz-opt" onclick="selectQuiz(this, 'privacy')">
+                        <h4>🔒 Datenschutz-kritisch</h4>
+                        <p>Sensible Daten, DSGVO, keine Cloud-Abhängigkeit</p>
+                    </div>
+                    <div class="quiz-opt" onclick="selectQuiz(this, 'budget')">
+                        <h4>💰 Maximale Leistung für €0</h4>
+                        <p>Kein Budget, trotzdem beste Ergebnisse</p>
+                    </div>
+                </div>
+                <div class="quiz-result" id="quizResult"></div>
+            </div>
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div class="comp-section fade-in">
+            <div class="section-header">
+                <div class="section-tag"
+                    style="background:rgba(6,182,212,0.1);color:#06b6d4;border:1px solid rgba(6,182,212,0.2)">📊
+                    VERGLEICH</div>
+                <h2>Feature-Vergleich auf einen Blick</h2>
+                <p>Ehrliche Bewertung — kein Affiliate-Marketing, keine gesponserten Rankings.</p>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>ChatGPT</th>
+                            <th>Claude</th>
+                            <th>Kimi</th>
+                            <th>Gemini</th>
+                            <th>Ollama</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>💰 Kostenloser Plan</td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-yes"><span class="cell-best">✅ Komplett gratis</span></td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-yes"><span class="cell-best">✅ 100% gratis</span></td>
+                        </tr>
+                        <tr>
+                            <td>📝 Content-Qualität</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-yes"><span class="cell-best">⭐⭐⭐⭐⭐</span></td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-partial">⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td>💻 Code-Qualität</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-yes"><span class="cell-best">⭐⭐⭐⭐⭐</span></td>
+                            <td class="cell-partial">⭐⭐⭐</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td>🔍 Web-Recherche</td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-no">❌ Nein</td>
+                            <td class="cell-yes"><span class="cell-best">✅ Beste</span></td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-no">❌ Nein</td>
+                        </tr>
+                        <tr>
+                            <td>📄 Dokumente analysieren</td>
+                            <td class="cell-yes">✅ PDF, Docs</td>
+                            <td class="cell-yes"><span class="cell-best">✅ Sehr groß</span></td>
+                            <td class="cell-yes">✅ PDF</td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-partial">⚠️ Begrenzt</td>
+                        </tr>
+                        <tr>
+                            <td>🖼️ Bilder generieren</td>
+                            <td class="cell-yes">✅ DALL·E 3</td>
+                            <td class="cell-no">❌ Nein</td>
+                            <td class="cell-no">❌ Nein</td>
+                            <td class="cell-yes">✅ Imagen 3</td>
+                            <td class="cell-partial">⚠️ Mit Tools</td>
+                        </tr>
+                        <tr>
+                            <td>🔒 Datenschutz</td>
+                            <td class="cell-partial">⚠️ Cloud</td>
+                            <td class="cell-partial">⚠️ Cloud</td>
+                            <td class="cell-partial">⚠️ Cloud (China)</td>
+                            <td class="cell-partial">⚠️ Cloud</td>
+                            <td class="cell-yes"><span class="cell-best">✅ 100% lokal</span></td>
+                        </tr>
+                        <tr>
+                            <td>⚡ Geschwindigkeit</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-partial">⭐⭐⭐</td>
+                            <td class="cell-yes"><span class="cell-best">⭐⭐⭐⭐⭐</span></td>
+                            <td class="cell-partial">⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td>🔗 API verfügbar</td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-yes">✅ Ja</td>
+                            <td class="cell-yes"><span class="cell-best">✅ Lokal & gratis</span></td>
+                        </tr>
+                        <tr>
+                            <td>🇩🇪 Deutsch-Qualität</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-yes"><span class="cell-best">⭐⭐⭐⭐⭐</span></td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-yes">⭐⭐⭐⭐</td>
+                            <td class="cell-partial">⭐⭐⭐</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TOOL CARDS -->
+        <div class="tool-grid">
+
+            <div class="tool-card fade-in" style="--accent-color:#10b981">
+                <div
+                    style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,#10b981,#34d399)">
+                </div>
+                <div class="tool-top">
+                    <div class="tool-icon" style="background:rgba(16,185,129,0.1)">🤖</div>
+                    <div>
+                        <div class="tool-name">ChatGPT</div>
+                        <div class="tool-type">OpenAI · GPT-4o</div>
+                    </div>
+                </div>
+                <div class="tool-desc">Der Allrounder. Am besten für kreatives Schreiben, Brainstorming und generelle
+                    Aufgaben. Größtes Ökosystem mit GPTs und Plugins.</div>
+                <div class="tool-stats">
+                    <div class="tool-stat">
+                        <div class="val" style="color:var(--green)">4.2/5</div>
+                        <div class="lbl">Gesamt</div>
+                    </div>
+                    <div class="tool-stat">
+                        <div class="val" style="color:#f59e0b">$20/Mo</div>
+                        <div class="lbl">Pro Plan</div>
+                    </div>
+                </div>
+                <ul class="tool-use-cases">
+                    <li>Kreative Texte & Brainstorming</li>
+                    <li>Bilder generieren (DALL·E)</li>
+                    <li>Web-Browsing & Recherche</li>
+                    <li>Custom GPTs erstellen</li>
+                </ul>
+                <div class="tool-price">💰 Free Tier: GPT-4o mini · Pro: $20/Monat</div>
+            </div>
+
+            <div class="tool-card fade-in">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--neon)"></div>
+                <div class="tool-top">
+                    <div class="tool-icon" style="background:rgba(99,102,241,0.1)">🧠</div>
+                    <div>
+                        <div class="tool-name">Claude</div>
+                        <div class="tool-type">Anthropic · Claude 3.5</div>
+                    </div>
+                </div>
+                <div class="tool-desc">Der Analytiker. Beste Textqualität für Deutsch, exzellent für Code und längere
+                    Dokumente. Mein persönlicher Favorit für Business-Content.</div>
+                <div class="tool-stats">
+                    <div class="tool-stat">
+                        <div class="val" style="color:var(--accent2)">4.7/5</div>
+                        <div class="lbl">Gesamt</div>
+                    </div>
+                    <div class="tool-stat">
+                        <div class="val" style="color:#f59e0b">$20/Mo</div>
+                        <div class="lbl">Pro Plan</div>
+                    </div>
+                </div>
+                <ul class="tool-use-cases">
+                    <li>Business-Texte in perfektem Deutsch</li>
+                    <li>Code & technische Dokumentation</li>
+                    <li>Lange Dokumente analysieren</li>
+                    <li>Komplexe Strategie-Analysen</li>
+                </ul>
+                <div class="tool-price">💰 Free Tier: Claude 3.5 Sonnet · Pro: $20/Monat</div>
+            </div>
+
+            <div class="tool-card fade-in">
+                <div
+                    style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,#f59e0b,#fbbf24)">
+                </div>
+                <div class="tool-top">
+                    <div class="tool-icon" style="background:rgba(245,158,11,0.1)">🌙</div>
+                    <div>
+                        <div class="tool-name">Kimi</div>
+                        <div class="tool-type">Moonshot AI</div>
+                    </div>
+                </div>
+                <div class="tool-desc">Der Researcher. Durchsucht das komplette Internet in Echtzeit. Perfekt für
+                    Marktanalysen, Wettbewerbsrecherche und aktuelle Infos. 100% kostenlos.</div>
+                <div class="tool-stats">
+                    <div class="tool-stat">
+                        <div class="val" style="color:#f59e0b">4.0/5</div>
+                        <div class="lbl">Gesamt</div>
+                    </div>
+                    <div class="tool-stat">
+                        <div class="val" style="color:var(--green)">€0</div>
+                        <div class="lbl">Komplett gratis</div>
+                    </div>
+                </div>
+                <ul class="tool-use-cases">
+                    <li>Tiefe Internet-Recherche</li>
+                    <li>Wettbewerber-Analyse</li>
+                    <li>Aktuelle Marktdaten finden</li>
+                    <li>Lead-Recherche & Prospecting</li>
+                </ul>
+                <div class="tool-price">💰 100% Kostenlos — kein Pro-Plan nötig</div>
+            </div>
+
+            <div class="tool-card fade-in">
+                <div
+                    style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,#3b82f6,#06b6d4)">
+                </div>
+                <div class="tool-top">
+                    <div class="tool-icon" style="background:rgba(59,130,246,0.1)">✨</div>
+                    <div>
+                        <div class="tool-name">Gemini</div>
+                        <div class="tool-type">Google DeepMind</div>
+                    </div>
+                </div>
+                <div class="tool-desc">Der Schnelle. Integriert in Google Workspace. Am schnellsten bei einfachen
+                    Aufgaben. Stark für multimodale Tasks (Text + Bild + Video).</div>
+                <div class="tool-stats">
+                    <div class="tool-stat">
+                        <div class="val" style="color:#3b82f6">3.9/5</div>
+                        <div class="lbl">Gesamt</div>
+                    </div>
+                    <div class="tool-stat">
+                        <div class="val" style="color:#f59e0b">$20/Mo</div>
+                        <div class="lbl">Advanced</div>
+                    </div>
+                </div>
+                <ul class="tool-use-cases">
+                    <li>Google Workspace Integration</li>
+                    <li>Schnelle einfache Aufgaben</li>
+                    <li>Video & Bild Analyse</li>
+                    <li>Multimodale Projekte</li>
+                </ul>
+                <div class="tool-price">💰 Free Tier: Gemini Pro · Advanced: $20/Monat</div>
+            </div>
+
+            <div class="tool-card fade-in">
+                <div
+                    style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,#ef4444,#f97316)">
+                </div>
+                <div class="tool-top">
+                    <div class="tool-icon" style="background:rgba(239,68,68,0.1)">🦙</div>
+                    <div>
+                        <div class="tool-name">Ollama</div>
+                        <div class="tool-type">Open Source · Lokal</div>
+                    </div>
+                </div>
+                <div class="tool-desc">Der Private. Läuft 100% auf deinem Computer. Kein Internet nötig, keine Daten die
+                    das Haus verlassen. Ideal für sensible Business-Daten.</div>
+                <div class="tool-stats">
+                    <div class="tool-stat">
+                        <div class="val" style="color:#ef4444">4.1/5</div>
+                        <div class="lbl">Gesamt</div>
+                    </div>
+                    <div class="tool-stat">
+                        <div class="val" style="color:var(--green)">€0</div>
+                        <div class="lbl">100% gratis</div>
+                    </div>
+                </div>
+                <ul class="tool-use-cases">
+                    <li>Datenschutz-kritische Aufgaben</li>
+                    <li>Offline-Nutzung möglich</li>
+                    <li>Eigene Modelle trainieren</li>
+                    <li>API für Custom Automations</li>
+                </ul>
+                <div class="tool-price">💰 100% Kostenlos & Open Source — für immer</div>
+            </div>
+
+        </div>
+
+        <!-- EMPFEHLUNG -->
+        <div class="upsell fade-in">
+            <div style="font-size:2rem;margin-bottom:12px">🚀</div>
+            <h3>Die Kombination macht's — nicht das einzelne Tool</h3>
+            <p>Ich nutze <strong>Claude für Content</strong>, <strong>Kimi für Research</strong>, <strong>Ollama für
+                    Datenschutz</strong> und <strong>n8n um alles zu verbinden</strong>. Im AI Automation Blueprint
+                zeige ich dir das komplette Setup.</p>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px">
+                <a href="../index.html#produkte" class="btn btn-primary">🏗️ Blueprint ansehen — €79</a>
+                <a href="ki-checkliste.html" class="btn btn-green">🎁 Gratis Checkliste holen</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="margin-bottom:8px"><a href="../index.html">← Zurück zu allen Produkten</a></p>
+        <p>© 2026 Maurice Pfeifer · Alle Rechte vorbehalten · Stand: Februar 2026</p>
+    </footer>
+
+    <script>
+        // Quiz Logic
+        const quizAnswers = {
+            content: { tool: 'Claude', icon: '🧠', text: 'Für Content-Erstellung empfehle ich <strong>Claude</strong>. Die beste deutsche Textqualität, perfekt für Business-Texte, Newsletter und Social Media. Free Tier reicht für den Start. Wenn du mehr brauchst: Claude Pro ($20/Monat) ist es wert.' },
+            code: { tool: 'Claude', icon: '🧠', text: 'Für Code-Aufgaben ist <strong>Claude</strong> aktuell die #1. Versteht komplexe Codebases, schreibt sauberen Code und erklärt Bugs perfekt. Alternative: ChatGPT ist fast ebenbürtig und hat mehr Plugins.' },
+            research: { tool: 'Kimi', icon: '🌙', text: '<strong>Kimi</strong> ist unschlagbar für Research. Durchsucht das komplette Internet in Echtzeit und ist 100% kostenlos. Für Marktanalysen, Lead-Recherche und Wettbewerbs-Monitoring gibt es nichts Besseres.' },
+            strategy: { tool: 'Claude', icon: '🧠', text: 'Für strategisches Denken empfehle ich <strong>Claude</strong>. Das analytischste Modell mit der besten Fähigkeit, komplexe Probleme zu durchdenken. Perfekt für Business-Strategie und Entscheidungsfindung.' },
+            privacy: { tool: 'Ollama', icon: '🦙', text: '<strong>Ollama</strong> ist die einzige Option wenn Datenschutz Priorität hat. 100% lokal, keine Daten verlassen deinen Computer. Perfekt für sensible Business-Daten, DSGVO-Konformität und vertrauliche Informationen.' },
+            budget: { tool: 'Kimi + Ollama', icon: '💰', text: 'Für €0 Budget: <strong>Kimi</strong> für Research (komplett gratis) + <strong>Ollama</strong> für alles andere (100% Open Source). Ergänze mit dem Free Tier von Claude und du hast ein professionelles AI-Setup für €0.' }
+        };
+
+        function selectQuiz(el, type) {
+            document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+
+            const answer = quizAnswers[type];
+            const result = document.getElementById('quizResult');
+            result.innerHTML = `<h3>${answer.icon} Meine Empfehlung: ${answer.tool}</h3><p>${answer.text}</p>`;
+            result.classList.add('show');
+        }
+
+        // Intersection Observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

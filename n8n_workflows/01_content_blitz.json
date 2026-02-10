@@ -1,0 +1,221 @@
+{
+    "name": "🚀 Content Blitz Machine",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "triggerAtHour": 8,
+                            "triggerAtMinute": 30
+                        },
+                        {
+                            "triggerAtHour": 12
+                        },
+                        {
+                            "triggerAtHour": 18
+                        }
+                    ]
+                }
+            },
+            "id": "schedule-trigger",
+            "name": "⏰ Content Schedule",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.2,
+            "position": [
+                200,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.openai.com/v1/chat/completions",
+                "authentication": "predefinedCredentialType",
+                "nodeCredentialType": "openAiApi",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein viraler Content-Stratege für Maurice Pfeifer (AI Automation Experte & BMA-Spezialist). Erstelle 3 verschiedene Posts für verschiedene Plattformen. Jeder Post MUSS einen starken Hook haben, FOMO erzeugen, und einen CTA zu https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/ enthalten. Antworte NUR als JSON-Array mit objects: {platform, hook, body, hashtags, cta}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Erstelle 3 Posts: 1x TikTok Script (kurz, punchy), 1x LinkedIn Post (professional), 1x X/Twitter Thread (max 3 tweets). Thema: AI Agents automatisieren dein Business 24/7. Nutze aktuelle Trends.\"\n    }\n  ],\n  \"temperature\": 0.9,\n  \"max_tokens\": 2000\n}"
+            },
+            "id": "openai-content",
+            "name": "🤖 AI Content Generator",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                450,
+                300
+            ],
+            "credentials": {
+                "openAiApi": {
+                    "id": "openai-creds",
+                    "name": "OpenAI"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "const response = JSON.parse($input.first().json.choices[0].message.content);\n\nconst results = [];\nfor (const post of response) {\n  results.push({\n    json: {\n      platform: post.platform,\n      hook: post.hook,\n      body: post.body,\n      hashtags: post.hashtags || '',\n      cta: post.cta || 'Link in Bio',\n      timestamp: new Date().toISOString(),\n      status: 'draft'\n    }\n  });\n}\n\nreturn results;"
+            },
+            "id": "parse-content",
+            "name": "📝 Parse & Format",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                700,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict"
+                    },
+                    "conditions": [
+                        {
+                            "id": "tiktok",
+                            "leftValue": "={{ $json.platform }}",
+                            "rightValue": "tiktok",
+                            "operator": {
+                                "type": "string",
+                                "operation": "contains"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "id": "filter-tiktok",
+            "name": "🎵 TikTok Filter",
+            "type": "n8n-nodes-base.filter",
+            "typeVersion": 2,
+            "position": [
+                950,
+                150
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict"
+                    },
+                    "conditions": [
+                        {
+                            "id": "linkedin",
+                            "leftValue": "={{ $json.platform }}",
+                            "rightValue": "linkedin",
+                            "operator": {
+                                "type": "string",
+                                "operation": "contains"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "id": "filter-linkedin",
+            "name": "💼 LinkedIn Filter",
+            "type": "n8n-nodes-base.filter",
+            "typeVersion": 2,
+            "position": [
+                950,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict"
+                    },
+                    "conditions": [
+                        {
+                            "id": "twitter",
+                            "leftValue": "={{ $json.platform }}",
+                            "rightValue": "twitter",
+                            "operator": {
+                                "type": "string",
+                                "operation": "contains"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "id": "filter-x",
+            "name": "🐦 X/Twitter Filter",
+            "type": "n8n-nodes-base.filter",
+            "typeVersion": 2,
+            "position": [
+                950,
+                450
+            ]
+        }
+    ],
+    "connections": {
+        "⏰ Content Schedule": {
+            "main": [
+                [
+                    {
+                        "node": "🤖 AI Content Generator",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "🤖 AI Content Generator": {
+            "main": [
+                [
+                    {
+                        "node": "📝 Parse & Format",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "📝 Parse & Format": {
+            "main": [
+                [
+                    {
+                        "node": "🎵 TikTok Filter",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "💼 LinkedIn Filter",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "🐦 X/Twitter Filter",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "tags": [
+        {
+            "name": "Content"
+        },
+        {
+            "name": "AI Empire"
+        }
+    ]
+}

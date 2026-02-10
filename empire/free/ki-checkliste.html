@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gratis KI-Starter Checkliste — In 7 Tagen zum ersten AI Agent | Maurice Pfeifer</title>
+    <meta name="description"
+        content="Deine kostenlose Schritt-für-Schritt Checkliste: In 7 Tagen deinen ersten AI Agent aufsetzen. Interaktiv, sofort nutzbar, kein Vorwissen nötig.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030306;
+            --card: rgba(12, 12, 22, 0.85);
+            --card-solid: #0c0c16;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(99, 102, 241, 0.4);
+            --accent: #6366f1;
+            --accent2: #818cf8;
+            --accent3: #a5b4fc;
+            --green: #10b981;
+            --emerald: #059669;
+            --text: #f1f5f9;
+            --text2: #cbd5e1;
+            --muted: #64748b;
+            --dim: #334155;
+            --neon: linear-gradient(135deg, #6366f1, #818cf8, #a78bfa);
+            --money: linear-gradient(135deg, #10b981, #34d399);
+            --fire: linear-gradient(135deg, #f97316, #ef4444);
+            --gold: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-mesh::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            top: -200px;
+            right: -200px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1), transparent 60%);
+            animation: floatSlow 25s ease-in-out infinite;
+        }
+
+        .bg-mesh::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            bottom: -100px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.07), transparent 60%);
+            animation: floatSlow2 30s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-60px, 40px) scale(1.05);
+            }
+        }
+
+        @keyframes floatSlow2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(50px, -30px);
+            }
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAV */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(24px);
+            background: rgba(3, 3, 6, 0.88);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: .95rem;
+            letter-spacing: -.5px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .nav-brand .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+            }
+        }
+
+        .nav-badge {
+            padding: 5px 14px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--green);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 50px;
+        }
+
+        .hero-free-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 24px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            color: var(--green);
+            font-size: .82rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 .gradient {
+            background: var(--money);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .sub {
+            font-size: 1.05rem;
+            color: var(--text2);
+            max-width: 600px;
+            margin: 0 auto 24px;
+            line-height: 1.7;
+        }
+
+        .hero .sub strong {
+            color: #fff;
+        }
+
+        /* PROGRESS */
+        .progress-bar {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .progress-ring {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            flex-shrink: 0;
+        }
+
+        .progress-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring .track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.06);
+            stroke-width: 6;
+        }
+
+        .progress-ring .fill {
+            fill: none;
+            stroke: url(#grad);
+            stroke-width: 6;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.8s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .progress-ring .pct {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .progress-info {
+            flex: 1;
+        }
+
+        .progress-info h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .progress-info p {
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        .progress-info .steps-done {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        /* DAYS */
+        .day-section {
+            margin-bottom: 24px;
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all .3s;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .day-header:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-1px);
+        }
+
+        .day-header.completed {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.04), transparent);
+        }
+
+        .day-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            transition: all .3s;
+        }
+
+        .day-num.active {
+            background: var(--neon);
+            color: #fff;
+        }
+
+        .day-num.done {
+            background: var(--money);
+            color: #fff;
+        }
+
+        .day-num.locked {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--muted);
+        }
+
+        .day-title {
+            flex: 1;
+        }
+
+        .day-title h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .day-title p {
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
+        .day-time {
+            font-size: .72rem;
+            color: var(--muted);
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            font-weight: 600;
+        }
+
+        .day-chevron {
+            font-size: 1rem;
+            color: var(--muted);
+            transition: transform .3s;
+        }
+
+        .day-section.open .day-chevron {
+            transform: rotate(180deg);
+        }
+
+        .day-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .5s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .day-section.open .day-content {
+            max-height: 2000px;
+        }
+
+        .day-inner {
+            padding: 20px 24px;
+            margin-top: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        /* TASKS */
+        .task {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .task:last-child {
+            border-bottom: none;
+        }
+
+        .task-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            border: 2px solid var(--dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .3s;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .task-check:hover {
+            border-color: var(--green);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .task-check.checked {
+            background: var(--money);
+            border-color: transparent;
+        }
+
+        .task-check.checked::after {
+            content: '✓';
+            color: #fff;
+            font-size: .8rem;
+            font-weight: 800;
+        }
+
+        .task-info h4 {
+            font-size: .92rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            transition: all .3s;
+        }
+
+        .task.done .task-info h4 {
+            text-decoration: line-through;
+            color: var(--muted);
+        }
+
+        .task-info p {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .task-tag {
+            display: inline-flex;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: .68rem;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        .tag-tool {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent2);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .tag-free {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--green);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .tag-tip {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* PRO TIP */
+        .pro-tip {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .pro-tip .tip-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .pro-tip p {
+            font-size: .82rem;
+            color: var(--text2);
+            line-height: 1.5;
+        }
+
+        .pro-tip strong {
+            color: var(--accent2);
+        }
+
+        /* UPSELL */
+        .upsell-card {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.06), rgba(239, 68, 68, 0.04));
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            border-radius: 20px;
+            padding: 36px;
+            margin: 48px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upsell-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--fire);
+        }
+
+        .upsell-badge {
+            display: inline-flex;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            color: #f97316;
+            font-size: .75rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .upsell-card h3 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .upsell-card p {
+            font-size: .92rem;
+            color: var(--text2);
+            max-width: 500px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: .88rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--neon);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-green {
+            background: var(--money);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* SHARE */
+        .share-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 32px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .share-section h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .share-section p {
+            font-size: .85rem;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .share-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: .82rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            transition: all .3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .share-btn:hover {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.08);
+            transform: translateY(-1px);
+        }
+
+        /* CONFETTI */
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            animation: fall 3s ease-in forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: .75rem;
+            color: var(--dim);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        footer a:hover {
+            color: var(--accent2);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 1.8rem;
+                letter-spacing: -1px;
+            }
+
+            .progress-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .day-header {
+                padding: 16px 18px;
+            }
+
+            .day-time {
+                display: none;
+            }
+        }
+
+        /* ANIMATION */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all .5s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Achievement notification */
+        .achievement {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 150;
+            background: var(--card-solid);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 14px;
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(120%);
+            transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            max-width: 320px;
+        }
+
+        .achievement.show {
+            transform: translateX(0);
+        }
+
+        .achievement .ach-icon {
+            font-size: 1.6rem;
+        }
+
+        .achievement .ach-title {
+            font-size: .82rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .achievement .ach-desc {
+            font-size: .72rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-mesh"></div>
+    <div class="grid-bg"></div>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" class="nav-brand"><span class="dot"></span> Maurice Pfeifer</a>
+            <div class="nav-badge">🎁 100% KOSTENLOS</div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-free-badge">🎁 GRATIS DOWNLOAD — Kein Email nötig</div>
+        <h1>Dein erster AI Agent<br>in <span class="gradient">7 Tagen</span></h1>
+        <p class="sub">Die <strong>interaktive Checkliste</strong> die dich Schritt für Schritt durch deine erste
+            KI-Automatisierung führt. Hack ab was du erledigt hast — dein Fortschritt wird gespeichert.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- PROGRESS -->
+        <div class="progress-bar fade-in" id="progressBar">
+            <div class="progress-ring">
+                <svg width="72" height="72" viewBox="0 0 72 72">
+                    <defs>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#10b981" />
+                            <stop offset="100%" style="stop-color:#34d399" />
+                        </linearGradient>
+                    </defs>
+                    <circle class="track" cx="36" cy="36" r="30" />
+                    <circle class="fill" id="progressFill" cx="36" cy="36" r="30" stroke-dasharray="188.5"
+                        stroke-dashoffset="188.5" />
+                </svg>
+                <div class="pct" id="progressPct">0%</div>
+            </div>
+            <div class="progress-info">
+                <h3>Dein Fortschritt</h3>
+                <p><span class="steps-done" id="stepsDone">0</span> von <span id="stepsTotal">21</span> Steps
+                    erledigt</p>
+            </div>
+        </div>
+
+        <!-- DAY 1 -->
+        <div class="day-section open" data-day="1">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-num active">1</div>
+                <div class="day-title">
+                    <h3>🧠 Mindset & Ziel setzen</h3>
+                    <p>Verstehe was KI wirklich kann — und was du automatisieren willst</p>
+                </div>
+                <div class="day-time">⏱ 30 min</div>
+                <div class="day-chevron">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-inner">
+                    <div class="task" data-task="1-1">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Schreibe 3 Aufgaben auf, die dir täglich Zeit stehlen</h4>
+                            <p>Emails beantworten? Content erstellen? Reports schreiben? Identifiziere deine Top-3
+                                Zeitfresser.</p>
+                            <span class="task-tag tag-tip">💡 Tipp: Denk an repetitive Aufgaben</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="1-2">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Installiere ChatGPT oder Claude (kostenlos)</h4>
+                            <p>Erstelle einen kostenlosen Account bei chat.openai.com oder claude.ai — du brauchst kein
+                                Abo.</p>
+                            <span class="task-tag tag-free">✅ Kostenlos</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="1-3">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Teste deinen ersten Prompt</h4>
+                            <p>Kopiere diesen Prompt: <code
+                                    style="background:rgba(255,255,255,0.06);padding:3px 8px;border-radius:6px;font-size:.8rem;font-family:'JetBrains Mono',monospace">"Du
+                                    bist ein Experte für [dein Thema]. Erstelle eine Liste von 10 Aufgaben die sich
+                                    automatisieren lassen."</code></p>
+                            <span class="task-tag tag-tool">🤖 ChatGPT / Claude</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-tip">
+                        <div class="tip-icon">💡</div>
+                        <p><strong>Pro-Tipp:</strong> Die besten Prompts geben der KI eine <strong>Rolle</strong>, ein
+                            <strong>Ziel</strong> und ein <strong>Format</strong>. Nicht einfach "Schreib mir einen
+                            Text" — sondern "Du bist ein erfahrener Copywriter. Schreibe einen LinkedIn-Post über X im
+                            Storytelling-Format."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 2 -->
+        <div class="day-section" data-day="2">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-num locked">2</div>
+                <div class="day-title">
+                    <h3>🔧 Tool-Stack aufsetzen</h3>
+                    <p>Die kostenlosen Tools installieren die du brauchst</p>
+                </div>
+                <div class="day-time">⏱ 45 min</div>
+                <div class="day-chevron">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-inner">
+                    <div class="task" data-task="2-1">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Installiere Ollama (optional, für lokale KI)</h4>
+                            <p>ollama.ai — damit läuft KI komplett auf deinem Computer. 100% kostenlos, 100%
+                                Datenschutz.</p>
+                            <span class="task-tag tag-free">✅ Kostenlos</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="2-2">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Erstelle einen n8n Cloud Account</h4>
+                            <p>n8n.io — Automation-Tool mit kostenlosem Plan. Damit verbindest du KI mit deinen Apps.
+                            </p>
+                            <span class="task-tag tag-free">✅ Free Tier</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="2-3">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Teste Kimi AI für tiefe Recherche</h4>
+                            <p>kimi.moonshot.cn — Kostenlose KI die das gesamte Internet durchsuchen kann. Perfekt für
+                                Research-Tasks.</p>
+                            <span class="task-tag tag-free">✅ Kostenlos</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-tip">
+                        <div class="tip-icon">🔑</div>
+                        <p><strong>Wichtig:</strong> Du brauchst NICHT alle Tools. Starte mit <strong>einem
+                                KI-Tool</strong> (ChatGPT oder Claude) und <strong>n8n</strong> für Automations. Das
+                            reicht für 90% der Use Cases.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 3 -->
+        <div class="day-section" data-day="3">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-num locked">3</div>
+                <div class="day-title">
+                    <h3>📝 Erster Content Agent</h3>
+                    <p>Baue deinen ersten Agent der automatisch Content erstellt</p>
+                </div>
+                <div class="day-time">⏱ 60 min</div>
+                <div class="day-chevron">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-inner">
+                    <div class="task" data-task="3-1">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Erstelle einen System Prompt für deinen Content Agent</h4>
+                            <p>Definiere: Wer ist der Agent? Was soll er tun? In welchem Format? Für welche Zielgruppe?
+                            </p>
+                            <span class="task-tag tag-tool">🤖 Prompt Engineering</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="3-2">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Generiere 5 Social Media Posts mit deinem Agent</h4>
+                            <p>Teste den Agent: Lass ihn 5 Posts für LinkedIn, Instagram oder Twitter erstellen. Prüfe
+                                die Qualität.</p>
+                            <span class="task-tag tag-tip">💡 Iteriere den Prompt bis das Ergebnis passt</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="3-3">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Speichere den perfekten Prompt als Template</h4>
+                            <p>Wenn du zufrieden bist: Kopiere den System Prompt in ein Dokument. Das ist jetzt dein
+                                Content Agent Template.</p>
+                            <span class="task-tag tag-tip">💡 Das ist die Basis für Automation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 4 -->
+        <div class="day-section" data-day="4">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-num locked">4</div>
+                <div class="day-title">
+                    <h3>📧 Email Automation</h3>
+                    <p>Automatisiere deine Email-Kommunikation</p>
+                </div>
+                <div class="day-time">⏱ 45 min</div>
+                <div class="day-chevron">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-inner">
+                    <div class="task" data-task="4-1">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Erstelle 3 Email-Templates mit KI</h4>
+                            <p>Follow-up, Cold Outreach, Support — lass die KI personalisierte Templates für deine
+                                häufigsten Emails generieren.</p>
+                            <span class="task-tag tag-tool">🤖 ChatGPT / Claude</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="4-2">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Erstelle einen n8n Workflow für Email-Automation</h4>
+                            <p>Verbinde Gmail/Outlook mit deinem KI-Agent. Automatisch Antwortvorschläge generieren
+                                lassen.</p>
+                            <span class="task-tag tag-tool">🔄 n8n</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="4-3">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Teste den Workflow mit 5 echten Emails</h4>
+                            <p>Schicke dir selbst Test-Emails und prüfe ob die KI-Antworten passen.</p>
+                            <span class="task-tag tag-tip">💡 Fine-tune den Prompt basierend auf den Ergebnissen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 5 -->
+        <div class="day-section" data-day="5">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-num locked">5</div>
+                <div class="day-title">
+                    <h3>🔍 Research Agent</h3>
+                    <p>Automatisiere Marktanalyse und Lead-Recherche</p>
+                </div>
+                <div class="day-time">⏱ 45 min</div>
+                <div class="day-chevron">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-inner">
+                    <div class="task" data-task="5-1">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Erstelle einen Research Prompt für deine Branche</h4>
+                            <p>Definiere was du wissen willst: Markttrends, Wettbewerber, potenzielle Kunden,
+                                Content-Ideen.</p>
+                            <span class="task-tag tag-tool">🤖 Kimi / Claude</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="5-2">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Lass die KI 10 potenzielle Kunden/Partner recherchieren</h4>
+                            <p>Nutze Kimi oder ChatGPT mit Browsing um relevante Kontakte zu finden. Mit
+                                Kontaktinfos.</p>
+                            <span class="task-tag tag-free">✅ Kostenlos mit Kimi</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="5-3">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Erstelle einen wöchentlichen Research-Report Template</h4>
+                            <p>Automatisiere den Report: Prompt + Format festlegen, sodass du jeden Montag einen
+                                fertigen Marktreport bekommst.</p>
+                            <span class="task-tag tag-tip">💡 Speichere als wiederkehrende Aufgabe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 6 -->
+        <div class="day-section" data-day="6">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-num locked">6</div>
+                <div class="day-title">
+                    <h3>⚡ Alles verbinden</h3>
+                    <p>Workflows automatisieren und Agents verknüpfen</p>
+                </div>
+                <div class="day-time">⏱ 60 min</div>
+                <div class="day-chevron">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-inner">
+                    <div class="task" data-task="6-1">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Verbinde Content Agent → Social Media</h4>
+                            <p>Erstelle einen n8n Workflow: Agent generiert Content → automatisch auf LinkedIn/Twitter
+                                posten.</p>
+                            <span class="task-tag tag-tool">🔄 n8n + Social Media</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="6-2">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Setze Trigger auf — automatische Ausführung</h4>
+                            <p>Konfiguriere Zeitpläne: Content Agent läuft Mo-Fr um 8 Uhr, Research Agent läuft
+                                montags.</p>
+                            <span class="task-tag tag-tool">🔄 n8n Scheduler</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="6-3">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Teste die komplette Pipeline End-to-End</h4>
+                            <p>Lass alles einmal durchlaufen: Trigger → Agent → Output. Prüfe ob alles funktioniert.</p>
+                            <span class="task-tag tag-tip">💡 Debug-Tipp: Prüfe jeden Schritt einzeln</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 7 -->
+        <div class="day-section" data-day="7">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div class="day-num locked">7</div>
+                <div class="day-title">
+                    <h3>🚀 Launch & Skalieren</h3>
+                    <p>Dein System geht live — und wächst</p>
+                </div>
+                <div class="day-time">⏱ 45 min</div>
+                <div class="day-chevron">▼</div>
+            </div>
+            <div class="day-content">
+                <div class="day-inner">
+                    <div class="task" data-task="7-1">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Aktiviere alle Workflows im Live-Modus</h4>
+                            <p>Schalte die Automations scharf. Dein System arbeitet jetzt für dich — 24/7.</p>
+                            <span class="task-tag tag-tool">🔄 n8n Production</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="7-2">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Dokumentiere deine Zeitersparnis</h4>
+                            <p>Schreib auf: Wie viel Zeit sparst du jetzt pro Tag? Pro Woche? Das motiviert zum
+                                Weitermachen.</p>
+                            <span class="task-tag tag-tip">💡 Die meisten berichten 5-10h/Woche ab Tag 7</span>
+                        </div>
+                    </div>
+                    <div class="task" data-task="7-3">
+                        <div class="task-check" onclick="toggleTask(this)"></div>
+                        <div class="task-info">
+                            <h4>Plane deinen nächsten Agent</h4>
+                            <p>Du hast 3 Agents. Welcher kommt als nächstes? Sales? Support? Analytics? Planung ist der
+                                Schlüssel zum Skalieren.</p>
+                            <span class="task-tag tag-tip">💡 Mit dem Blueprint bekommst du 7+ weitere Agents</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPSELL -->
+        <div class="upsell-card fade-in" id="upsellCard" style="display:none">
+            <div class="upsell-badge">⚡ NÄCHSTER SCHRITT</div>
+            <h3>Du hast die Basics — willst du das volle System?</h3>
+            <p>Diese Checkliste gibt dir den Start. Das <strong>AI Agent Starter Kit</strong> gibt dir <strong>10
+                    fertige Agent Configs</strong> + Video-Anleitung + 30 Tage Support.</p>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+                <a href="../index.html#produkte" class="btn btn-primary">🚀 Alle Produkte ansehen</a>
+                <a href="../index.html" class="btn btn-outline">Zurück zur Übersicht</a>
+            </div>
+        </div>
+
+        <!-- SHARE -->
+        <div class="share-section fade-in">
+            <h3>📤 Teile die Checkliste</h3>
+            <p>Kennst du jemanden der auch mit KI durchstarten will?</p>
+            <div class="share-btns">
+                <a href="https://wa.me/?text=Schau%20dir%20diese%20kostenlose%20KI-Checkliste%20an%20%E2%80%94%20In%207%20Tagen%20zum%20ersten%20AI%20Agent!%20https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/free/ki-checkliste.html"
+                    target="_blank" rel="noopener" class="share-btn">💬 WhatsApp</a>
+                <a href="https://t.me/share/url?url=https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/free/ki-checkliste.html&text=Kostenlose%20KI-Starter%20Checkliste"
+                    target="_blank" rel="noopener" class="share-btn">✈️ Telegram</a>
+                <a href="https://twitter.com/intent/tweet?text=In%207%20Tagen%20zum%20ersten%20AI%20Agent%20%E2%80%94%20kostenlose%20interaktive%20Checkliste%20von%20@mauricepfeifer&url=https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/free/ki-checkliste.html"
+                    target="_blank" rel="noopener" class="share-btn">🐦 Twitter</a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://mauricepfeifer-ctrl.github.io/photonic-schrodinger/empire/free/ki-checkliste.html&title=KI-Starter%20Checkliste"
+                    target="_blank" rel="noopener" class="share-btn">💼 LinkedIn</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ACHIEVEMENT NOTIFICATION -->
+    <div class="achievement" id="achievement">
+        <div class="ach-icon" id="achIcon">🏆</div>
+        <div>
+            <div class="ach-title" id="achTitle">Achievement!</div>
+            <div class="ach-desc" id="achDesc">Du hast etwas geschafft!</div>
+        </div>
+    </div>
+
+    <div class="confetti-container" id="confetti"></div>
+
+    <footer>
+        <p style="margin-bottom:8px"><a href="../index.html">← Zurück zu allen Produkten</a></p>
+        <p>© 2026 Maurice Pfeifer · Alle Rechte vorbehalten</p>
+    </footer>
+
+    <script>
+        // ========== STATE ==========
+        const TOTAL_TASKS = 21;
+        let completedTasks = new Set();
+
+        // Load saved state
+        const saved = localStorage.getItem('ki_checklist_progress');
+        if (saved) {
+            try {
+                JSON.parse(saved).forEach(t => completedTasks.add(t));
+            } catch (e) { }
+        }
+
+        // ========== INIT ==========
+        function init() {
+            // Restore checked tasks
+            completedTasks.forEach(taskId => {
+                const taskEl = document.querySelector(`[data-task="${taskId}"]`);
+                if (taskEl) {
+                    taskEl.classList.add('done');
+                    taskEl.querySelector('.task-check').classList.add('checked');
+                }
+            });
+
+            updateProgress();
+            updateDayStates();
+
+            // Show upsell at 50%+
+            if (completedTasks.size >= Math.floor(TOTAL_TASKS * 0.5)) {
+                document.getElementById('upsellCard').style.display = 'block';
+            }
+
+            // Intersection observer for fade-in
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
+
+        // ========== TASK TOGGLE ==========
+        function toggleTask(checkEl) {
+            const task = checkEl.closest('.task');
+            const taskId = task.dataset.task;
+
+            if (completedTasks.has(taskId)) {
+                completedTasks.delete(taskId);
+                task.classList.remove('done');
+                checkEl.classList.remove('checked');
+            } else {
+                completedTasks.add(taskId);
+                task.classList.add('done');
+                checkEl.classList.add('checked');
+
+                // Check for milestones
+                checkMilestones();
+            }
+
+            // Save
+            localStorage.setItem('ki_checklist_progress', JSON.stringify([...completedTasks]));
+            updateProgress();
+            updateDayStates();
+
+            // Show upsell at 50%
+            if (completedTasks.size >= Math.floor(TOTAL_TASKS * 0.5)) {
+                const upsell = document.getElementById('upsellCard');
+                if (upsell.style.display === 'none') {
+                    upsell.style.display = 'block';
+                    upsell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        // ========== PROGRESS ==========
+        function updateProgress() {
+            const pct = Math.round((completedTasks.size / TOTAL_TASKS) * 100);
+            const circumference = 188.5;
+            const offset = circumference - (pct / 100) * circumference;
+
+            document.getElementById('progressFill').style.strokeDashoffset = offset;
+            document.getElementById('progressPct').textContent = pct + '%';
+            document.getElementById('stepsDone').textContent = completedTasks.size;
+        }
+
+        // ========== DAY STATES ==========
+        function updateDayStates() {
+            document.querySelectorAll('.day-section').forEach(section => {
+                const day = section.dataset.day;
+                const dayTasks = document.querySelectorAll(`[data-task^="${day}-"]`);
+                const dayNums = section.querySelector('.day-num');
+                const header = section.querySelector('.day-header');
+                let allDone = true;
+                let anyDone = false;
+
+                dayTasks.forEach(t => {
+                    if (completedTasks.has(t.dataset.task)) anyDone = true;
+                    else allDone = false;
+                });
+
+                dayNums.classList.remove('active', 'done', 'locked');
+                header.classList.remove('completed');
+
+                if (allDone && dayTasks.length > 0) {
+                    dayNums.classList.add('done');
+                    header.classList.add('completed');
+                } else if (anyDone) {
+                    dayNums.classList.add('active');
+                } else {
+                    // Check if previous day is completed
+                    const prevDay = parseInt(day) - 1;
+                    if (prevDay === 0) {
+                        dayNums.classList.add('active');
+                    } else {
+                        const prevTasks = document.querySelectorAll(`[data-task^="${prevDay}-"]`);
+                        let prevDone = true;
+                        prevTasks.forEach(t => { if (!completedTasks.has(t.dataset.task)) prevDone = false; });
+                        dayNums.classList.add(prevDone ? 'active' : 'locked');
+                    }
+                }
+            });
+        }
+
+        // ========== DAY TOGGLE ==========
+        function toggleDay(header) {
+            const section = header.closest('.day-section');
+            section.classList.toggle('open');
+        }
+
+        // ========== MILESTONES ==========
+        const milestones = [
+            { count: 1, icon: '🎯', title: 'Erster Schritt!', desc: 'Die Reise beginnt — weiter so!' },
+            { count: 5, icon: '⚡', title: '5 Done!', desc: 'Du bist auf dem besten Weg!' },
+            { count: 10, icon: '🔥', title: 'Halbzeit!', desc: 'Die Hälfte geschafft — stark!' },
+            { count: 15, icon: '💪', title: '15 Steps!', desc: 'Du bist fast durch!' },
+            { count: 21, icon: '🏆', title: 'KOMPLETT!', desc: 'Dein erstes AI-System läuft!' }
+        ];
+        const shownMilestones = new Set(JSON.parse(localStorage.getItem('ki_checklist_milestones') || '[]'));
+
+        function checkMilestones() {
+            const m = milestones.find(m => m.count === completedTasks.size && !shownMilestones.has(m.count));
+            if (m) {
+                shownMilestones.add(m.count);
+                localStorage.setItem('ki_checklist_milestones', JSON.stringify([...shownMilestones]));
+                showAchievement(m.icon, m.title, m.desc);
+
+                if (m.count === TOTAL_TASKS) {
+                    setTimeout(launchConfetti, 500);
+                }
+            }
+        }
+
+        function showAchievement(icon, title, desc) {
+            const el = document.getElementById('achievement');
+            document.getElementById('achIcon').textContent = icon;
+            document.getElementById('achTitle').textContent = title;
+            document.getElementById('achDesc').textContent = desc;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 4000);
+        }
+
+        // ========== CONFETTI ==========
+        function launchConfetti() {
+            const container = document.getElementById('confetti');
+            const colors = ['#10b981', '#6366f1', '#f59e0b', '#ef4444', '#ec4899', '#06b6d4'];
+            for (let i = 0; i < 80; i++) {
+                const el = document.createElement('div');
+                el.className = 'confetti';
+                el.style.left = Math.random() * 100 + '%';
+                el.style.background = colors[Math.floor(Math.random() * colors.length)];
+                el.style.animationDelay = Math.random() * 2 + 's';
+                el.style.animationDuration = (2 + Math.random() * 2) + 's';
+                el.style.width = (6 + Math.random() * 8) + 'px';
+                el.style.height = (6 + Math.random() * 8) + 'px';
+                container.appendChild(el);
+            }
+            setTimeout(() => container.innerHTML = '', 5000);
+        }
+
+        // Init
+        init();
+    </script>
+
+</body>
+
+</html>

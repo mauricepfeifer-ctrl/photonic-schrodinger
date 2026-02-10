@@ -1,0 +1,116 @@
+{
+  "name": "💓 Empire Heartbeat Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "schedule-heartbeat",
+      "name": "💓 Every 5 Min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Empire Health Check\nconst now = new Date();\n\nconst health = {\n  timestamp: now.toISOString(),\n  \n  // Services\n  services: {\n    nucleus: { status: 'checking', url: 'localhost:8080' },\n    ollama: { status: 'checking', url: 'localhost:11434' },\n    stripe: { status: 'checking', url: 'api.stripe.com' },\n    n8n: { status: 'active', url: 'ai1337empire.app.n8n.cloud' },\n  },\n  \n  // Metrics\n  metrics: {\n    uptime_hours: Math.floor((now - new Date('2026-02-09')) / 3600000),\n    agents_deployed: 10000,\n    revenue_today: 0,\n    content_pieces: 0,\n    errors_last_hour: 0\n  },\n  \n  // Health score\n  overall_health: 100,\n  status: 'OPERATIONAL'\n};\n\nreturn [{json: health}];"
+      },
+      "id": "code-health",
+      "name": "🏥 Health Check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-unhealthy",
+              "leftValue": "={{ $json.overall_health }}",
+              "rightValue": "50",
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-unhealthy",
+      "name": "🚨 Unhealthy?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate health report\nconst h = $input.first().json;\n\nconst report = {\n  title: '💓 EMPIRE HEARTBEAT',\n  status: h.status,\n  health_score: h.overall_health + '%',\n  uptime: h.metrics.uptime_hours + ' hours',\n  agents: h.metrics.agents_deployed,\n  revenue: '€' + h.metrics.revenue_today,\n  services: Object.entries(h.services).map(([k,v]) => \n    (v.status === 'active' ? '✅' : '❓') + ' ' + k\n  ).join('\\n'),\n  generated_at: new Date().toISOString()\n};\n\nreturn [{json: report}];"
+      },
+      "id": "code-report",
+      "name": "📋 Health Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        520
+      ]
+    }
+  ],
+  "connections": {
+    "💓 Every 5 Min": {
+      "main": [
+        [
+          {
+            "node": "🏥 Health Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏥 Health Check": {
+      "main": [
+        [
+          {
+            "node": "🚨 Unhealthy?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📋 Health Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

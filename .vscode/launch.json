@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Python: Current File",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
@@ -11,14 +11,14 @@
         },
         {
             "name": "👑 Local Swarm (God Mode)",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/local_launcher.py",
             "console": "integratedTerminal"
         },
         {
             "name": "Python: X Monster",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/x_monster.py",
             "console": "integratedTerminal"

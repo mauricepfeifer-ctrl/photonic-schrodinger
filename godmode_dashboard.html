@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 GODMODE — Connect To The Universe | AI Empire Command Center</title>
+    <meta name="description"
+        content="GODMODE — 100 Commander Agents managing 10M+ Worker Bots. The ultimate AI Empire control dashboard.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════
+           COSMIC THEME — Dark Matter + Neon Plasma
+           ═══════════════════════════════════════════════════ */
+        :root {
+            --bg-void: #030108;
+            --bg-nebula: #0a0520;
+            --bg-card: rgba(12, 8, 40, 0.75);
+            --bg-glass: rgba(20, 12, 60, 0.45);
+            --neon-cyan: #00f0ff;
+            --neon-magenta: #ff00e5;
+            --neon-green: #39ff14;
+            --neon-gold: #ffd700;
+            --neon-blue: #4d6dff;
+            --neon-orange: #ff6b2b;
+            --neon-purple: #b946ff;
+            --neon-red: #ff2d55;
+            --text-primary: #e8e6f0;
+            --text-secondary: #8a85a0;
+            --text-accent: #00f0ff;
+            --border-glow: rgba(0, 240, 255, 0.2);
+            --shadow-neon: 0 0 30px rgba(0, 240, 255, 0.15);
+            --font-display: 'Orbitron', monospace;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: var(--bg-void);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        /* ─── STARFIELD BACKGROUND ─── */
+        #starfield {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ─── PARTICLE CANVAS ─── */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ─── MAIN LAYOUT ─── */
+        .app {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ═══ HEADER ═══ */
+        .header {
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-glow);
+            backdrop-filter: blur(20px);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(10, 5, 40, 0.6));
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-pulse {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--neon-cyan), var(--neon-magenta));
+            animation: logoPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-magenta);
+        }
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-magenta);
+            }
+
+            50% {
+                transform: scale(1.15);
+                box-shadow: 0 0 50px var(--neon-cyan), 0 0 100px var(--neon-magenta);
+            }
+        }
+
+        .header-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta), var(--neon-gold));
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s linear infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        .header-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--neon-green);
+            animation: statusGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes statusGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(57, 255, 20, 0.1);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(57, 255, 20, 0.3);
+            }
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            animation: dotBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes dotBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* ═══ MAIN CONTENT ═══ */
+        .main-content {
+            flex: 1;
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* ═══ STATS ROW ═══ */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--neon-cyan);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            animation: scanLine 3s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        /* ═══ HIERARCHY VISUALIZATION ═══ */
+        .hierarchy-section {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hierarchy-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.03), transparent 70%);
+            pointer-events: none;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--neon-cyan);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title span {
+            font-size: 1.4rem;
+        }
+
+        /* Hierarchy Tree */
+        .hierarchy-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tier {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tier-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .tier-node {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .tier-0 {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 0, 229, 0.2));
+            border: 2px solid var(--neon-gold);
+            color: var(--neon-gold);
+            font-size: 1.1rem;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            animation: godPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes godPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 80px rgba(255, 215, 0, 0.4), 0 0 120px rgba(255, 0, 229, 0.2);
+            }
+        }
+
+        .tier-1 {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(77, 109, 255, 0.15));
+            border: 1.5px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-size: 0.95rem;
+        }
+
+        .tier-2 {
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), rgba(0, 240, 255, 0.1));
+            border: 1px solid rgba(57, 255, 20, 0.4);
+            color: var(--neon-green);
+            font-size: 0.85rem;
+        }
+
+        .tier-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+        }
+
+        .connector-line {
+            width: 2px;
+            height: 24px;
+            background: linear-gradient(180deg, var(--neon-cyan), transparent);
+            animation: lineFlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes lineFlow {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .connector-fan {
+            display: flex;
+            gap: 3px;
+            align-items: flex-start;
+        }
+
+        .connector-fan .fan-line {
+            width: 1px;
+            height: 20px;
+            background: rgba(0, 240, 255, 0.3);
+        }
+
+        /* ═══ DIVISIONS GRID ═══ */
+        .divisions-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .division-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 240, 255, 0.12);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .division-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.15), inset 0 0 60px rgba(0, 240, 255, 0.02);
+        }
+
+        .division-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 240, 255, 0.05), transparent, rgba(255, 0, 229, 0.05), transparent);
+            animation: rotateGlow 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotateGlow {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .div-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .div-emoji {
+            font-size: 1.8rem;
+        }
+
+        .div-name {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .div-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .div-stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .div-stat-label {
+            color: var(--text-secondary);
+        }
+
+        .div-stat-value {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        .div-progress {
+            height: 4px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .div-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transition: width 1s ease;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* ═══ COMMANDERS TABLE ═══ */
+        .commanders-section {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        .commanders-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 6px;
+            margin-top: 16px;
+        }
+
+        .cmd-cell {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cmd-cell:hover {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            transform: scale(1.3);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .cmd-cell.active {
+            animation: cmdActive 1s ease-in-out infinite;
+        }
+
+        @keyframes cmdActive {
+
+            0%,
+            100% {
+                background: rgba(57, 255, 20, 0.1);
+                border-color: rgba(57, 255, 20, 0.3);
+            }
+
+            50% {
+                background: rgba(57, 255, 20, 0.25);
+                border-color: var(--neon-green);
+                box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+            }
+        }
+
+        /* ═══ LIVE FEED ═══ */
+        .live-feed {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 24px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .feed-line {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            opacity: 0;
+            animation: feedIn 0.5s ease forwards;
+        }
+
+        @keyframes feedIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .feed-ts {
+            color: var(--text-secondary);
+        }
+
+        .feed-cmd {
+            color: var(--neon-cyan);
+        }
+
+        .feed-task {
+            color: var(--neon-green);
+        }
+
+        .feed-revenue {
+            color: var(--neon-gold);
+        }
+
+        .feed-error {
+            color: var(--neon-red);
+        }
+
+        /* ═══ ACTION BUTTONS ═══ */
+        .actions-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border: 1.5px solid;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .action-btn:hover::after {
+            transform: translateX(100%);
+        }
+
+        .btn-launch {
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(0, 240, 255, 0.2));
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .btn-launch:hover {
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-wave {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(77, 109, 255, 0.15));
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .btn-wave:hover {
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-scale {
+            background: linear-gradient(135deg, rgba(255, 0, 229, 0.15), rgba(185, 70, 255, 0.15));
+            border-color: var(--neon-magenta);
+            color: var(--neon-magenta);
+        }
+
+        .btn-scale:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 229, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-godmode {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 107, 43, 0.2));
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+            font-size: 0.9rem;
+            padding: 14px 36px;
+            animation: godBtnPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes godBtnPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), 0 0 100px rgba(255, 0, 229, 0.2);
+            }
+        }
+
+        .btn-godmode:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* ═══ WAVEFORM VISUALIZER ═══ */
+        .waveform {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 60px;
+            padding: 8px 0;
+        }
+
+        .wave-bar {
+            width: 4px;
+            border-radius: 2px;
+            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
+            animation: waveAnim var(--delay) ease-in-out infinite alternate;
+        }
+
+        @keyframes waveAnim {
+            from {
+                height: 10%;
+                opacity: 0.4;
+            }
+
+            to {
+                height: 100%;
+                opacity: 1;
+            }
+        }
+
+        /* ═══ SCROLLBAR ═══ */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 3px;
+        }
+
+        /* ═══ TOOLTIP ═══ */
+        .tooltip {
+            position: fixed;
+            background: rgba(10, 5, 40, 0.95);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            pointer-events: none;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            display: none;
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 1200px) {
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .divisions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .commanders-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .header-title {
+                font-size: 1.2rem;
+            }
+
+            .main-content {
+                padding: 16px 20px;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .divisions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Starfield Canvas -->
+    <canvas id="starfield"></canvas>
+    <!-- Particle Canvas -->
+    <canvas id="particles"></canvas>
+
+    <div class="app">
+        <!-- ═══ HEADER ═══ -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-pulse"></div>
+                <div>
+                    <div class="header-title">GODMODE</div>
+                    <div class="header-subtitle">Connect To The Universe · AI Empire Command Center</div>
+                </div>
+            </div>
+            <div class="status-pill">
+                <div class="status-dot"></div>
+                <span id="statusText">INITIALIZING...</span>
+            </div>
+        </header>
+
+        <!-- ═══ MAIN CONTENT ═══ -->
+        <main class="main-content">
+
+            <!-- ACTIONS ROW -->
+            <div class="actions-row">
+                <button class="action-btn btn-godmode" id="btnGodmode" onclick="launchGodmode()">⚡ GODMODE
+                    ACTIVATE</button>
+                <button class="action-btn btn-launch" onclick="launchWave()">🌊 LAUNCH WAVE</button>
+                <button class="action-btn btn-wave" onclick="scaleUp()">📈 SCALE 10x</button>
+                <button class="action-btn btn-scale" onclick="toggleMaxPower()">🔥 MAX POWER</button>
+            </div>
+
+            <!-- STATS ROW -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon">👑</div>
+                    <div class="stat-value" id="statCommanders">100</div>
+                    <div class="stat-label">Commanders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🐝</div>
+                    <div class="stat-value" id="statWorkers">10,000,000</div>
+                    <div class="stat-label">Worker Bots</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="statTasks">0</div>
+                    <div class="stat-label">Tasks Done</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-value" id="statRevenue">€0</div>
+                    <div class="stat-label">Revenue</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-value" id="statTPS">0</div>
+                    <div class="stat-label">Tasks/Sec</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-value" id="statROI">0%</div>
+                    <div class="stat-label">ROI</div>
+                </div>
+            </div>
+
+            <!-- WAVEFORM VISUALIZER -->
+            <div class="waveform" id="waveform"></div>
+
+            <!-- HIERARCHY VISUALIZATION -->
+            <div class="hierarchy-section">
+                <div class="section-title"><span>🌌</span> COMMAND HIERARCHY</div>
+                <div class="hierarchy-tree">
+                    <div class="tier">
+                        <div class="tier-label">Tier 0 — Supreme Commander</div>
+                        <div class="tier-node tier-0">👑 MAURICE — GODMODE</div>
+                    </div>
+                    <div class="connector-line"></div>
+                    <div class="tier">
+                        <div class="tier-label">Tier 1 — 100 Commander Agents (Ollama Local = "Claude Offline")</div>
+                        <div class="tier-node tier-1">🧠 100 COMMANDERS × Qwen2.5-Coder / DeepSeek-R1</div>
+                    </div>
+                    <div class="connector-line"></div>
+                    <div class="connector-fan" id="connectorFan"></div>
+                    <div class="tier">
+                        <div class="tier-label">Tier 2 — 10,000,000 Worker Bots (Kimi + Qwen + DeepSeek + GLM)</div>
+                        <div class="tier-node tier-2">🐝 10,000,000 WORKER BOTS — CONNECTED TO THE UNIVERSE</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10 DIVISIONS -->
+            <div class="hierarchy-section">
+                <div class="section-title"><span>🏢</span> 10 DIVISIONS — WORKER DISTRIBUTION</div>
+                <div class="divisions-grid" id="divisionsGrid"></div>
+            </div>
+
+            <!-- 100 COMMANDERS GRID -->
+            <div class="commanders-section">
+                <div class="section-title"><span>👑</span> 100 COMMANDER AGENTS</div>
+                <div class="commanders-grid" id="commandersGrid"></div>
+            </div>
+
+            <!-- LIVE FEED -->
+            <div class="hierarchy-section">
+                <div class="section-title"><span>📡</span> LIVE FEED</div>
+                <div class="live-feed" id="liveFeed"></div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- TOOLTIP -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════
+        // GODMODE DASHBOARD — JavaScript Engine
+        // ═══════════════════════════════════════════════════════
+
+        const DIVISIONS = [
+            { id: 'sales', emoji: '🎯', name: 'SALES', share: 0.25, color: '#ff6b2b', workers: 2500000, cmds: 10 },
+            { id: 'content', emoji: '📝', name: 'CONTENT', share: 0.20, color: '#00f0ff', workers: 2000000, cmds: 10 },
+            { id: 'research', emoji: '🔍', name: 'RESEARCH', share: 0.10, color: '#4d6dff', workers: 1000000, cmds: 10 },
+            { id: 'revenue', emoji: '💰', name: 'REVENUE', share: 0.15, color: '#ffd700', workers: 1500000, cmds: 10 },
+            { id: 'marketing', emoji: '🌊', name: 'MARKETING', share: 0.10, color: '#b946ff', workers: 1000000, cmds: 10 },
+            { id: 'education', emoji: '🎓', name: 'EDUCATION', share: 0.05, color: '#39ff14', workers: 500000, cmds: 10 },
+            { id: 'security', emoji: '🛡️', name: 'SECURITY', share: 0.03, color: '#ff2d55', workers: 300000, cmds: 10 },
+            { id: 'engineering', emoji: '🔧', name: 'ENGINEERING', share: 0.05, color: '#00f0ff', workers: 500000, cmds: 10 },
+            { id: 'analytics', emoji: '📊', name: 'ANALYTICS', share: 0.04, color: '#ff00e5', workers: 400000, cmds: 10 },
+            { id: 'innovation', emoji: '🚀', name: 'INNOVATION', share: 0.03, color: '#ffd700', workers: 300000, cmds: 10 },
+        ];
+
+        let state = {
+            active: false,
+            maxPower: false,
+            commanders: 100,
+            workers: 10000000,
+            tasksCompleted: 0,
+            tasksFailed: 0,
+            revenue: 0,
+            cost: 0,
+            tps: 0,
+            startTime: null,
+            waveCount: 0,
+            divisionStats: {},
+        };
+
+        // Initialize division stats
+        DIVISIONS.forEach(d => {
+            state.divisionStats[d.id] = { tasks: 0, revenue: 0, progress: 0 };
+        });
+
+        // ─── STARFIELD RENDER ───
+        const starCanvas = document.getElementById('starfield');
+        const starCtx = starCanvas.getContext('2d');
+        let stars = [];
+
+        function initStarfield() {
+            starCanvas.width = window.innerWidth;
+            starCanvas.height = window.innerHeight;
+            stars = [];
+            for (let i = 0; i < 400; i++) {
+                stars.push({
+                    x: Math.random() * starCanvas.width,
+                    y: Math.random() * starCanvas.height,
+                    r: Math.random() * 1.5 + 0.3,
+                    speed: Math.random() * 0.5 + 0.1,
+                    opacity: Math.random() * 0.8 + 0.2,
+                });
+            }
+        }
+
+        function renderStarfield() {
+            starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+
+            // Nebula background
+            const grad = starCtx.createRadialGradient(
+                starCanvas.width * 0.3, starCanvas.height * 0.5, 0,
+                starCanvas.width * 0.3, starCanvas.height * 0.5, starCanvas.width * 0.6
+            );
+            grad.addColorStop(0, 'rgba(30, 0, 80, 0.15)');
+            grad.addColorStop(0.5, 'rgba(0, 30, 80, 0.08)');
+            grad.addColorStop(1, 'transparent');
+            starCtx.fillStyle = grad;
+            starCtx.fillRect(0, 0, starCanvas.width, starCanvas.height);
+
+            // Stars
+            stars.forEach(s => {
+                s.y -= s.speed;
+                if (s.y < 0) { s.y = starCanvas.height; s.x = Math.random() * starCanvas.width; }
+
+                starCtx.beginPath();
+                starCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                starCtx.fillStyle = `rgba(200, 220, 255, ${s.opacity})`;
+                starCtx.fill();
+
+                // Glow
+                starCtx.beginPath();
+                starCtx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
+                starCtx.fillStyle = `rgba(100, 180, 255, ${s.opacity * 0.1})`;
+                starCtx.fill();
+            });
+
+            requestAnimationFrame(renderStarfield);
+        }
+
+        // ─── PARTICLE SYSTEM ───
+        const partCanvas = document.getElementById('particles');
+        const partCtx = partCanvas.getContext('2d');
+        let particles = [];
+
+        function initParticles() {
+            partCanvas.width = window.innerWidth;
+            partCanvas.height = window.innerHeight;
+        }
+
+        function spawnParticle(x, y, color) {
+            particles.push({
+                x: x || Math.random() * partCanvas.width,
+                y: y || partCanvas.height + 10,
+                vx: (Math.random() - 0.5) * 2,
+                vy: -Math.random() * 3 - 1,
+                life: 1.0,
+                decay: Math.random() * 0.015 + 0.005,
+                r: Math.random() * 3 + 1,
+                color: color || `hsl(${Math.random() * 60 + 170}, 100%, 70%)`,
+            });
+        }
+
+        function renderParticles() {
+            partCtx.clearRect(0, 0, partCanvas.width, partCanvas.height);
+
+            particles = particles.filter(p => p.life > 0);
+
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= p.decay;
+
+                partCtx.beginPath();
+                partCtx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+                partCtx.fillStyle = p.color.replace(')', `, ${p.life})`).replace('hsl', 'hsla').replace('rgb', 'rgba');
+                partCtx.fill();
+            });
+
+            // Auto-spawn when active
+            if (state.active) {
+                const count = state.maxPower ? 8 : 3;
+                for (let i = 0; i < count; i++) {
+                    spawnParticle();
+                }
+            }
+
+            requestAnimationFrame(renderParticles);
+        }
+
+        // ─── BUILD DIVISIONS ───
+        function buildDivisions() {
+            const grid = document.getElementById('divisionsGrid');
+            grid.innerHTML = '';
+            DIVISIONS.forEach(d => {
+                const card = document.createElement('div');
+                card.className = 'division-card';
+                card.id = `div-${d.id}`;
+                card.innerHTML = `
+                <div class="div-header">
+                    <span class="div-emoji">${d.emoji}</span>
+                    <span class="div-name" style="color:${d.color}">${d.name}</span>
+                </div>
+                <div class="div-stats">
+                    <div class="div-stat-row">
+                        <span class="div-stat-label">Commanders</span>
+                        <span class="div-stat-value">${d.cmds}</span>
+                    </div>
+                    <div class="div-stat-row">
+                        <span class="div-stat-label">Workers</span>
+                        <span class="div-stat-value">${d.workers.toLocaleString()}</span>
+                    </div>
+                    <div class="div-stat-row">
+                        <span class="div-stat-label">Share</span>
+                        <span class="div-stat-value">${(d.share * 100).toFixed(0)}%</span>
+                    </div>
+                    <div class="div-stat-row">
+                        <span class="div-stat-label">Tasks</span>
+                        <span class="div-stat-value" id="div-tasks-${d.id}">0</span>
+                    </div>
+                    <div class="div-stat-row">
+                        <span class="div-stat-label">Revenue</span>
+                        <span class="div-stat-value" style="color:${d.color}" id="div-rev-${d.id}">€0</span>
+                    </div>
+                </div>
+                <div class="div-progress">
+                    <div class="div-progress-fill" id="div-prog-${d.id}" style="width:0%;background:linear-gradient(90deg,${d.color},var(--neon-magenta))"></div>
+                </div>
+            `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ─── BUILD 100 COMMANDERS GRID ───
+        function buildCommanders() {
+            const grid = document.getElementById('commandersGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const div = DIVISIONS[Math.floor(i / 10)];
+                const cell = document.createElement('div');
+                cell.className = 'cmd-cell';
+                cell.id = `cmd-${i}`;
+                cell.textContent = `${i + 1}`;
+                cell.title = `CMD-${div.id.slice(0, 3).toUpperCase()}-${String(i % 10).padStart(2, '0')} | ${div.name}`;
+                cell.style.borderColor = `${div.color}30`;
+                grid.appendChild(cell);
+            }
+        }
+
+        // ─── BUILD WAVEFORM ───
+        function buildWaveform() {
+            const wf = document.getElementById('waveform');
+            wf.innerHTML = '';
+            for (let i = 0; i < 80; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'wave-bar';
+                bar.style.setProperty('--delay', `${0.3 + Math.random() * 1.2}s`);
+                bar.style.height = `${10 + Math.random() * 50}%`;
+                wf.appendChild(bar);
+            }
+        }
+
+        // ─── BUILD CONNECTOR FAN ───
+        function buildConnectorFan() {
+            const fan = document.getElementById('connectorFan');
+            fan.innerHTML = '';
+            for (let i = 0; i < 40; i++) {
+                const line = document.createElement('div');
+                line.className = 'fan-line';
+                fan.appendChild(line);
+            }
+        }
+
+        // ─── LIVE FEED ───
+        function addFeedLine(type, message) {
+            const feed = document.getElementById('liveFeed');
+            const line = document.createElement('div');
+            line.className = 'feed-line';
+            const ts = new Date().toLocaleTimeString('de-DE');
+            const colorClass = { cmd: 'feed-cmd', task: 'feed-task', revenue: 'feed-revenue', error: 'feed-error' }[type] || 'feed-task';
+            line.innerHTML = `<span class="feed-ts">[${ts}]</span> <span class="${colorClass}">${message}</span>`;
+            feed.insertBefore(line, feed.firstChild);
+            if (feed.children.length > 100) feed.removeChild(feed.lastChild);
+        }
+
+        // ─── UPDATE STATS ───
+        function updateStats() {
+            document.getElementById('statCommanders').textContent = state.commanders;
+            document.getElementById('statWorkers').textContent = state.workers.toLocaleString();
+            document.getElementById('statTasks').textContent = state.tasksCompleted.toLocaleString();
+            document.getElementById('statRevenue').textContent = `€${state.revenue.toFixed(2)}`;
+            document.getElementById('statTPS').textContent = state.tps.toFixed(0);
+            document.getElementById('statROI').textContent = `${state.cost > 0 ? ((state.revenue / state.cost) * 100).toFixed(0) : 0}%`;
+        }
+
+        // ─── SIMULATION ENGINE ───
+        let simInterval = null;
+
+        function simulateTick() {
+            const multiplier = state.maxPower ? 10 : 1;
+            const taskBatch = Math.floor(Math.random() * 50 * multiplier + 20);
+
+            state.tasksCompleted += taskBatch;
+            const rev = Math.random() * 15 * multiplier;
+            state.revenue += rev;
+            state.cost += taskBatch * 0.000001;
+
+            // Update random division
+            const div = DIVISIONS[Math.floor(Math.random() * DIVISIONS.length)];
+            const ds = state.divisionStats[div.id];
+            ds.tasks += taskBatch;
+            ds.revenue += rev * div.share;
+            ds.progress = Math.min(100, ds.progress + Math.random() * 2);
+
+            const el = document.getElementById(`div-tasks-${div.id}`);
+            if (el) el.textContent = ds.tasks.toLocaleString();
+            const revEl = document.getElementById(`div-rev-${div.id}`);
+            if (revEl) revEl.textContent = `€${ds.revenue.toFixed(2)}`;
+            const progEl = document.getElementById(`div-prog-${div.id}`);
+            if (progEl) progEl.style.width = `${ds.progress}%`;
+
+            // Activate random commander cell
+            const cmdIdx = Math.floor(Math.random() * 100);
+            const cmdEl = document.getElementById(`cmd-${cmdIdx}`);
+            if (cmdEl) {
+                cmdEl.classList.add('active');
+                setTimeout(() => cmdEl.classList.remove('active'), 1500);
+            }
+
+            // TPS calculation
+            if (state.startTime) {
+                const elapsed = (Date.now() - state.startTime) / 1000;
+                state.tps = state.tasksCompleted / elapsed;
+            }
+
+            // Feed
+            const messages = [
+                `${div.emoji} CMD-${div.id.slice(0, 3).toUpperCase()}-${String(Math.floor(Math.random() * 10)).padStart(2, '0')} dispatched ${taskBatch} tasks`,
+                `✅ ${taskBatch} tasks completed in ${div.name} division`,
+                `💰 Revenue +€${rev.toFixed(2)} from ${div.name}`,
+            ];
+            addFeedLine(['cmd', 'task', 'revenue'][Math.floor(Math.random() * 3)], messages[Math.floor(Math.random() * messages.length)]);
+
+            // Particles burst
+            for (let i = 0; i < (state.maxPower ? 15 : 5); i++) {
+                spawnParticle(undefined, undefined, div.color);
+            }
+
+            updateStats();
+        }
+
+        // ─── ACTIONS ───
+        function launchGodmode() {
+            if (state.active) return;
+            state.active = true;
+            state.startTime = Date.now();
+            document.getElementById('statusText').textContent = 'GODMODE ACTIVE';
+            document.getElementById('btnGodmode').textContent = '⚡ GODMODE ACTIVE';
+            document.getElementById('btnGodmode').style.borderColor = 'var(--neon-green)';
+            document.getElementById('btnGodmode').style.color = 'var(--neon-green)';
+
+            addFeedLine('cmd', '🌌 GODMODE ACTIVATED — Connecting to the Universe...');
+            addFeedLine('cmd', '👑 100 Commander Agents initialized (Ollama Local)');
+            addFeedLine('cmd', '🐝 10,000,000 Worker Bots standing by...');
+
+            // Start simulation
+            simInterval = setInterval(simulateTick, state.maxPower ? 100 : 500);
+
+            // Particle burst
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => spawnParticle(), i * 20);
+            }
+        }
+
+        function launchWave() {
+            state.waveCount++;
+            addFeedLine('cmd', `🌊 WAVE ${state.waveCount} LAUNCHED — 100 commanders × 10 tasks`);
+            // Burst all commanders
+            for (let i = 0; i < 100; i++) {
+                const cmdEl = document.getElementById(`cmd-${i}`);
+                if (cmdEl) {
+                    setTimeout(() => {
+                        cmdEl.classList.add('active');
+                        setTimeout(() => cmdEl.classList.remove('active'), 2000);
+                    }, i * 30);
+                }
+            }
+            // Extra particles
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => spawnParticle(), i * 10);
+            }
+        }
+
+        function scaleUp() {
+            state.workers *= 10;
+            document.getElementById('statWorkers').textContent = state.workers.toLocaleString();
+            addFeedLine('cmd', `📈 SCALED UP — Now managing ${state.workers.toLocaleString()} worker bots!`);
+            // Update division workers too
+            DIVISIONS.forEach(d => {
+                d.workers *= 10;
+                const card = document.getElementById(`div-${d.id}`);
+                if (card) {
+                    const workerEl = card.querySelectorAll('.div-stat-value')[1];
+                    if (workerEl) workerEl.textContent = d.workers.toLocaleString();
+                }
+            });
+        }
+
+        function toggleMaxPower() {
+            state.maxPower = !state.maxPower;
+            if (simInterval) {
+                clearInterval(simInterval);
+                simInterval = setInterval(simulateTick, state.maxPower ? 100 : 500);
+            }
+            addFeedLine('cmd', state.maxPower ? '🔥 MAX POWER ENGAGED — 10x throughput!' : '🔥 MAX POWER OFF — Normal speed');
+            document.getElementById('statusText').textContent = state.maxPower ? 'MAX POWER 🔥' : 'GODMODE ACTIVE';
+        }
+
+        // ─── INIT ───
+        window.addEventListener('resize', () => { initStarfield(); initParticles(); });
+
+        initStarfield();
+        initParticles();
+        renderStarfield();
+        renderParticles();
+        buildDivisions();
+        buildCommanders();
+        buildWaveform();
+        buildConnectorFan();
+
+        // Auto-launch after 1s
+        setTimeout(launchGodmode, 1000);
+
+    </script>
+</body>
+
+</html>

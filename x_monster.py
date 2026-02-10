@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger(__name__)
 
 # Config
-KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "sk-e57Q5aDfcpXpHkYfgeWCU3xjuqf2ZPoYxhuRH0kEZXGBeoMF")
+KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "")
 KNOWLEDGE_FILE = "knowledge_context.json"
 OUTPUT_DIR = "x_content"
 

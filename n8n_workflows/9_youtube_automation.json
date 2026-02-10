@@ -1,0 +1,79 @@
+{
+  "name": "📹 YouTube Automation Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "id": "schedule-yt",
+      "name": "⏰ Every 6 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// YouTube Content Pipeline\nconst niches = ['ai_news', 'finance', 'tech_reviews', 'motivation', 'open_source'];\nconst niche = niches[Math.floor(Math.random() * niches.length)];\n\nconst pipeline = {\n  niche: niche,\n  stage: 'SCRIPT_GENERATION',\n  target_length_min: 10,\n  estimated_cpm: 15,\n  \n  // Revenue estimate\n  target_views: 50000,\n  estimated_revenue: (50000 / 1000 * 15).toFixed(2),\n  \n  // Metadata\n  upload_time: '15:00 UTC',\n  publish_day: new Date().toLocaleDateString('en', {weekday: 'long'}),\n  \n  timestamp: new Date().toISOString()\n};\n\nreturn [{json: pipeline}];"
+      },
+      "id": "code-yt-pipeline",
+      "name": "🎬 Video Pipeline",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate SEO Metadata\nconst item = $input.first().json;\n\nconst seo = {\n  ...item,\n  title_options: [\n    'How AI is Changing Everything in 2026',\n    'I Built a $10K/Month AI Business (Full Tutorial)',\n    'The AI Tool That Replaced My Entire Team'\n  ],\n  description_template: 'In this video, I show you how to leverage AI to...',\n  tags: ['AI', 'artificial intelligence', 'automation', 'business', 'money', 'tech'],\n  thumbnail_style: 'bold_text_reaction'\n};\n\nreturn [{json: seo}];"
+      },
+      "id": "code-yt-seo",
+      "name": "🔍 SEO Optimizer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "⏰ Every 6 Hours": {
+      "main": [
+        [
+          {
+            "node": "🎬 Video Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎬 Video Pipeline": {
+      "main": [
+        [
+          {
+            "node": "🔍 SEO Optimizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

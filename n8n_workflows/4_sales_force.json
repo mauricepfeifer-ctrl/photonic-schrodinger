@@ -1,0 +1,118 @@
+{
+  "name": "🎯 Sales Force Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "empire-swarm/sales-action",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-sales",
+      "name": "🎯 Sales Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sales Pipeline Stage Router\nconst item = $input.first().json;\n\nconst stage = {\n  type: item.type || 'unknown',\n  department: item.department,\n  \n  // Determine pipeline stage\n  pipeline_stage: 'unknown',\n  next_action: 'review',\n  urgency: 'normal'\n};\n\nif (item.type === 'cold_email') {\n  stage.pipeline_stage = 'OUTREACH';\n  stage.next_action = 'send_email';\n  stage.urgency = 'high';\n} else if (item.type === 'proposal') {\n  stage.pipeline_stage = 'PROPOSAL';\n  stage.next_action = 'customize_and_send';\n  stage.urgency = 'critical';\n} else if (item.type === 'objection_handling') {\n  stage.pipeline_stage = 'NEGOTIATION';\n  stage.next_action = 'follow_up';\n  stage.urgency = 'medium';\n}\n\nreturn [{json: {...item, ...stage}}];"
+      },
+      "id": "code-sales-route",
+      "name": "🔀 Pipeline Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Score lead quality\nconst item = $input.first().json;\n\nlet score = 50; // base score\nif (item.revenue_eur > 5) score += 20;\nif (item.type === 'proposal') score += 15;\nif (item.urgency === 'critical') score += 10;\n\nconst scored = {\n  ...item,\n  lead_score: score,\n  lead_grade: score >= 80 ? 'A' : score >= 60 ? 'B' : 'C',\n  action_required: score >= 70,\n  auto_send: score >= 85\n};\n\nreturn [{json: scored}];"
+      },
+      "id": "code-lead-score",
+      "name": "⭐ Lead Scoring",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-auto-send",
+              "leftValue": "={{ $json.auto_send }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-auto-send",
+      "name": "🚀 Auto-Send?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "🎯 Sales Webhook": {
+      "main": [
+        [
+          {
+            "node": "🔀 Pipeline Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 Pipeline Router": {
+      "main": [
+        [
+          {
+            "node": "⭐ Lead Scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⭐ Lead Scoring": {
+      "main": [
+        [
+          {
+            "node": "🚀 Auto-Send?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

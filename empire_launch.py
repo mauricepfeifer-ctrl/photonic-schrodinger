@@ -1,3 +1,4 @@
+import logging
 #!/usr/bin/env python3
 """
 ╔══════════════════════════════════════════════════════════════════════╗
@@ -36,12 +37,14 @@ import glob
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-# ─── LOGGING ────────────────────────────────────────────
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s"
+from config import (
+    MOONSHOT_API_KEY, N8N_WEBHOOK_URL, OLLAMA_HOST, 
+    OFFLINE_MODE, EMPIRE_NAME, VERSION
 )
-logger = logging.getLogger("EmpireLaunch")
+from utils.logger import get_logger
+
+# ─── LOGGING ────────────────────────────────────────────
+logger = get_logger("EmpireLaunch")
 
 # ─── SAFE IMPORTS (graceful degradation) ────────────────
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -64,77 +67,84 @@ except ImportError as e:
 try:
     from revenue_pipeline import RevenuePipeline
     HAS_PIPELINE = True
-except ImportError:
+except ImportError as e:
     HAS_PIPELINE = False
+    logger.warning(f"⚠️ RevenuePipeline not available: {e}")
 
 # Dirk Kreuter Sales Engine
 try:
     from dirk_kreuter_engine import DirkKreuterEngine, SalesMessage
     HAS_KREUTER = True
-except ImportError:
+except ImportError as e:
     HAS_KREUTER = False
+    logger.warning(f"⚠️ DirkKreuterEngine not available: {e}")
 
 # Stripe Manager
 try:
     from stripe_manager import StripeManager
     HAS_STRIPE = True
-except ImportError:
+except ImportError as e:
     HAS_STRIPE = False
+    logger.warning(f"⚠️ StripeManager not available: {e}")
 
 # N8N Connector
 try:
     from n8n_connector import N8nConnector
     HAS_N8N = True
-except ImportError:
+except ImportError as e:
     HAS_N8N = False
+    logger.warning(f"⚠️ N8nConnector not available: {e}")
 
 # Ollama Engine
 try:
     from ollama_engine import OllamaEngine, LLMResponse
     HAS_OLLAMA_ENGINE = True
-except ImportError:
+except ImportError as e:
     HAS_OLLAMA_ENGINE = False
+    logger.warning(f"⚠️ OllamaEngine not available: {e}")
 
 # Content Arbitrage
 try:
     from content_arbitrage import ArbitrageManager
     HAS_ARBITRAGE = True
-except ImportError:
+except ImportError as e:
     HAS_ARBITRAGE = False
+    logger.warning(f"⚠️ ArbitrageManager not available: {e}")
 
 # Revenue Burst
 try:
     from revenue_burst import RevenueBurst
     HAS_BURST = True
-except ImportError:
+except ImportError as e:
     HAS_BURST = False
+    logger.warning(f"⚠️ RevenueBurst not available: {e}")
 
 # Sales Force (Agencies)
 try:
     from sales_force import SalesForce, SALES_ROLES
     HAS_SALES_FORCE = True
-except ImportError:
+except ImportError as e:
     HAS_SALES_FORCE = False
+    logger.warning(f"⚠️ SalesForce not available: {e}")
 
 # Content Blitz
 try:
     from content_blitz import ContentBlitz
     HAS_CONTENT_BLITZ = True
-except ImportError:
+except ImportError as e:
     HAS_CONTENT_BLITZ = False
+    logger.warning(f"⚠️ ContentBlitz not available: {e}")
 
 # Agent Manager
 try:
     from agent_manager import AgentManager
     HAS_AGENT_MGR = True
-except ImportError:
+except ImportError as e:
     HAS_AGENT_MGR = False
+    logger.warning(f"⚠️ AgentManager not available: {e}")
 
 # ─── CONFIGURATION ─────────────────────────────────────
-N8N_CLOUD_URL = os.getenv(
-    "N8N_WEBHOOK_URL",
-    "https://ai1337empire.app.n8n.cloud/webhook/monster-machine"
-)
+N8N_CLOUD_URL = N8N_WEBHOOK_URL
 
 
 # ════════════════════════════════════════════════════════
@@ -348,10 +358,13 @@ class EmpireLaunch:
 
         # Ollama
         if HAS_OLLAMA_ENGINE:
-            engine = OllamaEngine()
-            ok = await engine.health()
-            models = await engine.list_models() if ok else []
-            results["ollama"] = {"status": "UP" if ok else "DOWN", "models": models}
+            try:
+                engine = OllamaEngine()
+                ok = await engine.health()
+                models = await engine.list_models() if ok else []
+                results["ollama"] = {"status": "UP" if ok else "DOWN", "models": models}
+            except Exception as e:
+                results["ollama"] = {"status": f"ERROR: {e}"}
         else:
             results["ollama"] = {"status": "NOT_INSTALLED"}
 
@@ -411,21 +424,34 @@ class EmpireLaunch:
         self.state.n8n_events_fired += 1
 
         # 3. Run Nucleus Autopilot (connects Swarm + Revenue + Brain)
+        # 3. Run Nucleus Autopilot (connects Swarm + Revenue + Brain)
         if self.nucleus:
             ok = await self.nucleus.health_check()
-            if ok and getattr(self.nucleus, 'autopilot', None):
+            # Safely check for autopilot existence
+            autopilot = getattr(self.nucleus, 'autopilot', None)
+            swarm = getattr(self.nucleus, 'swarm', None)
+            revenue = getattr(self.nucleus, 'revenue', None)
+
+            if ok and autopilot and swarm and revenue:
                 logger.info("🧠 Nucleus online — starting autopilot")
-                await self.nucleus.autopilot.run(cycles=cycles)
-                self.state.tasks_completed += sum(
-                    a.tasks_done for a in self.nucleus.swarm.agents.values()
-                )
-                self.state.tasks_failed += sum(
-                    a.tasks_failed for a in self.nucleus.swarm.agents.values()
-                )
-                self.state.revenue_eur = self.nucleus.revenue.total_eur
-                self.nucleus.swarm.save_rankings()
+                await autopilot.run(cycles=cycles)
+                
+                # Safely access agents
+                if hasattr(swarm, 'agents') and swarm.agents:
+                    self.state.tasks_completed += sum(
+                        a.tasks_done for a in swarm.agents.values()
+                    )
+                    self.state.tasks_failed += sum(
+                        a.tasks_failed for a in swarm.agents.values()
+                    )
+                
+                if hasattr(revenue, 'total_eur'):
+                    self.state.revenue_eur = revenue.total_eur
+                
+                if hasattr(swarm, 'save_rankings'):
+                    swarm.save_rankings()
             else:
-                logger.warning("⚠️ Nucleus health check failed or autopilot missing")
+                logger.warning("⚠️ Nucleus health check failed or components missing")
 
         # 4. Launch Sales Force & Content Blitz (New System)
         await self.launch_sales_force()
@@ -441,14 +467,17 @@ class EmpireLaunch:
         # 6. Show Kreuter sales sequence for top product
         if self.kreuter:
             logger.info("\n💼 Dirk Kreuter Sales Sequence (AI Consulting):")
-            sequence = self.kreuter.generate_complete_sequence("core", slots_taken=2)
-            for i, msg in enumerate(sequence, 1):
-                logger.info(f"  {i}. [{msg.principle.value}] {msg.headline}")
-            self.state.sales_messages_sent += len(sequence)
+            # Verify method exists
+            if hasattr(self.kreuter, 'generate_complete_sequence'):
+                sequence = self.kreuter.generate_complete_sequence("core", slots_taken=2)
+                for i, msg in enumerate(sequence, 1):
+                    logger.info(f"  {i}. [{msg.principle.value}] {msg.headline}")
+                self.state.sales_messages_sent += len(sequence)
 
         # 7. Stripe status
         if self.stripe:
-            logger.info(f"\n💳 Stripe: {self.stripe.get_revenue_summary()}")
+            if hasattr(self.stripe, 'get_revenue_summary'):
+                logger.info(f"\n💳 Stripe: {self.stripe.get_revenue_summary()}")
 
         # 8. Final dashboard
         logger.info(self.state.summary())
@@ -495,8 +524,9 @@ class EmpireLaunch:
                 nucleus.swarm.save_rankings()
 
         # Run standalone pipeline if nucleus failed
-        if not self.nucleus and self.pipeline:
-            r = await self.pipeline.run_continuous(waves=waves, leads_per_wave=leads)
+        pipeline = self.pipeline
+        if not self.nucleus and pipeline:
+            r = await pipeline.run_continuous(waves=waves, leads_per_wave=leads)
             results["standalone_pipeline"] = r
 
         # Generate Kreuter sales messages
@@ -613,7 +643,7 @@ class EmpireLaunch:
             lines.append(f"⚡ Content Blitz: ✅ Active")
 
         # Agent leaderboard
-        if self.nucleus:
+        if self.nucleus and hasattr(self.nucleus, 'swarm') and self.nucleus.swarm:
             lines.append(self.nucleus.swarm.leaderboard())
 
         # Kreuter status
@@ -652,10 +682,12 @@ class EmpireLaunch:
                     print(await self.show_status())
                     continue
                 if cmd == "!revenue":
-                    if self.nucleus:
-                        print(self.nucleus.revenue.dashboard())
-                    if self.stripe:
-                        print(f"Stripe: {self.stripe.get_revenue_summary()}")
+                    _nuc = self.nucleus
+                    if _nuc:
+                        print(_nuc.revenue.dashboard())
+                    _stripe = self.stripe
+                    if _stripe:
+                        print(f"Stripe: {_stripe.get_revenue_summary()}")
                     continue
                 if cmd == "!rank":
                     print(nucleus.swarm.leaderboard())
@@ -695,17 +727,21 @@ class EmpireLaunch:
                 for prefix in ["sales", "content", "tiktok", "research", "code", "strategy", "outreach", "closer"]:
                     if cmd.startswith(f"!{prefix} "):
                         agent_override = prefix
+                        # Fix slice error: construct string properly
                         cmd = cmd[len(prefix) + 2:]
                         break
 
-                result = await nucleus.swarm.execute(cmd, agent_override)
-                if "response" in result:
-                    print(f"\n{'─'*60}")
-                    print(result["response"])
-                    print(f"{'─'*60}")
-                    print(f"⚡ {result.get('latency_ms', 0)}ms | 🤖 {result['agent']} | Model: {result.get('model', '?')}")
+                if hasattr(nucleus, 'swarm') and nucleus.swarm:
+                    result = await nucleus.swarm.execute(cmd, agent_override)
+                    if "response" in result:
+                        print(f"\n{'─'*60}")
+                        print(result["response"])
+                        print(f"{'─'*60}")
+                        print(f"⚡ {result.get('latency_ms', 0)}ms | 🤖 {result['agent']} | Model: {result.get('model', '?')}")
+                    else:
+                        print(f"❌ {result.get('error', 'Unknown error')}")
                 else:
-                    print(f"❌ {result.get('error', 'Unknown error')}")
+                    print("❌ Nucleus Swarm not available")
 
             except KeyboardInterrupt:
                 print("\n👋 Empire offline.")
@@ -719,8 +755,11 @@ class EmpireLaunch:
 
     async def cleanup(self):
         """Clean shutdown."""
-        if self.nucleus:
-            self.nucleus.swarm.save_rankings()
+        if self.nucleus and hasattr(self.nucleus, 'swarm') and self.nucleus.swarm:
+            try:
+                self.nucleus.swarm.save_rankings()
+            except Exception as e:
+                logger.warning(f"Failed to save rankings on cleanup: {e}")
         await self.n8n.close()
 
 

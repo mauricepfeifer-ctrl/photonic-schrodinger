@@ -1,0 +1,127 @@
+{
+  "name": "🔥 Kimi Swarm Receiver",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "empire-swarm/task_completed",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-swarm",
+      "name": "🔥 Swarm Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-sales",
+              "leftValue": "={{ $json.department }}",
+              "rightValue": "sales",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "switch-dept",
+      "name": "🏢 Route by Dept",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Categorize & Enrich\nconst item = $input.first().json;\n\nconst enriched = {\n  ...item,\n  processed_at: new Date().toISOString(),\n  category: item.department || 'unknown',\n  revenue_formatted: `€${(item.revenue_eur || 0).toFixed(2)}`,\n  is_high_value: (item.revenue_eur || 0) > 5,\n  summary: `[${(item.department || 'UNK').toUpperCase()}] ${item.type}: €${(item.revenue_eur || 0).toFixed(2)}`\n};\n\nreturn [{json: enriched}];"
+      },
+      "id": "code-enrich",
+      "name": "🧠 Enrich Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "sheets-log",
+      "name": "📊 Log to Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        750,
+        520
+      ]
+    }
+  ],
+  "connections": {
+    "🔥 Swarm Webhook": {
+      "main": [
+        [
+          {
+            "node": "🏢 Route by Dept",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🧠 Enrich Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧠 Enrich Data": {
+      "main": [
+        [
+          {
+            "node": "📊 Log to Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

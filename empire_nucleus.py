@@ -46,16 +46,27 @@ sys.path.append(SCRIPT_DIR)
 try:
     from ollama_engine import OllamaEngine, LLMResponse
     HAS_OLLAMA = True
-except ImportError:
+except ImportError as e:
     HAS_OLLAMA = False
     OllamaEngine = None  # type: ignore
     LLMResponse = None  # type: ignore
+    logger.warning(f"⚠️ OllamaEngine not available: {e}")
 
 try:
     import aiohttp
     HAS_AIOHTTP = True
-except ImportError:
+except ImportError as e:
     HAS_AIOHTTP = False
+    logger.warning(f"⚠️ aiohttp not available: {e}")
+
+# ─── AGENT MANAGER (single source of truth for ranking) ───
+try:
+    from agent_manager import AgentManager
+    HAS_AGENT_MGR = True
+except ImportError as e:
+    HAS_AGENT_MGR = False
+    AgentManager = None  # type: ignore
+    logger.warning(f"⚠️ AgentManager not available: {e}")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -78,9 +89,32 @@ try:
     from heartbeat_scheduler import Heartbeat
     from guarded_tools import Toolkit
     from skills_library import SkillsLibrary
+    HAS_POWER_STACK = True
 except ImportError as e:
-    logger.error(f"❌ Power-Stack missing: {e}")
-    sys.exit(1)
+    HAS_POWER_STACK = False
+    logger.warning(f"⚠️ Power-Stack not available: {e}")
+
+    # Minimal stubs so the rest of the code can run
+    class MemorySystem:  # type: ignore[no-redef]
+        def __init__(self) -> None:
+            self._events: list[dict] = []
+        def add_event(self, *a: object, **kw: object) -> None:
+            pass
+        def recall(self, *a: object, **kw: object) -> list:
+            return []
+
+    class Heartbeat:  # type: ignore[no-redef]
+        def __init__(self, *a: object) -> None:
+            pass
+        def start(self) -> None:
+            pass
+
+    class Toolkit:  # type: ignore[no-redef]
+        pass
+
+    class SkillsLibrary:  # type: ignore[no-redef]
+        def __init__(self, *a: object) -> None:
+            pass
 
 # Initialize Power-Stack
 runtime_memory = MemorySystem()
@@ -94,18 +128,18 @@ REVENUE_FILE = "revenue_log.json"
 STATE_FILE = "nucleus_state.json"
 
 MODELS = {
-    "reasoning": os.getenv("MODEL_REASONING", "deepseek-r1:8b"),
-    "creative": os.getenv("MODEL_CREATIVE", "qwen2.5-coder:7b"),
-    "code": os.getenv("MODEL_CODE", "qwen2.5-coder:7b"),
+    "reasoning": os.getenv("MODEL_REASONING", "deepseek-r1:7b"),
+    "creative": os.getenv("MODEL_CREATIVE", "qwen2.5-coder:14b"),
+    "code": os.getenv("MODEL_CODE", "qwen2.5-coder:14b"),
 }
 
+# ─── DIE BESTEN 5 PRODUKTE (alles andere rausgeflogen) ───
 PRODUCTS = {
-    "bma_starter":    {"name": "BMA Consulting – Starter",     "price": 197, "category": "consulting"},
-    "ai_consulting":  {"name": "AI Consulting – Sprint",       "price": 297, "category": "consulting"},
-    "file_cleaner":   {"name": "File Cleaner Pro",             "price": 47,  "category": "software"},
-    "prompt_starter": {"name": "Prompt Masterclass – Video",   "price": 67,  "category": "digital"},
-    "prompt_pro":     {"name": "Prompt Masterclass – Workshop", "price": 197, "category": "digital"},
-    "prompt_vip":     {"name": "Prompt VIP Coaching",          "price": 497, "category": "digital"},
+    "prompt_cheatsheet": {"name": "Prompt Cheatsheet Pro",      "price": 27,  "category": "digital"},
+    "agent_starter":     {"name": "AI Agent Starter Kit",       "price": 47,  "category": "digital"},
+    "automation_bp":     {"name": "AI Automation Blueprint",    "price": 79,  "category": "digital"},
+    "side_hustle":       {"name": "AI Side Hustle Playbook",    "price": 97,  "category": "digital"},
+    "consulting_call":   {"name": "1:1 AI Setup Call",          "price": 297, "category": "consulting"},
 }
 
 # n8n Cloud Webhook Integration
@@ -751,7 +785,8 @@ AGENT_CONFIGS: Dict[str, Dict[str, str]] = {
 
 
 class AgentSwarm:
-    """Centralized agent management with auto-ranking."""
+    """Centralized agent management with auto-ranking.
+    Delegates real ranking/persistence to AgentManager."""
 
     def __init__(self, bus: EventBus, skills, tools, memory) -> None:
         self.bus = bus
@@ -760,6 +795,15 @@ class AgentSwarm:
         self.memory = memory
         self.agents: Dict[str, AgentProfile] = {}
         self.engines: Dict[str, Any] = {}  # model_key -> OllamaEngine
+
+        # ── Unified manager: single source of truth for ranking ──
+        self.manager: Optional[AgentManager] = None
+        if HAS_AGENT_MGR and AgentManager is not None:
+            self.manager = AgentManager(rankings_file=RANKINGS_FILE)
+            logger.info("✅ AgentManager connected — unified ranking active")
+        else:
+            logger.warning("⚠️ AgentManager not available — using local ranking")
+
         self._init_agents()
         self._load_rankings()
 
@@ -771,7 +815,7 @@ class AgentSwarm:
             deliverables = cfg.get("deliverables", "High Quality Output")
             constraints = cfg.get("constraints", "None")
             escalation = cfg.get("escalation", "Ask human if unsure")
-            
+
             # Format: ROLE CARD
             full_system_prompt = (
                 f"{base_sys}\n\n"
@@ -791,6 +835,11 @@ class AgentSwarm:
                 constraints=constraints,
                 escalation=escalation,
             )
+
+            # Register in AgentManager
+            if self.manager:
+                self.manager.register_agent(aid, aid)  # type = agent_id
+
         # Init Ollama engines (deduplicated by model)
         if HAS_OLLAMA and OFFLINE_MODE and OllamaEngine is not None:
             for key, model_name in MODELS.items():
@@ -858,6 +907,14 @@ class AgentSwarm:
             n = agent.tasks_done
             agent.avg_ms = ((agent.avg_ms * (n - 1)) + duration) / n
 
+            # Sync to AgentManager (single source of truth)
+            if self.manager:
+                self.manager.report_task_completion(
+                    agent_id=agent_id,
+                    revenue_eur=0.0,  # Revenue tracked via RevenueCore
+                    duration_ms=duration,
+                    success=True,
+                )
             self._update_rankings()
 
             self.bus.emit("task/completed", {
@@ -872,6 +929,14 @@ class AgentSwarm:
             }
         except Exception as e:
             agent.tasks_failed += 1
+            # Sync failure to AgentManager
+            if self.manager:
+                self.manager.report_task_completion(
+                    agent_id=agent_id,
+                    revenue_eur=0.0,
+                    duration_ms=int((time.time() - t0) * 1000),
+                    success=False,
+                )
             logger.error(f"❌ Agent {agent_id} failed: {e}")
             self.bus.emit("task/failed", {"agent": agent_id, "error": str(e)})
             return {"error": str(e), "agent": agent_id}
@@ -885,8 +950,22 @@ class AgentSwarm:
         results = await asyncio.gather(*[_run(p) for p in prompts])
         return list(results)
 
-    # ─── RANKING ─────────────────────────────
+    # ─── RANKING (delegates to AgentManager when available) ───
     def _update_rankings(self) -> None:
+        """Sync local AgentProfile stats with AgentManager, then re-rank."""
+        if self.manager and hasattr(self.manager, 'agents'):
+            # AgentManager already re-ranked on report_task_completion.
+            # Pull the canonical rank/status back into our profiles.
+            for aid, agent in self.agents.items():
+                if self.manager.agents:
+                    rec = self.manager.agents.get(aid)
+                    if rec:
+                        agent.rank = rec.rank
+                        agent.status = rec.status
+                        agent.multiplier = rec.priority_multiplier
+            return
+
+        # Fallback: local ranking if AgentManager not loaded
         ranked = sorted(self.agents.values(), key=lambda a: a.revenue, reverse=True)
         for i, a in enumerate(ranked):
             a.rank = i + 1
@@ -901,6 +980,30 @@ class AgentSwarm:
                 a.multiplier = 1.0
 
     def leaderboard(self) -> str:
+        """Formatted leaderboard string. Uses AgentManager when available."""
+        if self.manager:
+            board = self.manager.get_leaderboard()
+            medals = {1: "🥇", 2: "🥈", 3: "🥉"}
+            lines = [
+                f"\n{'='*65}",
+                "👑  AGENT LEADERBOARD — Revenue Ranking (AgentManager)",
+                f"{'='*65}",
+                f"{'#':<4} {'Agent':<25} {'Revenue':>10} {'Tasks':>7} {'€/Task':>8} {'Status':>10}",
+                f"{'-'*65}",
+            ]
+            for rec in board:
+                m = medals.get(rec.rank, f"#{rec.rank}")
+                icon = {"boosted": "🚀", "active": "✅", "demoted": "📉", "paused": "⏸️"}.get(rec.status, "❓")
+                lines.append(
+                    f"{m:<4} {rec.agent_id:<25} €{rec.revenue_eur:>8.2f} "
+                    f"{rec.tasks_completed:>7} €{rec.revenue_per_task():>6.2f} "
+                    f"{icon} {rec.status}"
+                )
+            total = sum(a.revenue_eur for a in self.manager.agents.values())
+            lines += [f"{'-'*65}", f"     TOTAL EMPIRE REVENUE: €{total:,.2f}", f"{'='*65}"]
+            return "\n".join(lines)
+
+        # Fallback: local leaderboard
         ranked = sorted(self.agents.values(), key=lambda a: (a.revenue, a.tasks_done), reverse=True)
         medals = {1: "🥇", 2: "🥈", 3: "🥉"}
         lines = [
@@ -921,8 +1024,21 @@ class AgentSwarm:
         lines += [f"{'-'*65}", f"     TOTAL EMPIRE REVENUE: €{total:,.2f}", f"{'='*65}"]
         return "\n".join(lines)
 
-    # ─── PERSISTENCE ─────────────────────────
+    # ─── PERSISTENCE (delegates to AgentManager when available) ───
     def _load_rankings(self) -> None:
+        if self.manager:
+            # AgentManager loaded its own file in __init__. Sync into profiles.
+            for aid, agent in self.agents.items():
+                rec = self.manager.agents.get(aid)
+                if rec:
+                    agent.revenue = rec.revenue_eur
+                    agent.tasks_done = rec.tasks_completed
+                    agent.tasks_failed = rec.tasks_failed
+                    agent.avg_ms = rec.avg_response_ms
+            self._update_rankings()
+            return
+
+        # Fallback: load from JSON directly
         if os.path.exists(RANKINGS_FILE):
             try:
                 with open(RANKINGS_FILE) as f:
@@ -938,6 +1054,20 @@ class AgentSwarm:
                 logger.warning(f"Could not load rankings: {e}")
 
     def save_rankings(self) -> None:
+        if self.manager:
+            # Sync latest stats from profiles into manager
+            for aid, agent in self.agents.items():
+                rec = self.manager.agents.get(aid)
+                if rec:
+                    rec.revenue_eur = agent.revenue
+                    rec.tasks_completed = agent.tasks_done
+                    rec.tasks_failed = agent.tasks_failed
+                    rec.avg_response_ms = agent.avg_ms
+            self.manager._update_rankings()
+            self.manager._save_rankings()
+            return
+
+        # Fallback: save directly
         data = {
             "agents": [
                 {
@@ -954,6 +1084,28 @@ class AgentSwarm:
         }
         with open(RANKINGS_FILE, "w") as f:
             json.dump(data, f, indent=2)
+
+    def get_status_json(self) -> Dict[str, Any]:
+        """Return full swarm status as JSON-serializable dict for the dashboard."""
+        agents_list = []
+        for a in sorted(self.agents.values(), key=lambda x: x.rank):
+            agents_list.append({
+                "agent_id": a.agent_id,
+                "rank": a.rank,
+                "status": a.status,
+                "revenue_eur": a.revenue,
+                "tasks_done": a.tasks_done,
+                "tasks_failed": a.tasks_failed,
+                "avg_ms": round(a.avg_ms),
+                "multiplier": a.multiplier,
+            })
+        return {
+            "timestamp": datetime.now().isoformat(),
+            "total_agents": len(self.agents),
+            "total_tasks": sum(a.tasks_done for a in self.agents.values()),
+            "total_revenue_eur": sum(a.revenue for a in self.agents.values()),
+            "agents": agents_list,
+        }
 
 
 # ═══════════════════════════════════════════════════════
@@ -1333,7 +1485,74 @@ BANNER = """
 
 
 # ═══════════════════════════════════════════════════════
-# SECTION 8: CLI — Ein Befehl, volle Power
+# SECTION 8: STATUS API — Live dashboard endpoint
+# ═══════════════════════════════════════════════════════
+
+STATUS_PORT = int(os.getenv("EMPIRE_STATUS_PORT", "3333"))
+
+
+async def _handle_status_request(
+    reader: asyncio.StreamReader,
+    writer: asyncio.StreamWriter,
+    nucleus: "EmpireNucleus",
+) -> None:
+    """Handle a single HTTP request and return JSON status."""
+    try:
+        data = await asyncio.wait_for(reader.read(4096), timeout=5.0)
+        request_line = data.decode("utf-8", errors="replace").split("\r\n")[0]
+
+        # Only respond to GET /status (and GET / as alias)
+        if "GET /status" in request_line or "GET / " in request_line:
+            status = nucleus.swarm.get_status_json()
+            status["revenue"] = {
+                "total_eur": nucleus.revenue.total_eur,
+                "transactions": nucleus.revenue.transactions,
+            }
+            status["brain_directive"] = getattr(nucleus.brain, "last_directive", "HOLD")
+            body = json.dumps(status, indent=2, ensure_ascii=False)
+            response = (
+                "HTTP/1.1 200 OK\r\n"
+                "Content-Type: application/json\r\n"
+                "Access-Control-Allow-Origin: *\r\n"
+                f"Content-Length: {len(body.encode())}\r\n"
+                "\r\n"
+                f"{body}"
+            )
+        elif "OPTIONS" in request_line:
+            response = (
+                "HTTP/1.1 204 No Content\r\n"
+                "Access-Control-Allow-Origin: *\r\n"
+                "Access-Control-Allow-Methods: GET, OPTIONS\r\n"
+                "Access-Control-Allow-Headers: *\r\n"
+                "\r\n"
+            )
+        else:
+            response = "HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n"
+
+        writer.write(response.encode())
+        await writer.drain()
+    except Exception:
+        pass
+    finally:
+        writer.close()
+
+
+async def start_status_server(nucleus: "EmpireNucleus") -> None:
+    """Start a background status API on STATUS_PORT."""
+    async def handler(r: asyncio.StreamReader, w: asyncio.StreamWriter) -> None:
+        await _handle_status_request(r, w, nucleus)
+
+    try:
+        server = await asyncio.start_server(handler, "0.0.0.0", STATUS_PORT)
+        logger.info(f"📡 Status API live at http://localhost:{STATUS_PORT}/status")
+        async with server:
+            await server.serve_forever()
+    except OSError as e:
+        logger.warning(f"⚠️ Status API port {STATUS_PORT} unavailable: {e}")
+
+
+# ═══════════════════════════════════════════════════════
+# SECTION 9: CLI — Ein Befehl, volle Power
 # ═══════════════════════════════════════════════════════
 
 async def main() -> None:
@@ -1362,6 +1581,8 @@ async def main() -> None:
     if args.autopilot > 0 or (not args.interactive and not args.prompt):
         if not await nucleus.health_check():
             return
+        # Start status API in background
+        asyncio.create_task(start_status_server(nucleus))
         cycles = args.autopilot if args.autopilot > 0 else 3
         await nucleus.autopilot.run(cycles=cycles)
         nucleus.swarm.save_rankings()
@@ -1379,7 +1600,8 @@ async def main() -> None:
         nucleus.swarm.save_rankings()
         return
 
-    # Default: interactive
+    # Default: interactive — start status API in background
+    asyncio.create_task(start_status_server(nucleus))
     await nucleus.interactive()
 
 

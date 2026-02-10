@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "photonic-schrodinger"
+version = "0.1.0"
+description = "AI Empire Automation System"
+requires-python = ">=3.10"
+dependencies = [
+    "aiohttp",
+    "redis",
+    "rich",
+    "python-dotenv",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --asyncio-mode=auto"
+testpaths = [
+    "tests",
+]
+
+[tool.ruff]
+select = ["E", "F", "I"]
+line-length = 120
+ignore = ["E501"] # Ignore line length violations

@@ -31,7 +31,7 @@ from enum import Enum
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
-KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "sk-e57Q5aDfcpXpHkYfgeWCU3xjuqf2ZPoYxhuRH0kEZXGBeoMF")
+KIMI_API_KEY = os.getenv("MOONSHOT_API_KEY", "")
 
 
 class VideoNiche(Enum):

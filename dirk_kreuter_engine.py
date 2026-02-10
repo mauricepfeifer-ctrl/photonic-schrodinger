@@ -7,8 +7,8 @@ Maurice's AI Empire - Scientific Sales Psychology
 1. VALUE FIRST - ROI vor Preis zeigen
 2. ECHTE VERKNAPPUNG - Nur X Slots real
 3. SOCIAL PROOF - Testimonials + Case Studies
-4. AUTHORITY - 16J BMA Expertise
-5. COMMITMENT ESCALATION - EUR 0→27→97→297→997
+4. AUTHORITY - AI Automation Expertise
+5. COMMITMENT ESCALATION - EUR 0→27→47→79→97→297
 6. RECIPROCITY - Gratis-Value zuerst
 7. LOSS AVERSION - 30-Tage Garantie
 """
@@ -53,17 +53,16 @@ class DirkKreuterEngine:
     
     def __init__(self):
         self.products = {
-            "tripwire": {"name": "AI Starter Guide", "price": 27, "value": "3h Arbeit gespart/Tag"},
-            "core": {"name": "AI Automation Stack", "price": 97, "value": "15h Arbeit gespart/Woche"},
-            "pro": {"name": "AI Empire PRO", "price": 297, "value": "40h Arbeit gespart/Woche"},
-            "enterprise": {"name": "Full AI Transformation", "price": 997, "value": "Komplette Prozess-Automation"},
-            "consulting": {"name": "1:1 Implementation", "price": 5000, "value": "Done-for-you Setup"},
+            "prompt_cheatsheet": {"name": "Prompt Cheatsheet Pro", "price": 27, "value": "3h Arbeit gespart/Tag"},
+            "agent_starter": {"name": "AI Agent Starter Kit", "price": 47, "value": "Dein erster Agent in 30 Min"},
+            "automation_bp": {"name": "AI Automation Blueprint", "price": 79, "value": "15h Arbeit gespart/Woche"},
+            "side_hustle": {"name": "AI Side Hustle Playbook", "price": 97, "value": "Erster AI-Umsatz in 7 Tagen"},
+            "consulting_call": {"name": "1:1 AI Setup Call", "price": 297, "value": "Done-for-you Agent Setup"},
         }
         
         # Real scarcity limits
         self.slot_limits = {
-            "consulting": 5,  # Only 5 consulting slots per month
-            "enterprise": 20,  # Only 20 enterprise per month
+            "consulting_call": 5,  # Only 5 consulting slots per month
         }
         
         self.testimonials = [
@@ -78,7 +77,7 @@ class DirkKreuterEngine:
     
     def generate_value_message(self, product_key: str) -> SalesMessage:
         """Zeige ROI bevor Preis genannt wird"""
-        product = self.products.get(product_key, self.products["core"])
+        product = self.products.get(product_key, self.products["automation_bp"])
         
         return SalesMessage(
             principle=SalesPrinciple.VALUE_FIRST,
@@ -158,19 +157,19 @@ Du kannst die gleichen Ergebnisse erreichen.""",
     # =========================================================================
     
     def generate_authority_message(self) -> SalesMessage:
-        """16 Jahre BMA Expertise"""
+        """AI Automation Expertise"""
         return SalesMessage(
             principle=SalesPrinciple.AUTHORITY,
-            headline="16 Jahre Business Process Automation Expertise",
-            body="""Ich automatisiere Unternehmensprozesse seit 2010.
+            headline="100+ AI Agents im Einsatz — täglich",
+            body="""Mein System automatisiert alles mit KI.
 
-Meine Erfahrung:
-- 200+ Unternehmen transformiert
-- EUR 50M+ Einsparpotential realisiert
-- Von Startup bis DAX-Konzern
+Meine Ergebnisse:
+- 100+ AI Agents aktiv
+- 40+ Stunden/Woche automatisiert
+- Von Content bis Vertrieb — alles auf Autopilot
 
-Keine Theorie. Echte Ergebnisse aus 16 Jahren Praxis.""",
-            cta="Von 16 Jahren Erfahrung profitieren →",
+Keine Theorie. Echte Ergebnisse aus 100+ Agents.""",
+            cta="Von echten AI-Ergebnissen profitieren →",
             urgency_level=35
         )
     
@@ -179,14 +178,14 @@ Keine Theorie. Echte Ergebnisse aus 16 Jahren Praxis.""",
     # =========================================================================
     
     def get_tripwire_sequence(self) -> List[Dict[str, Any]]:
-        """EUR 0 → 27 → 97 → 297 → 997 → 5000 Tripwire"""
+        """EUR 0 → 27 → 47 → 79 → 97 → 297 Tripwire"""
         return [
-            {"step": 1, "price": 0, "product": "Free AI Audit", "next_offer": "tripwire"},
-            {"step": 2, "price": 27, "product": "AI Starter Guide", "next_offer": "core"},
-            {"step": 3, "price": 97, "product": "AI Automation Stack", "next_offer": "pro"},
-            {"step": 4, "price": 297, "product": "AI Empire PRO", "next_offer": "enterprise"},
-            {"step": 5, "price": 997, "product": "Full AI Transformation", "next_offer": "consulting"},
-            {"step": 6, "price": 5000, "product": "1:1 Implementation", "next_offer": None},
+            {"step": 1, "price": 0, "product": "Free AI Audit", "next_offer": "prompt_cheatsheet"},
+            {"step": 2, "price": 27, "product": "Prompt Cheatsheet Pro", "next_offer": "agent_starter"},
+            {"step": 3, "price": 47, "product": "AI Agent Starter Kit", "next_offer": "automation_bp"},
+            {"step": 4, "price": 79, "product": "AI Automation Blueprint", "next_offer": "side_hustle"},
+            {"step": 5, "price": 97, "product": "AI Side Hustle Playbook", "next_offer": "consulting_call"},
+            {"step": 6, "price": 297, "product": "1:1 AI Setup Call", "next_offer": None},
         ]
     
     # =========================================================================
@@ -215,7 +214,7 @@ Komplett kostenlos. Kein Haken. Du behältst sie für immer.""",
     
     def generate_guarantee_message(self, product_key: str) -> SalesMessage:
         """30-Tage Geld-zurück Garantie"""
-        product = self.products.get(product_key, self.products["core"])
+        product = self.products.get(product_key, self.products["automation_bp"])
         
         return SalesMessage(
             principle=SalesPrinciple.LOSS_AVERSION,
@@ -267,7 +266,7 @@ async def main():
     print("="*60)
     
     # Generate complete sequence for core product
-    sequence = engine.generate_complete_sequence("core", slots_taken=0)
+    sequence = engine.generate_complete_sequence("automation_bp", slots_taken=0)
     
     for i, msg in enumerate(sequence, 1):
         print(f"\n--- Message {i}: {msg.principle.value.upper()} ---")

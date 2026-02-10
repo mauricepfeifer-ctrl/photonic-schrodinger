@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Gratis KI-Prompts die sofort funktionieren | Maurice Pfeifer</title>
+    <meta name="description"
+        content="10 getestete Business-Prompts zum Kopieren. Content, Sales, Email, Research — sofort in ChatGPT oder Claude einfügen.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030306;
+            --card: rgba(12, 12, 22, 0.85);
+            --card-solid: #0c0c16;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(99, 102, 241, 0.4);
+            --accent: #6366f1;
+            --accent2: #818cf8;
+            --green: #10b981;
+            --text: #f1f5f9;
+            --text2: #cbd5e1;
+            --muted: #64748b;
+            --dim: #334155;
+            --neon: linear-gradient(135deg, #6366f1, #818cf8, #a78bfa);
+            --money: linear-gradient(135deg, #10b981, #34d399);
+            --fire: linear-gradient(135deg, #f97316, #ef4444);
+            --gold: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-mesh::before {
+            content: '';
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            top: -200px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.08), transparent 60%);
+            animation: floatA 25s ease-in-out infinite;
+        }
+
+        .bg-mesh::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            bottom: -100px;
+            right: -100px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.07), transparent 60%);
+            animation: floatB 30s ease-in-out infinite;
+        }
+
+        @keyframes floatA {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(60px, 40px);
+            }
+        }
+
+        @keyframes floatB {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-40px, -30px);
+            }
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAV */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(24px);
+            background: rgba(3, 3, 6, 0.88);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: .95rem;
+            letter-spacing: -.5px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .nav-brand .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+            }
+        }
+
+        .nav-badge {
+            padding: 5px 14px;
+            border-radius: 20px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            font-size: .72rem;
+            font-weight: 700;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 40px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 24px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            color: #f59e0b;
+            font-size: .82rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 .gradient {
+            background: var(--gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .sub {
+            font-size: 1.05rem;
+            color: var(--text2);
+            max-width: 620px;
+            margin: 0 auto 24px;
+            line-height: 1.7;
+        }
+
+        .hero .sub strong {
+            color: #fff;
+        }
+
+        /* FILTER */
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: .82rem;
+            font-weight: 600;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .3s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .filter-btn.active {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+            color: var(--accent2);
+        }
+
+        /* PROMPT CARDS */
+        .prompt-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .prompt-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all .4s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .prompt-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 48px rgba(99, 102, 241, 0.08);
+        }
+
+        .prompt-header {
+            padding: 24px 28px 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .prompt-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .prompt-meta {
+            flex: 1;
+        }
+
+        .prompt-meta h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .prompt-meta .cat {
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prompt-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            padding: 12px 28px 0;
+        }
+
+        .prompt-tag {
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: .68rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .prompt-body {
+            padding: 16px 28px;
+        }
+
+        .prompt-desc {
+            font-size: .85rem;
+            color: var(--text2);
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+
+        .prompt-code {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prompt-code pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .82rem;
+            color: var(--text2);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .prompt-code .lang-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: .6rem;
+            font-weight: 700;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prompt-footer {
+            padding: 14px 28px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .copy-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: .82rem;
+            font-weight: 700;
+            background: var(--money);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .copy-btn.copied {
+            background: var(--neon);
+        }
+
+        .prompt-works {
+            font-size: .72rem;
+            color: var(--dim);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* UPSELL */
+        .upsell {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04));
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        .upsell h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .upsell p {
+            font-size: .92rem;
+            color: var(--text2);
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        .upsell .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: .88rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .upsell .btn-primary {
+            background: var(--neon);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .upsell .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5);
+        }
+
+        /* COUNTER */
+        .copy-counter {
+            text-align: center;
+            margin: 24px 0;
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        .copy-counter strong {
+            color: var(--green);
+            font-size: 1rem;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: .75rem;
+            color: var(--dim);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        footer a:hover {
+            color: var(--accent2);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 1.8rem;
+                letter-spacing: -1px;
+            }
+
+            .prompt-header {
+                padding: 18px 20px 0;
+            }
+
+            .prompt-tags {
+                padding: 10px 20px 0;
+            }
+
+            .prompt-body {
+                padding: 14px 20px;
+            }
+
+            .prompt-footer {
+                padding: 12px 20px 20px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        /* FADE */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all .5s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            z-index: 200;
+            background: var(--card-solid);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform .4s cubic-bezier(.4, 0, .2, 1);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-mesh"></div>
+    <div class="grid-bg"></div>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" class="nav-brand"><span class="dot"></span> Maurice Pfeifer</a>
+            <div class="nav-badge">🎁 10 GRATIS PROMPTS</div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-badge">📝 SOFORT EINSETZBAR — Copy & Paste</div>
+        <h1>10 Profi-Prompts<br>die <span class="gradient">sofort funktionieren</span></h1>
+        <p class="sub">Keine Theorie. <strong>10 getestete Business-Prompts</strong> aus meinem echten 100-Agent-System.
+            Einfach kopieren, in ChatGPT oder Claude einfügen — <strong>sofort bessere Ergebnisse.</strong></p>
+    </header>
+
+    <div class="container">
+
+        <!-- COPY COUNTER -->
+        <div class="copy-counter fade-in">
+            Bereits <strong id="totalCopies">0</strong> mal kopiert
+        </div>
+
+        <!-- FILTER BAR -->
+        <div class="filter-bar fade-in">
+            <button class="filter-btn active" onclick="filterPrompts('all')">Alle</button>
+            <button class="filter-btn" onclick="filterPrompts('content')">📝 Content</button>
+            <button class="filter-btn" onclick="filterPrompts('sales')">💰 Sales</button>
+            <button class="filter-btn" onclick="filterPrompts('email')">📧 Email</button>
+            <button class="filter-btn" onclick="filterPrompts('research')">🔍 Research</button>
+            <button class="filter-btn" onclick="filterPrompts('strategy')">🧠 Strategie</button>
+        </div>
+
+        <!-- PROMPTS -->
+        <div class="prompt-grid" id="promptGrid">
+            <!-- Prompts injected by JS -->
+        </div>
+
+        <!-- UPSELL -->
+        <div class="upsell fade-in">
+            <div style="font-size:2rem;margin-bottom:12px">📝</div>
+            <h3>Das waren 10 — willst du alle 50?</h3>
+            <p>Im <strong>Prompt Cheatsheet Pro</strong> bekommst du <strong>50 getestete Business-Prompts</strong> —
+                inkl. Content, Sales, Email, Research und Automation Prompts. Für nur €27.</p>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px">
+                <a href="../index.html#produkte" class="btn btn-primary">📝 Alle 50 Prompts holen — €27</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">✅ Prompt kopiert!</div>
+
+    <footer>
+        <p style="margin-bottom:8px"><a href="../index.html">← Zurück zu allen Produkten</a></p>
+        <p>© 2026 Maurice Pfeifer · Alle Rechte vorbehalten</p>
+    </footer>
+
+    <script>
+        const prompts = [
+            {
+                cat: 'content', catLabel: 'CONTENT', icon: '📝',
+                iconBg: 'rgba(99,102,241,0.1)',
+                catColor: '#818cf8',
+                title: 'Viraler LinkedIn-Post Generator',
+                desc: 'Erstellt einen LinkedIn-Post im Storytelling-Format, der Engagement erzeugt und dein Expertenwissen zeigt.',
+                tags: ['LinkedIn', 'Storytelling', 'B2B'],
+                prompt: `Du bist ein erfahrener LinkedIn Content Creator mit 100K+ Followern.
+
+Schreibe einen LinkedIn-Post über [DEIN THEMA].
+
+Regeln:
+- Hook in den ersten 2 Zeilen (Frage oder provokante These)
+- Storytelling-Format: Problem → Erkenntnis → Lösung
+- Maximal 1.300 Zeichen
+- 3-5 prägnante Bullet Points
+- Call-to-Action am Ende ("Was ist deine Erfahrung?")
+- Keine Hashtags im Text, nur am Ende (3 relevante)
+- Schreibe authentisch, nicht wie ein Marketing-Bot
+
+Zielgruppe: [DEINE ZIELGRUPPE]
+Tonalität: Professionell aber nahbar`,
+                works: 'ChatGPT, Claude, Kimi'
+            },
+            {
+                cat: 'content', catLabel: 'CONTENT', icon: '🎬',
+                iconBg: 'rgba(236,72,153,0.1)',
+                catColor: '#ec4899',
+                title: 'TikTok/Reels Script Generator',
+                desc: 'Erstellt ein kurzes, packende Video-Script mit Hook, Story und Call-to-Action.',
+                tags: ['TikTok', 'Reels', 'Short-Form'],
+                prompt: `Du bist ein viraler Short-Form Content Creator.
+
+Erstelle ein TikTok/Reels Script (30-60 Sekunden) über: [DEIN THEMA]
+
+Struktur:
+HOOK (Sekunde 1-3): [Fesselnde Frage oder Statement die zum Weiterschauen zwingt]
+PROBLEM (Sekunde 4-10): [Beschreibe das Problem deiner Zielgruppe]
+LÖSUNG (Sekunde 11-25): [Zeige 3 konkrete Schritte]
+PROOF (Sekunde 26-35): [Beweise warum es funktioniert]
+CTA (Sekunde 36-40): [Klarer Call-to-Action]
+
+Regeln:
+- Jeden Satz so schreiben, als könnte der Zuschauer jederzeit wegswipen
+- Kurze Sätze. Maximal 10 Wörter pro Take.
+- Emotionen > Fakten
+- Konkretes Beispiel einbauen
+
+Nische: [DEINE NISCHE]`,
+                works: 'ChatGPT, Claude'
+            },
+            {
+                cat: 'sales', catLabel: 'SALES', icon: '💰',
+                iconBg: 'rgba(16,185,129,0.1)',
+                catColor: '#10b981',
+                title: 'Kaltakquise Email die konvertiert',
+                desc: 'Erstellt eine personalisierte Cold Email die Antworten generiert — keine Spam-Vibes.',
+                tags: ['Cold Email', 'B2B', 'Lead Gen'],
+                prompt: `Du bist ein B2B Sales-Experte der Cold Emails schreibt die Antwortquoten von 15%+ erzielen.
+
+Schreibe eine Kaltakquise Email an: [NAME/FIRMA DES PROSPECTS]
+Mein Angebot: [WAS DU ANBIETEST]
+Branche des Prospects: [BRANCHE]
+
+Regeln:
+- Betreffzeile: Maximal 4 Wörter, persönlich, keine Sales-Vibes
+- Erste Zeile: Bezug auf etwas Spezifisches (LinkedIn Post, Firmen-News, etc.)
+- Problem ansprechen, nicht Lösung pitchen
+- Maximal 80 Wörter im Body
+- Ein klarer, low-commitment CTA ("Wäre ein 15-Min Call nächste Woche möglich?")
+- Kein "Sehr geehrte/r", sondern informell-professionell
+- P.S.-Zeile mit Social Proof
+
+Schreibe 3 Varianten mit unterschiedlichen Ansätzen.`,
+                works: 'Claude, ChatGPT'
+            },
+            {
+                cat: 'sales', catLabel: 'SALES', icon: '📊',
+                iconBg: 'rgba(249,115,22,0.1)',
+                catColor: '#f97316',
+                title: 'Freelance Proposal Generator',
+                desc: 'Erstellt ein professionelles Angebot das den Kunden überzeugt — mit ROI-Berechnung.',
+                tags: ['Freelancing', 'Proposal', 'Pricing'],
+                prompt: `Du bist ein erfahrener Freelance-Berater der Projekte im Wert von €5.000-50.000 abschließt.
+
+Erstelle ein professionelles Angebot für folgenden Auftrag:
+
+Kunde: [FIRMENNAME]
+Projekt: [PROJEKTBESCHREIBUNG]
+Meine Skills: [DEINE SKILLS/ERFAHRUNG]
+Budget-Range: [BUDGET]
+
+Struktur des Angebots:
+1. ZUSAMMENFASSUNG (2-3 Sätze: Problem → Lösung → Ergebnis)
+2. VERSTÄNDNIS (Zeige dass du das Problem des Kunden verstanden hast)
+3. ANSATZ (3-5 konkrete Schritte/Phasen)
+4. LIEFERUMFANG (Was genau bekommt der Kunde?)
+5. TIMELINE (Realistische Zeitplanung)
+6. INVESTMENT (Preis + ROI-Berechnung)
+7. WARUM ICH (3 Differenzierungspunkte)
+8. NÄCHSTER SCHRITT (Klarer CTA)
+
+Tonalität: Professionell, selbstbewusst, lösungsorientiert.`,
+                works: 'Claude, ChatGPT'
+            },
+            {
+                cat: 'email', catLabel: 'EMAIL', icon: '📧',
+                iconBg: 'rgba(6,182,212,0.1)',
+                catColor: '#06b6d4',
+                title: 'Follow-Up Email Sequenz',
+                desc: 'Erstellt eine 3-teilige Follow-Up Sequenz die Leads in Kunden verwandelt.',
+                tags: ['Email Marketing', 'Follow-Up', 'Nurturing'],
+                prompt: `Du bist ein Email-Marketing Experte mit 15+ Jahren Erfahrung.
+
+Erstelle eine 3-teilige Follow-Up Email Sequenz für:
+Lead kommt von: [WO KOMMT DER LEAD HER, z.B. Webinar, Download, etc.]
+Mein Produkt/Service: [WAS VERKAUFST DU]
+Preis: [PREIS]
+
+EMAIL 1 (Tag 1 nach Lead-Capture):
+- Bedanke dich + liefere den versprochenen Wert
+- Stelle dich kurz vor (2 Sätze)
+- Teile einen unerwarteten Mehrwert/Tipp
+- Soft-CTA: "Hast du Fragen?"
+
+EMAIL 2 (Tag 3):
+- Teile eine Case Study / Erfolgsgeschichte
+- Problem → Lösung → Ergebnis Format
+- Zeige sozialen Beweis
+- CTA: "Willst du ähnliche Ergebnisse?"
+
+EMAIL 3 (Tag 5):
+- Schaffe Dringlichkeit (aber authentisch)
+- Beantworte die 3 häufigsten Einwände
+- Risikoumkehr (Garantie)
+- Starker CTA mit Deadline
+
+Jede Email: Max. 200 Wörter. Betreffzeilen die geöffnet werden.`,
+                works: 'Claude, ChatGPT, Kimi'
+            },
+            {
+                cat: 'research', catLabel: 'RESEARCH', icon: '🔍',
+                iconBg: 'rgba(124,58,237,0.1)',
+                catColor: '#a78bfa',
+                title: 'Wettbewerber-Analyse in 5 Minuten',
+                desc: 'Analysiert bis zu 5 Wettbewerber und gibt dir konkrete Handlungsempfehlungen.',
+                tags: ['Marktanalyse', 'Strategie', 'Competitive'],
+                prompt: `Du bist ein Strategic Analyst. Führe eine umfassende Wettbewerbsanalyse durch.
+
+Mein Business: [DEIN BUSINESS/NISCHE]
+Meine Hauptwettbewerber: [LISTE 3-5 WETTBEWERBER]
+
+Analysiere für jeden Wettbewerber:
+1. POSITIONING: Wie positionieren sie sich? USP? Zielgruppe?
+2. PRICING: Preismodell und Preispunkte
+3. STÄRKEN: Was machen sie richtig?
+4. SCHWÄCHEN: Wo haben sie Lücken?
+5. CONTENT-STRATEGIE: Welche Kanäle nutzen sie? Frequenz?
+6. SOCIAL PROOF: Bewertungen, Testimonials, Fallstudien
+
+Dann erstelle:
+- SWOT-Analyse für MEIN Business im Vergleich
+- 5 konkrete Differenzierungsmöglichkeiten
+- 3 Quick Wins die ich sofort umsetzen kann
+- Pricing-Empfehlung basierend auf Marktanalyse
+
+Format: Tabelle wo möglich. Bullet Points. Keine Floskeln.`,
+                works: 'Kimi (mit Web-Suche), Claude'
+            },
+            {
+                cat: 'research', catLabel: 'RESEARCH', icon: '🎯',
+                iconBg: 'rgba(16,185,129,0.1)',
+                catColor: '#10b981',
+                title: 'Ideale Kunden Profil (ICP) Generator',
+                desc: 'Erstellt ein detailliertes Profil deines idealen Kunden — für besseres Marketing und Sales.',
+                tags: ['ICP', 'Zielgruppe', 'Marketing'],
+                prompt: `Du bist ein Marketing-Stratege der Unternehmen hilft, ihre idealen Kunden zu identifizieren.
+
+Mein Produkt/Service: [WAS BIETEST DU AN]
+Aktuelle Kunden (wenn vorhanden): [BESCHREIBE DEINE BISHERIGEN KUNDEN]
+Preissegment: [DEIN PREISNIVEAU]
+
+Erstelle ein detailliertes ICP (Ideal Customer Profile):
+
+DEMOGRAFISCH:
+- Alter, Geschlecht, Standort
+- Beruf, Titel, Branche
+- Unternehmensgröße, Umsatz
+
+PSYCHOGRAFISCH:
+- Top-3 Probleme die sie nachts wachhalten
+- Geheime Wünsche (was würden sie nie laut sagen)
+- Wo informieren sie sich? (Podcasts, Blogs, Social Media)
+- Wem folgen sie? Welche Influencer?
+
+KAUFVERHALTEN:
+- Wie treffen sie Kaufentscheidungen?
+- Was sind ihre größten Einwände?
+- Was war ihr letzter relevanter Kauf?
+- Trigger die zum Kauf führen
+
+MESSAGING:
+- 5 Headlines die sie sofort ansprechen würden
+- 3 Wörter die sie triggern (positiv)
+- 3 Wörter die sie abschrecken
+- Der perfekte Elevator Pitch für sie`,
+                works: 'Claude, ChatGPT'
+            },
+            {
+                cat: 'email', catLabel: 'EMAIL', icon: '✍️',
+                iconBg: 'rgba(245,158,11,0.1)',
+                catColor: '#f59e0b',
+                title: 'Newsletter-Ausgabe Generator',
+                desc: 'Erstellt eine komplette Newsletter-Ausgabe mit Storytelling, Mehrwert und CTA.',
+                tags: ['Newsletter', 'Email', 'Engagement'],
+                prompt: `Du bist ein Newsletter-Autor mit einer Öffnungsrate von 45%+.
+
+Erstelle eine Newsletter-Ausgabe für:
+Thema: [DEIN THEMA DIESE WOCHE]
+Meine Nische: [DEINE NISCHE]
+Ziel: [WAS SOLL DER LESER TUN/LERNEN]
+
+Struktur:
+1. BETREFFZEILE: 3 Varianten (Neugier, Nutzen, Kontroverse)
+2. OPENER (2-3 Sätze): Persönliche Geschichte oder überraschende Statistik
+3. HAUPTTEIL: 3 konkrete Tipps/Insights mit Beispielen
+4. QUICK WIN: 1 Sache die der Leser HEUTE umsetzen kann
+5. EMPFEHLUNG: Tool, Buch oder Ressource der Woche
+6. CTA: Was soll der Leser als nächstes tun?
+
+Regeln:
+- Schreibe wie an einen Freund, nicht wie ein Unternehmen
+- Jeder Absatz max. 3 Zeilen
+- Emojis sparsam (max 3 im gesamten Newsletter)
+- Gesamtlänge: 400-600 Wörter
+- Preview-Text optimieren (die ersten 90 Zeichen)`,
+                works: 'Claude, ChatGPT'
+            },
+            {
+                cat: 'strategy', catLabel: 'STRATEGIE', icon: '🧠',
+                iconBg: 'rgba(236,72,153,0.1)',
+                catColor: '#ec4899',
+                title: 'Business-Idee Validierung',
+                desc: 'Validiert deine Business-Idee aus 5 verschiedenen Perspektiven — in 10 Minuten.',
+                tags: ['Validation', 'Strategie', 'Startup'],
+                prompt: `Du bist ein Startup-Mentor und Business Angel der 200+ Ideen bewertet hat.
+
+Bewerte folgende Business-Idee rigoros und ehrlich:
+
+Idee: [BESCHREIBE DEINE IDEE IN 2-3 SÄTZEN]
+Zielgruppe: [WER SOLL DAS KAUFEN]
+Preismodell: [WIE WILLST DU GELD VERDIENEN]
+
+Analyse aus 5 Perspektiven:
+
+1. MARKT (0-10 Punkte):
+- Gibt es echte Nachfrage? Wie groß ist der Markt?
+- Validierungsmethoden die du HEUTE testen kannst
+
+2. PROBLEM (0-10 Punkte):
+- Löst es ein echtes Problem? Aspirin oder Vitamin?
+- Würden Leute WIRKLICH dafür bezahlen?
+
+3. WETTBEWERB (0-10 Punkte):
+- Wer macht etwas Ähnliches?
+- Was ist dein unfairer Vorteil?
+
+4. UMSETZBARKEIT (0-10 Punkte):
+- Wie schnell kannst du ein MVP bauen?
+- Was brauchst du zum Start?
+
+5. SKALIERBARKEIT (0-10 Punkte):
+- Kann das wachsen ohne dass du linear mehr arbeitest?
+- Welche Revenue-Milestone sind realistisch?
+
+GESAMTSCORE: /50
+VERDICT: Go / Pivot / Kill
+3 SOFORT-ACTIONS um die Idee in 7 Tagen zu validieren`,
+                works: 'Claude, ChatGPT'
+            },
+            {
+                cat: 'strategy', catLabel: 'STRATEGIE', icon: '📈',
+                iconBg: 'rgba(99,102,241,0.1)',
+                catColor: '#818cf8',
+                title: '90-Tage Wachstumsplan',
+                desc: 'Erstellt einen konkreten 90-Tage Plan mit Wochen-Meilensteinen für dein Business.',
+                tags: ['Growth', 'Planning', 'Roadmap'],
+                prompt: `Du bist ein Growth Strategist der Unternehmen von 0 auf €10K MRR skaliert hat.
+
+Erstelle einen konkreten 90-Tage Wachstumsplan für:
+
+Mein Business: [BESCHREIBE DEIN BUSINESS]
+Aktueller Stand: [UMSATZ, KUNDEN, TEAM]
+Ziel in 90 Tagen: [DEIN KONKRETES ZIEL]
+Budget: [DEIN MONATLICHES BUDGET]
+
+Struktur:
+
+MONAT 1 — FOUNDATION (Woche 1-4):
+- Woche 1: [3 konkrete Tasks]
+- Woche 2: [3 konkrete Tasks]
+- Woche 3: [3 konkrete Tasks]
+- Woche 4: [3 konkrete Tasks]
+- Milestone: [Was muss erreicht sein]
+
+MONAT 2 — TRACTION (Woche 5-8):
+- [Gleiche Struktur]
+- Milestone: [Was muss erreicht sein]
+
+MONAT 3 — SCALE (Woche 9-12):
+- [Gleiche Struktur]
+- Milestone: [Was muss erreicht sein]
+
+Für jeden Task angeben:
+- Was genau zu tun ist
+- Wie lange es dauert
+- Welche Tools benötigt werden
+- KPI zum Messen des Erfolgs
+
+NORTH STAR METRIC: [Die EINE Zahl die zählt]
+WEEKLY REVIEW-Fragen: 5 Fragen die du dir jeden Freitag stellst`,
+                works: 'Claude, ChatGPT, Kimi'
+            }
+        ];
+
+        // Render prompts
+        function renderPrompts(filter = 'all') {
+            const grid = document.getElementById('promptGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? prompts : prompts.filter(p => p.cat === filter);
+
+            filtered.forEach((p, i) => {
+                const card = document.createElement('div');
+                card.className = 'prompt-card fade-in';
+                card.dataset.cat = p.cat;
+                card.innerHTML = `
+                    <div class="prompt-header">
+                        <div class="prompt-icon" style="background:${p.iconBg}">${p.icon}</div>
+                        <div class="prompt-meta">
+                            <h3>${p.title}</h3>
+                            <div class="cat" style="color:${p.catColor}">${p.catLabel}</div>
+                        </div>
+                    </div>
+                    <div class="prompt-tags">
+                        ${p.tags.map(t => `<span class="prompt-tag">${t}</span>`).join('')}
+                    </div>
+                    <div class="prompt-body">
+                        <div class="prompt-desc">${p.desc}</div>
+                        <div class="prompt-code">
+                            <div class="lang-badge">PROMPT</div>
+                            <pre>${escapeHtml(p.prompt)}</pre>
+                        </div>
+                    </div>
+                    <div class="prompt-footer">
+                        <button class="copy-btn" onclick="copyPrompt(this, ${i})">📋 Prompt kopieren</button>
+                        <div class="prompt-works">Funktioniert mit: ${p.works}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Trigger fade-in
+            setTimeout(() => {
+                document.querySelectorAll('.prompt-card.fade-in').forEach((el, i) => {
+                    setTimeout(() => el.classList.add('visible'), i * 80);
+                });
+            }, 50);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        // Filter
+        function filterPrompts(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderPrompts(cat);
+        }
+
+        // Copy
+        let totalCopies = parseInt(localStorage.getItem('prompt_copies') || '247');
+
+        function copyPrompt(btn, idx) {
+            const prompt = prompts[idx].prompt;
+            navigator.clipboard.writeText(prompt).then(() => {
+                btn.innerHTML = '✅ Kopiert!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = '📋 Prompt kopieren';
+                    btn.classList.remove('copied');
+                }, 2000);
+
+                totalCopies++;
+                localStorage.setItem('prompt_copies', totalCopies.toString());
+                document.getElementById('totalCopies').textContent = totalCopies.toLocaleString('de-DE');
+
+                // Toast
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2500);
+            });
+        }
+
+        // Init
+        document.getElementById('totalCopies').textContent = totalCopies.toLocaleString('de-DE');
+        renderPrompts();
+
+        // Intersection observer for other elements
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in:not(.prompt-card)').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>
